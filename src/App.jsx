@@ -2,12 +2,13 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { useNEOsApi } from './Hooks/useNEOsApi'
+import { useHORIZONs } from './Hooks/useHORIZONs' // <-- importamos el hook
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  const { data, loading, error } = useNEOsApi();
-
+  const { data: neosData, loading: neosLoading, error: neosError } = useNEOsApi();
+  const { data: horizonsData, loading: horizonsLoading, error: horizonsError } = useHORIZONs(); // <-- usamos el hook
 
   return (
     <>
@@ -20,15 +21,18 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
+
       <h1>Vite + React</h1>
+
+      {/* NEOs Section */}
       <h2>Near Earth Objects (NEOs) from NASA API</h2>
-      {loading && <p>Loading data...</p>}
-      {error && <p>Error: {error}</p>}
-      {data && (
+      {neosLoading && <p>Loading data...</p>}
+      {neosError && <p>Error: {neosError}</p>}
+      {neosData && (
         <div>
-          <h3>Total NEOs: {data.page.total_elements}</h3>
+          <h3>Total NEOs: {neosData.page.total_elements}</h3>
           <ul>
-            {data.near_earth_objects.slice(0, 10).map((neo) => (
+            {neosData.near_earth_objects.slice(0, 10).map((neo) => (
               <li key={neo.id}>
                 Name: {neo.name}, 
                 Magnitude: {neo.absolute_magnitude_h}, 
@@ -39,6 +43,17 @@ function App() {
           </ul>
         </div>
       )}
+
+      {/* HORIZONS Section */}
+      <h2>HORIZONS Data for Asteroids (2025)</h2>
+      {horizonsLoading && <p>Loading Horizons data...</p>}
+      {horizonsError && <p>Error: {horizonsError}</p>}
+      {horizonsData && (
+        <pre style={{ maxHeight: "300px", overflowY: "scroll", backgroundColor: "#f0f0f0", padding: "10px" }}>
+          {horizonsData}
+        </pre>
+      )}
+
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -47,6 +62,7 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
+
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
