@@ -115,7 +115,7 @@ const Footer = () => {
   const isInView = useInView(footerRef, { once: true, margin: "-100px" });
 
   return (
-    <MotionBox
+    <Box
       ref={footerRef}
       bg="linear-gradient(180deg, #000000 0%, #030712 30%, #0f172a 60%, #000000 100%)"
       color="gray.300"
@@ -564,7 +564,7 @@ const Footer = () => {
                     100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
                 }
             `}</style>
-    </MotionBox>
+    </Box>
   );
 };
 
