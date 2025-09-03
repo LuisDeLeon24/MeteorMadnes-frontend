@@ -18,7 +18,7 @@ const AstroSpinner = ({
     size = "lg",
     showText = true,
     loadingText = "Analizando órbitas...",
-    variant = "orbital" // orbital, pulse, radar
+    variant = "orbital"
 }) => {
     const sizeConfig = {
         sm: { container: 80, center: 40, orbit: 60, particles: 4 },
