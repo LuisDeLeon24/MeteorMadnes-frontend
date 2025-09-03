@@ -56,27 +56,6 @@ npm run dev
 
 ## 🎮 Experiencia de Usuario
 
-### 🌍 Mapa Celeste 3D
-```tsx
-// Visualización interactiva del espacio
-export const InteractiveSkyMap = () => {
-  const { scene, camera } = useThreeJS();
-  
-  return (
-    <div className="relative h-96 rounded-lg overflow-hidden">
-      <Canvas camera={{ position: [0, 0, 1000] }}>
-        <Earth position={[0, 0, 0]} />
-        <AsteroidField asteroids={detectedAsteroids} />
-        <OrbitPaths />
-        <StarField count={1000} />
-      </Canvas>
-      
-      <ControlPanel />
-    </div>
-  );
-};
-```
-
 ## 📱 Interfaces Principales
 
 ### 🚨 Centro de Alertas
@@ -107,11 +86,7 @@ export const InteractiveSkyMap = () => {
 ```
 
 ### 🎭 Componentes Temáticos
-- **HolographicCard** - Paneles con efectos holográficos
-- **PulsatingButton** - Botones con animación de pulso
-- **GlitchText** - Efectos de texto estilo sci-fi
-- **ParticleBackground** - Fondo animado con partículas
-- **NeonBorder** - Bordes luminosos tipo neón
+- **⌛ EN PROGRESO**
 
 ## 🔄 Flujo de Datos en Tiempo Real
 
@@ -131,24 +106,7 @@ graph TD
     K --> L[📱 Push Notifications]
 ```
 
-## 🎯 Casos de Uso de la Interfaz
-
-### 🌟 Para Astrónomos Profesionales
-- **Modo Observatory**: Vista especializada para observatorios profesionales
-- **Multi-telescope View**: Gestión simultánea de múltiples fuentes de datos
-- **Advanced Analytics**: Herramientas estadísticas avanzadas
-
-### 🎓 Para Centros Educativos
-- **Student Mode**: Interfaz simplificada para estudiantes
-- **Interactive Lessons**: Módulos educativos integrados
-- **Demo Mode**: Simulaciones para demostraciones
-
-### 🌍 Para el Público General
-- **Public Dashboard**: Vista pública con información general
-- **Simplified Alerts**: Notificaciones comprensibles para no expertos
-- **Mobile App**: Aplicación móvil companion
-
-## 📊 Métricas de Rendimiento
+## 📊 Métricas de Rendimiento - **EN PROGRESO ⌛**
 
 <div align="center">
 
@@ -162,7 +120,7 @@ graph TD
 
 </div>
 
-## 🏗️ Estructura del Proyecto
+## 🏗️ Estructura del Proyecto **EN PROGRESO ⌛**
 
 ```
 asteroid-hunter-frontend/
@@ -208,50 +166,6 @@ asteroid-hunter-frontend/
     └── e2e/
 ```
 
-## 🔧 Configuración de Desarrollo
-
-```javascript
-// next.config.js
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
-  env: {
-    BACKEND_API_URL: process.env.BACKEND_API_URL,
-    WEBSOCKET_URL: process.env.WEBSOCKET_URL,
-    MAP_API_KEY: process.env.MAP_API_KEY,
-  },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.(glsl|vs|fs)$/,
-      use: 'raw-loader',
-    });
-    return config;
-  },
-};
-
-module.exports = nextConfig;
-```
-
-## 🎮 Scripts de Desarrollo
-
-```json
-{
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "test": "jest --watch",
-    "test:e2e": "playwright test",
-    "storybook": "storybook dev -p 6006",
-    "analyze": "ANALYZE=true next build",
-    "type-check": "tsc --noEmit"
-  }
-}
-```
-
 ## 🤝 Contribuciones Frontend
 
 ¡Los diseñadores y desarrolladores frontend son bienvenidos!
@@ -271,7 +185,7 @@ module.exports = nextConfig;
 4. 🧪 Añade tests para nuevos componentes
 5. 📤 Push y crea un Pull Request
 
-## 📱 Demo en Vivo
+## 📱 Demo en Vivo **EN PROGRESO ⌛**
 
 <div align="center">
 
@@ -287,7 +201,7 @@ module.exports = nextConfig;
 
 ### 🌠 "La mejor defensa contra las amenazas espaciales es una interfaz que las haga visibles"
 
-**Construido con 💜 para la comunidad espacial**
+**Construido con 💜 para la comunidad Kinal**
 
 [🐛 Reportar Bug](https://github.com/tu-usuario/asteroid-hunter-frontend/issues) • 
 [💡 Nueva Feature](https://github.com/tu-usuario/asteroid-hunter-frontend/issues) • 
@@ -296,12 +210,5 @@ module.exports = nextConfig;
 </div>
 
 ---
-
-## 📞 Contacto del Equipo Frontend
-
-- 🎨 UI/UX Lead: design@asteroid-hunter.org
-- ⚛️ React Lead: frontend@asteroid-hunter.org
-- 💬 Discord: [#frontend-channel](https://discord.gg/asteroidhunter)
-- 🎭 Figma: [Design System](https://figma.com/asteroidhunter-ds)
 
 > ⭐ Si te gusta nuestra interfaz, ¡dale una estrella y compártela con otros desarrolladores!
