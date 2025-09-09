@@ -38,7 +38,7 @@ const Navbar = () => {
     },
     {
       name: "Detección",
-      href: "/earth",
+      href: "/map",
       icon: Telescope,
       description: "Sistemas de rastreo"
     },
