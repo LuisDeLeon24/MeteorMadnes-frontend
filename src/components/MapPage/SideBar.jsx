@@ -7,31 +7,63 @@ import {
   Text,
   useColorModeValue,
   Image,
-  SimpleGrid
+  SimpleGrid,
+  IconButton,
+  InputGroup,
+  InputLeftElement, // <-- agregar esto
+  Tooltip,
+  Portal
 } from "@chakra-ui/react";
+
+
+import { QuestionIcon } from "@chakra-ui/icons";
+
+import { AsteroidInfoNASANEOS } from "./NASA_NEOs";
+import { HORIZONS } from "./HORIZONS";
+import { PNeoInfo } from "./IAU_PNEOS";
+import { RandomPNeosList } from "./RandomPNEO";
 
 // Subcomponentes
 const SearchBar = ({ search, setSearch }) => (
-  <Input
-    placeholder="Ingrese el nombre o el codigo del asteroide"
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-    size="sm"
-    mb={3}
-    bg={useColorModeValue("gray.100", "gray.700")}
-    _placeholder={{ color: useColorModeValue("gray.500", "gray.300") }}
-  />
+  <InputGroup size="sm" mb={3}>
+    <InputLeftElement>
+      <Tooltip
+        label="Ingresa el nombre o ID del asteroide y selecciona un lugar en el mapa para iniciar la simulación."
+        placement="top"
+        hasArrow
+        openDelay={200}
+        isInteractive
+        bg="black"
+        color="white"
+        portalProps={{ appendToParentPortal: true }}
+      >
+        <IconButton
+          aria-label="Ayuda"
+          icon={<QuestionIcon />}
+          size="xs" // más pequeño para que quepa dentro del input
+          variant="ghost"
+        />
+      </Tooltip>
+    </InputLeftElement>
+
+    <Input
+      placeholder="Nombre o ID del asteroide"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      bg={useColorModeValue("gray.100", "gray.700")}
+      _placeholder={{ color: useColorModeValue("gray.500", "gray.300") }}
+      pl={10} // deja espacio para el icono
+    />
+  </InputGroup>
 );
 
 const ButtonsPanel = ({ selected, setSelected }) => {
   const logos = [
     { id: "agency1", src: "src/assets/images/NASA_logo.png", alt: "NASA" },
     { id: "agency2", src: "src/assets/images/NASA_JPL_logo.png", alt: "NASA JPL" },
-    { id: "agency3", src: "src/assets/images/ESA_logo.png", alt: "ESA" },
-    { id: "agency4", src: "src/assets/images/AEE_logo.png", alt: "AEE" },
+    //{ id: "agency3", src: "src/assets/images/ESA_logo.png", alt: "ESA" },
     { id: "agency5", src: "src/assets/images/IAU_logo.png", alt: "IAU" },
-    { id: "agency6", src: "src/assets/images/Hawaii_logo.png", alt: "Hawaii Univ." },
-    { id: "agency7", src: "src/assets/images/India_logo.png", alt: "ISRO" },
+    //{ id: "agency6", src: "src/assets/images/Hawaii_logo.png", alt: "Hawaii Univ." }
   ];
 
   return (
@@ -51,35 +83,70 @@ const ButtonsPanel = ({ selected, setSelected }) => {
   );
 };
 
+const DefaultInfo = () => {
+  return (
+    <Box>
+      <Text fontWeight="bold" mb={2}>Fuentes de datos disponibles</Text>
+      <Text mb={2}>
+        Actualmente puedes consultar información de asteroides y cuerpos menores desde varias fuentes:
+      </Text>
+      <Text mb={1}>• <b>NASA NEOS API:</b> Información general de Near Earth Objects, órbitas, magnitudes y riesgo de impacto.</Text>
+      <Text mb={1}>• <b>NASA JPL HORIZONS API:</b> Datos precisos de posiciones, trayectorias y efemérides de asteroides y cometas.</Text>
+      <Text mb={1}>• <b>IAU Minor Planet Center:</b> Listas de asteroides pendientes de confirmación y designaciones temporales.</Text>
+      <Text mb={1}>• Próximamente agregaremos mas fuentes</Text>
+      <Text mt={2} color="gray.500">
+        Selecciona una fuente arriba para consultar información específica de un asteroide.
+      </Text>
+    </Box>
+  );
+};
 
-const ContentPanel = ({ selected }) => {
-  let content;
+const ContentPanel = ({ selected, search }) => {
   switch (selected) {
     case "agency1":
-      content = <Text>NASA API</Text>;
-      break;
+      return (
+        <Box>
+          <Text fontWeight="bold" mb={2}>NASA NEOS API</Text>
+          {search ? (
+            <AsteroidInfoNASANEOS asteroidId={search} />
+          ) : (
+            <Text color="gray.500">Ingrese un nombre o ID para buscar</Text>
+          )}
+        </Box>
+      );
     case "agency2":
-      content = <Text>NASA JPL API</Text>;
-      break;
+      return (
+        <Box>
+          <Text fontWeight="bold" mb={2}>NASA JPL HORIZONS API</Text>
+          {search ? (
+            <HORIZONS asteroidId={search} />
+          ) : (
+            <Text color="gray.500">Ingrese un nombre o ID para buscar</Text>
+          )}
+        </Box>
+      );
     case "agency3":
-      content = <Text>ESA API</Text>;
-      break;
+      return <Text>ESA API</Text>;
     case "agency4":
-      content = <Text>AEE API</Text>;
-      break;
+      return <Text>AEE API</Text>;
     case "agency5":
-        content = <Text>IAU API</Text>;
-        break;
+      return (
+        <Box>
+          <Text fontWeight="bold" mb={2}>IAU Minor Planet Center NeoCP (Neos Pendientes)</Text>
+          {search ? (
+            <PNeoInfo tempDesig={search} />
+          ) : (
+            <RandomPNeosList />
+          )}
+        </Box>
+      );
     case "agency6":
-        content = <Text>Hawaii Univ. API</Text>;
-        break;
+      return <Text>Hawaii Univ. API</Text>;
     case "agency7":
-        content = <Text>ISRO API</Text>;
-        break;
+      return <Text>ISRO API</Text>;
     default:
-      content = <Text>Selecciona una opción</Text>;
+      return <DefaultInfo />;
   }
-  return <Box>{content}</Box>;
 };
 
 const Sidebar = () => {
@@ -90,20 +157,25 @@ const Sidebar = () => {
   const bg = useColorModeValue("white", "gray.800");
   const border = useColorModeValue("gray.200", "gray.600");
 
+  // Función para el botón de simulación
+  const handleStartSimulation = () => {
+    alert("Simulación iniciada"); // Aquí puedes reemplazarlo con la lógica real
+  };
+
   return (
     <Box
       position="absolute"
       top="0"
       right="0"
-      height="100%" // ocupa todo el alto del contenedor (mapa)
-      w={isOpen ? "33%" : "40px"} // abierto 1/3 de la pantalla, cerrado pequeño
+      height="100%"
+      w={isOpen ? "33%" : "40px"}
       bg={bg}
       borderLeft="1px solid"
       borderColor={border}
       boxShadow="md"
       transition="width 0.3s"
       overflow="hidden"
-      zIndex={1000} // encima del mapa
+      zIndex={1000}
       p={isOpen ? 4 : 1}
       display="flex"
       flexDirection="column"
@@ -113,13 +185,26 @@ const Sidebar = () => {
         {isOpen ? "→" : "←"}
       </Button>
 
-      {/* Contenido */}
+      {/* Contenedor scrolleable */}
       {isOpen && (
-        <>
+        <Box flex="1" overflowY="auto" pr={2}>
           <SearchBar search={search} setSearch={setSearch} />
+
+          {/* Botón de iniciar simulación */}
+          <Button
+            colorScheme="teal"
+            size="sm"
+            mb={4}
+            py={6}
+            width="100%"
+            onClick={handleStartSimulation}
+          >
+            Iniciar Simulación
+          </Button>
+
           <ButtonsPanel selected={selected} setSelected={setSelected} />
-          <ContentPanel selected={selected} />
-        </>
+          <ContentPanel selected={selected} search={search} />
+        </Box>
       )}
     </Box>
   );

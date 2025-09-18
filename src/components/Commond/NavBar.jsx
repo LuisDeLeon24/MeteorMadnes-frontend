@@ -101,86 +101,44 @@ const Navbar = () => {
       <Flex align="center" justify="space-between" position="relative">
         {/* Logo y branding */}
         <MotionFlex
-          align="center"
-          gap={4}
-          initial={{ x: -50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <Box position="relative">
-            <MotionBox
-              w={14}
-              h={14}
-              background="linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%)"
-              borderRadius="xl"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              boxShadow="0 0 30px rgba(59, 130, 246, 0.5)"
-              position="relative"
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 40px rgba(59, 130, 246, 0.7)"
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <Icon as={Telescope} size={28} color="white" />
+  align="center"
+  gap={4}
+  initial={{ x: -50, opacity: 0 }}
+  animate={{ x: 0, opacity: 1 }}
+  transition={{ duration: 0.6, delay: 0.2 }}
+>
+  <Box position="relative">
+    <img
+      src="/src/assets/images/Main_Logo-removebg-preview.png"
+      alt="AstroTracker Logo"
+      style={{ width: "60px", height: "60px" }}
+    />
+  </Box>
 
-              {/* Anillo orbital */}
-              <Box
-                position="absolute"
-                width="60px"
-                height="60px"
-                border="2px solid rgba(96, 165, 250, 0.3)"
-                borderRadius="full"
-                animation="orbit 8s linear infinite"
-                opacity={0.6}
-              />
-            </MotionBox>
-
-            {/* Badge de estado */}
-            <Badge
-              position="absolute"
-              top="-1"
-              right="-1"
-              bg="linear-gradient(45deg, #10b981, #059669)"
-              color="white"
-              fontSize="9px"
-              px="2"
-              py="1"
-              borderRadius="full"
-              fontWeight="bold"
-              textTransform="uppercase"
-              boxShadow="0 0 15px rgba(16, 185, 129, 0.5)"
-            >
-              ACTIVO
-            </Badge>
-          </Box>
-
-          <VStack align="flex-start" spacing={0}>
-            <Heading
-              size="lg"
-              color="white"
-              fontFamily="monospace"
-              fontWeight="black"
-              letterSpacing="tight"
-              textShadow="0 0 20px rgba(96, 165, 250, 0.3)"
-              bgGradient="linear(to-r, #f8fafc, #60a5fa, #dbeafe)"
-              bgClip="text"
-            >
-              AstroTracker
-            </Heading>
-            <Text
-              fontSize="xs"
-              color="#60a5fa"
-              fontWeight="semibold"
-              letterSpacing="wider"
-              textTransform="uppercase"
-            >
-              Sistema de Defensa
-            </Text>
-          </VStack>
-        </MotionFlex>
+  <VStack align="flex-start" spacing={0}>
+    <Heading
+      size="lg"
+      color="white"
+      fontFamily="monospace"
+      fontWeight="black"
+      letterSpacing="tight"
+      textShadow="0 0 20px rgba(96, 165, 250, 0.3)"
+      bgGradient="linear(to-r, #f8fafc, #60a5fa, #dbeafe)"
+      bgClip="text"
+    >
+      AstroTracker
+    </Heading>
+    <Text
+      fontSize="xs"
+      color="#60a5fa"
+      fontWeight="semibold"
+      letterSpacing="wider"
+      textTransform="uppercase"
+    >
+      Asteroid incident response system
+    </Text>
+  </VStack>
+</MotionFlex>
 
         <Spacer />
 
@@ -357,7 +315,7 @@ const Navbar = () => {
       />
 
       {/* Animaciones CSS personalizadas */}
-      <style jsx>{`
+      <style>{`
         @keyframes twinkle {
           0%, 100% { opacity: 0.2; transform: scale(1); }
           50% { opacity: 0.8; transform: scale(1.2); }
