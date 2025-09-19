@@ -12,7 +12,6 @@ export const Horizons = async (id) => {
     }
 
     try {
-        // Usamos template string para inyectar el id en la URL
         return await apiClient.get(`/fetch/horizons/${id}`);
     } catch (error) {
         const msg = error.response?.data?.message || "Error fetching Horizons data";
@@ -23,3 +22,34 @@ export const Horizons = async (id) => {
         };
     }
 };
+
+export const searchPneos = async (id) => {
+    if (!id) {
+        return { error: true, msg: "Se requiere un ID del PNEO" };
+    }
+
+    try {
+        return await apiClient.get(`/PNeos/search/${id}`);
+    } catch (error) {
+        const msg = error.response?.data?.message || "Error fetching PNEO data";
+        return {
+            error: true,
+            msg,
+            details: error
+        };
+    }
+};
+
+export const randomPneos = async (id) => {
+    try {
+        return await apiClient.get(`/PNeos/randomPNEOS`);
+    } catch (error) {
+        const msg = error.response?.data?.message || "Error fetching PNEOs data";
+        return {
+            error: true,
+            msg,
+            details: error
+        };
+    }
+};
+

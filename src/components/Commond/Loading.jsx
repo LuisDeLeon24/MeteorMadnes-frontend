@@ -378,7 +378,7 @@ const AstroSpinner = ({
             )}
 
             {/* Animaciones CSS */}
-            <style jsx>{`
+            <style>{`
         @keyframes pulse {
           0%, 100% { opacity: 0.8; transform: scale(1); }
           50% { opacity: 1; transform: scale(1.2); }

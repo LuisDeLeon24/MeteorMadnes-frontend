@@ -1,33 +1,51 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 export function useNEOsApi() {
-  const [data, setData] = useState(null);      // datos de la API
-  const [loading, setLoading] = useState(true); // estado de carga
-  const [error, setError] = useState(null);     // errores
+  const [neoList, setNeoList] = useState(null); // lista inicial
+  const [selectedAsteroid, setSelectedAsteroid] = useState(null); // asteroide buscado
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const apiKey = "zv9B9fcMmDXPnPO97hEdq4Y2mss7g8LgBBRKygPh"; 
-  const url = `https://api.nasa.gov/neo/rest/v1/neo/browse?page=1&size=100&api_key=${apiKey}`;
+  const apiKey = "zv9B9fcMmDXPnPO97hEdq4Y2mss7g8LgBBRKygPh";
+  const baseUrl = "https://api.nasa.gov/neo/rest/v1";
 
-
+  // 🔹 Cargar lista inicial
   useEffect(() => {
     const fetchData = async () => {
-        console.log("Api Key:", apiKey); // ✅ Verifica que la API key se está leyendo correctamente
+      setLoading(true);
+      setError(null);
       try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
+        const response = await fetch(`${baseUrl}/neo/browse?page=1&size=10&api_key=${apiKey}`);
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
         const json = await response.json();
-        setData(json);
+        setNeoList(json);
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     };
-
     fetchData();
-  }, [url]); // se ejecuta cada vez que cambia la URL
+  }, []);
 
-  return { data, loading, error };
+  // 🔹 Buscar asteroide por ID
+  const searchNEO = useCallback(async (asteroidId) => {
+    if (!asteroidId) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(`${baseUrl}/neo/${asteroidId}?api_key=${apiKey}`);
+      if (!response.ok) throw new Error(`Error: ${response.status}`);
+      const json = await response.json();
+      setSelectedAsteroid(json); // ✅ actualizar solo el asteroide seleccionado
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  console.log("NEOs Hook Data:", selectedAsteroid);
+
+  return { data: selectedAsteroid, loading, error, searchNEO, neoList };
 }
