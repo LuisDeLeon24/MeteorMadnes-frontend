@@ -261,14 +261,12 @@ function EnhancedEarth() {
     const cloudsRef = useRef();
     const atmosphereRef = useRef();
 
-    // Texturas
     const earthTexture = useTexture("https://raw.githubusercontent.com/turban/webgl-earth/master/images/2_no_clouds_4k.jpg");
     const bumpTexture = useTexture("https://raw.githubusercontent.com/turban/webgl-earth/master/images/elev_bump_4k.jpg");
     const specularTexture = useTexture("https://raw.githubusercontent.com/turban/webgl-earth/master/images/water_4k.png");
     const cloudsTexture = useTexture("https://raw.githubusercontent.com/turban/webgl-earth/master/images/fair_clouds_4k.png");
     const nightTexture = useTexture("../../../public/dnb_land_ocean_ice.2012.3600x1800.jpg");
 
-    // Material para atmósfera
     const atmosphereMaterial = useMemo(() => {
         return new THREE.ShaderMaterial({
             vertexShader: `
@@ -307,7 +305,6 @@ function EnhancedEarth() {
 
     return (
         <group>
-            {/* Tierra con mapa diurno + nocturno */}
             <mesh ref={earthRef}>
                 <sphereGeometry args={[2, 128, 128]} />
                 <meshStandardMaterial
@@ -318,11 +315,10 @@ function EnhancedEarth() {
                     metalness={0}
                     emissiveMap={nightTexture}
                     emissive={new THREE.Color("#ffffff")}
-                    emissiveIntensity={1.5} // intensidad de luces nocturnas
+                    emissiveIntensity={1.5}
                 />
             </mesh>
 
-            {/* Capa de nubes */}
             <mesh ref={cloudsRef}>
                 <sphereGeometry args={[2.01, 128, 128]} />
                 <meshPhongMaterial
@@ -334,13 +330,11 @@ function EnhancedEarth() {
                 />
             </mesh>
 
-            {/* Atmósfera */}
             <mesh ref={atmosphereRef} scale={1.15}>
                 <sphereGeometry args={[2, 64, 64]} />
                 <primitive object={atmosphereMaterial} attach="material" />
             </mesh>
 
-            {/* Wireframe decorativo */}
             <Sphere args={[2.3, 32, 32]}>
                 <meshBasicMaterial
                     color="#0ea5e9"
