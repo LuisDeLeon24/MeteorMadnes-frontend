@@ -53,3 +53,26 @@ export const randomPneos = async (id) => {
     }
 };
 
+export const formulasDemograficas = async (params) => {
+  try {
+    return await apiClient.post('/formulas/resumenImpacto', { params });
+  } catch (error) {
+    const msg = error.response?.data?.message || "Error en las fórmulas demograficas";
+    return { error: true, msg, details: error };
+  }
+};
+
+export const formulasFisicas = async (params) => {
+  try {
+    return await apiClient.post('/formulas/datosCompletosAsteroide', params );
+  } catch (error) {
+    console.error("❌ ERROR DETALLADO:");
+    console.error("Status:", error.response?.status);
+    console.error("Data:", error.response?.data);
+    console.error("Headers:", error.response?.headers);
+    console.error("URL:", error.config?.url);
+    console.error("Payload enviado:", error.config?.data);
+  }
+};
+
+
