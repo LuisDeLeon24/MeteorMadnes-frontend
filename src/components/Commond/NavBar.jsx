@@ -44,7 +44,7 @@ const Navbar = () => {
     },
     {
       name: "Interceptación",
-      href: "#interception",
+      href: "/earth",
       icon: Target,
       description: "Misiones activas"
     },
