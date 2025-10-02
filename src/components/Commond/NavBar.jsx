@@ -109,7 +109,7 @@ const Navbar = () => {
 >
   <Box position="relative">
     <img
-      src="/src/assets/images/Main_Logo-removebg-preview.png"
+      src="/assets/images/Main_Logo-removebg-preview.png"
       alt="AstroTracker Logo"
       style={{ width: "60px", height: "60px" }}
     />

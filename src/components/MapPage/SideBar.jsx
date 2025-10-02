@@ -136,7 +136,7 @@ const ButtonsPanel = ({ selected, setSelected }) => {
   const agencies = [
     {
       id: "agency1",
-      src: "src/assets/images/NASA_logo.png",
+      src: "/assets/images/NASA_logo.png",
       alt: "NASA",
       name: "NASA NEOS",
       description: "Near Earth Objects",
@@ -145,7 +145,7 @@ const ButtonsPanel = ({ selected, setSelected }) => {
     },
     {
       id: "agency2",
-      src: "src/assets/images/NASA_JPL_logo.png",
+      src: "/assets/images/NASA_JPL_logo.png",
       alt: "NASA JPL",
       name: "JPL HORIZONS",
       description: "Precise Ephemeris",
@@ -154,7 +154,7 @@ const ButtonsPanel = ({ selected, setSelected }) => {
     },
     {
       id: "agency5",
-      src: "src/assets/images/IAU_logo.png",
+      src: "/assets/images/IAU_logo.png",
       alt: "IAU",
       name: "IAU NeoCP",
       description: "Minor Planets",
