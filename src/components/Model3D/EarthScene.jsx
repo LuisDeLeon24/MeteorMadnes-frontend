@@ -508,7 +508,7 @@ function EnhancedEarth() {
     const bumpTexture = useTexture("https://raw.githubusercontent.com/turban/webgl-earth/master/images/elev_bump_4k.jpg");
     const specularTexture = useTexture("https://raw.githubusercontent.com/turban/webgl-earth/master/images/water_4k.png");
     const cloudsTexture = useTexture("https://raw.githubusercontent.com/turban/webgl-earth/master/images/fair_clouds_4k.png");
-    const nightTexture = useTexture("../../../public/dnb_land_ocean_ice.2012.3600x1800.jpg");
+    const nightTexture = useTexture("dnb_land_ocean_ice.2012.3600x1800.jpg");
 
     // Material para atmósfera
     const atmosphereMaterial = useMemo(() => {
