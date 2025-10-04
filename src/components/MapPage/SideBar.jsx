@@ -17,10 +17,10 @@ import {
   Badge,
   Icon,
   Progress,
-  Divider
+  Divider,
+  useBreakpointValue
 } from "@chakra-ui/react";
 import { QuestionIcon, ChevronRightIcon, ChevronLeftIcon } from "@chakra-ui/icons";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
@@ -393,6 +393,12 @@ const Sidebar = ({ countryCode }) => {
   const [selected, setSelected] = useState(null);
   const [impactData, setImpactData] = useState(null);
 
+  const sidebarWidth = useBreakpointValue({
+    base: isOpen ? "320px" : "50px",
+    md: isOpen ? "400px" : "60px",
+    lg: isOpen ? "700px" : "70px"
+  });
+
   const { data: horizonsData, loading: horizonsLoading, error: horizonsError, fetchHORIZONS } = useHORIZONs();
   const { data: formulasData, loading, error, refetch } = useFormulas();
 
@@ -452,7 +458,7 @@ const Sidebar = ({ countryCode }) => {
         boxShadow: "0 0 20px rgba(59, 130, 246, 0.05)"
       }}
       animate={{
-        width: isOpen ? "700px" : "60px",
+        width: sidebarWidth,
         boxShadow: isOpen
           ? "0 0 80px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.1)"
           : "0 0 20px rgba(59, 130, 246, 0.05)"
@@ -718,12 +724,13 @@ const Sidebar = ({ countryCode }) => {
                   <Button
                     onClick={handleStartSimulation}
                     size="lg"
-                    width="100%"
-                    height="60px"
+                    width={{ base: "100%", md: "80%", lg: "60%" }}
+                    height={{ base: "50px", md: "60px", lg: "70px" }}
                     bg={!countryCode || !search
                       ? "rgba(75, 85, 99, 0.5)"
                       : "linear-gradient(135deg, #dc2626 0%, #ef4444 100%)"
                     }
+                    fontSize={{ base: "sm", md: "md", lg: "lg" }}
                     color="white"
                     fontWeight="bold"
                     borderRadius="xl"
@@ -739,7 +746,7 @@ const Sidebar = ({ countryCode }) => {
                     isLoading={loading}
                     loadingText="Procesando simulación..."
                     isDisabled={!countryCode || !search}
-                    leftIcon={<Icon as={Rocket} size={20} />}
+                    leftIcon={<Icon as={Rocket} size={{ base: 16, md: 20, lg: 24 }} />}
                     _hover={!countryCode || !search ? {} : {
                       background: "linear-gradient(135deg, #b91c1c 0%, #dc2626 100%)",
                       transform: "translateY(-2px)",

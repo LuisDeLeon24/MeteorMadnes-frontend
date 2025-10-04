@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useMemo } from "react";
-import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Stars, Sphere, useTexture, Text, Trail } from "@react-three/drei";
+import Navbar from "../Commond/NavBar";
 import {
     Box,
     VStack,
@@ -9,7 +10,6 @@ import {
     HStack,
     Button,
     Divider,
-    SimpleGrid,
     Input,
     InputGroup,
     InputLeftElement,
@@ -595,7 +595,6 @@ function EnhancedEarth() {
     );
 }
 
-
 function SunLight() {
     const lightRef = useRef();
 
@@ -972,6 +971,7 @@ function SystemControls({ timeScale, setTimeScale, showOrbits, setShowOrbits, on
             p={4}
             zIndex={10}
             border="1px solid rgba(255, 255, 255, 0.1)"
+            marginBottom='100px'
         >
             <VStack spacing={3}>
                 <HStack>
@@ -1018,8 +1018,7 @@ export default function RealisticAsteroidEarthScene() {
     const [asteroidPositions, setAsteroidPositions] = useState({});
 
     const calculateAsteroidPosition = (asteroid) => {
-        // Calcular la posición actual del asteroide basada en el tiempo actual
-        const time = Date.now() * 0.0001; // Tiempo actual escalado
+        const time = Date.now() * 0.0001;
         const { distance, period, eccentricity, inclination } = asteroid;
 
         const periodYears = period / 365.25;
@@ -1046,13 +1045,11 @@ export default function RealisticAsteroidEarthScene() {
 
     const handleAsteroidClick = (asteroid, position, isUpdate = false) => {
         if (!isUpdate) {
-            // Solo en clicks reales, cambiar selección y activar seguimiento
             console.log("Asteroide seleccionado:", asteroid.name);
             setSelectedAsteroid(asteroid);
             setIsFollowing(true);
-            setResetTrigger(0); // Resetear trigger
+            setResetTrigger(0);
         }
-        // Siempre actualizar la posición del target
         setTargetPosition([...position]);
     };
 
@@ -1060,9 +1057,8 @@ export default function RealisticAsteroidEarthScene() {
         console.log("Asteroide seleccionado desde lista:", asteroid.name);
         setSelectedAsteroid(asteroid);
         setResetTrigger(0);
-        setSearchTerm(""); // Limpiar búsqueda al seleccionar
+        setSearchTerm("");
 
-        // Usar la posición almacenada del asteroide si está disponible
         const storedPosition = asteroidPositions[asteroid.name];
         if (storedPosition) {
             console.log("Usando posición almacenada:", storedPosition);
@@ -1088,132 +1084,134 @@ export default function RealisticAsteroidEarthScene() {
         setIsFollowing(false);
         setTargetPosition(null);
         setSelectedAsteroid(null);
-        setResetTrigger(Date.now()); // Trigger para resetear vista
+        setResetTrigger(Date.now());
     };
 
     const handleResetView = () => {
         setIsFollowing(false);
         setTargetPosition(null);
         setSelectedAsteroid(null);
-        setResetTrigger(Date.now()); // Trigger para resetear cámara
+        setResetTrigger(Date.now());
     };
 
-    // Seleccionar asteroide inicial aleatorio
-    useEffect(() => {
-        const randomAsteroid = REAL_ASTEROIDS[Math.floor(Math.random() * REAL_ASTEROIDS.length)];
-        setSelectedAsteroid(randomAsteroid);
-    }, []);
+    // useEffect(() => {
+    //     const randomAsteroid = REAL_ASTEROIDS[Math.floor(Math.random() * REAL_ASTEROIDS.length)];
+    //     setSelectedAsteroid(randomAsteroid);
+    // }, []);
 
     return (
-        <Box
-            width="100vw"
-            height="100vh"
-            bg="linear-gradient(135deg, #000000 0%, #0a0a2e 30%, #1a1a3a 70%, #2a2a4a 100%)"
-            position="relative"
-        >
-            <AsteroidList
-                asteroids={REAL_ASTEROIDS}
-                selectedAsteroid={selectedAsteroid}
-                onAsteroidSelect={handleAsteroidSelect}
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-            />
-
-            <DetailedAsteroidInfo
-                selectedAsteroid={selectedAsteroid}
-                isFollowing={isFollowing}
-                onStopFollowing={handleStopFollowing}
-            />
-
-            <SystemControls
-                timeScale={timeScale}
-                setTimeScale={setTimeScale}
-                showOrbits={showOrbits}
-                setShowOrbits={setShowOrbits}
-                onResetView={handleResetView}
-                selectedAsteroid={selectedAsteroid}
-            />
-
-            <Canvas
-                camera={{ position: [0, 8, 12], fov: 60 }}
-                gl={{ antialias: true, alpha: true }}
-                shadows
-            >
-                <CameraController
-                    targetPosition={targetPosition}
-                    isFollowing={isFollowing}
-                    asteroidSize={selectedAsteroid?.size || 0.025}
-                    resetTrigger={resetTrigger}
-                />
-
-                <SunLight />
-
-                <pointLight
-                    position={[-10, -8, -10]}
-                    intensity={0.2}
-                    color="#4169e1"
-                />
-
-                <OrbitControls
-                    enableZoom={true}
-                    enablePan={true}
-                    minDistance={0.1}
-                    maxDistance={25}
-                    autoRotate={false}
-                    enabled={!isFollowing}
-                />
-
-                <Stars
-                    radius={400}
-                    depth={80}
-                    count={12000}
-                    factor={8}
-                    saturation={0.4}
-                    fade
-                    speed={0.3}
-                />
-
-                <EnhancedEarth />
-
-                {REAL_ASTEROIDS.map((asteroid, index) => (
-                    <RealisticAsteroid
-                        key={index}
-                        asteroidData={asteroid}
-                        timeScale={timeScale}
-                        showOrbits={showOrbits}
-                        onAsteroidClick={handleAsteroidClick}
-                        onPositionUpdate={updateAsteroidPosition}
-                        isSelected={selectedAsteroid?.name === asteroid.name}
-                    />
-                ))}
-
-                <DefenseSatellite position={[0, 1, 0]} orbitRadius={3.2} speed={0.015} />
-                <DefenseSatellite position={[0, -0.5, 0]} orbitRadius={3.8} speed={-0.012} />
-                <DefenseSatellite position={[0, 0.8, 0]} orbitRadius={4.5} speed={0.008} />
-
-                <Text
-                    position={[0, -6, 0]}
-                    fontSize={0.4}
-                    color="#00bfff"
-                    anchorX="center"
-                    anchorY="middle"
-                    fontWeight="bold"
-                >
-                    NASA-Based Asteroid Tracking System
-                </Text>
-            </Canvas>
-
-            {/* Overlay de profundidad */}
+        <>
+            <Navbar />
             <Box
-                position="absolute"
-                top="0"
-                left="0"
-                right="0"
-                bottom="0"
-                pointerEvents="none"
-                background="radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.15) 100%)"
-                zIndex={1}
-            />
-        </Box>
+                width="100vw"
+                height="100vh"
+                bg="linear-gradient(135deg, #000000 0%, #0a0a2e 30%, #1a1a3a 70%, #2a2a4a 100%)"
+                position="relative"
+            >
+                <AsteroidList
+                    asteroids={REAL_ASTEROIDS}
+                    selectedAsteroid={selectedAsteroid}
+                    onAsteroidSelect={handleAsteroidSelect}
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                />
+
+                <DetailedAsteroidInfo
+                    selectedAsteroid={selectedAsteroid}
+                    isFollowing={isFollowing}
+                    onStopFollowing={handleStopFollowing}
+                />
+
+                <SystemControls
+                    timeScale={timeScale}
+                    setTimeScale={setTimeScale}
+                    showOrbits={showOrbits}
+                    setShowOrbits={setShowOrbits}
+                    onResetView={handleResetView}
+                    selectedAsteroid={selectedAsteroid}
+                />
+
+                <Canvas
+                    camera={{ position: [0, 8, 12], fov: 60 }}
+                    gl={{ antialias: true, alpha: true }}
+                    shadows
+                >
+                    <CameraController
+                        targetPosition={targetPosition}
+                        isFollowing={isFollowing}
+                        asteroidSize={selectedAsteroid?.size || 0.025}
+                        resetTrigger={resetTrigger}
+                    />
+
+                    <SunLight />
+
+                    <pointLight
+                        position={[-10, -8, -10]}
+                        intensity={0.2}
+                        color="#4169e1"
+                    />
+
+                    <OrbitControls
+                        enableZoom={true}
+                        enablePan={true}
+                        minDistance={0.1}
+                        maxDistance={25}
+                        autoRotate={false}
+                        enabled={!isFollowing}
+                    />
+
+                    <Stars
+                        radius={400}
+                        depth={80}
+                        count={12000}
+                        factor={8}
+                        saturation={0.4}
+                        fade
+                        speed={0.3}
+                    />
+
+                    <EnhancedEarth />
+
+                    {REAL_ASTEROIDS.map((asteroid, index) => (
+                        <RealisticAsteroid
+                            key={index}
+                            asteroidData={asteroid}
+                            timeScale={timeScale}
+                            showOrbits={showOrbits}
+                            onAsteroidClick={handleAsteroidClick}
+                            onPositionUpdate={updateAsteroidPosition}
+                            isSelected={selectedAsteroid?.name === asteroid.name}
+                        />
+                    ))}
+
+                    <DefenseSatellite position={[0, 1, 0]} orbitRadius={3.2} speed={0.015} />
+                    <DefenseSatellite position={[0, -0.5, 0]} orbitRadius={3.8} speed={-0.012} />
+                    <DefenseSatellite position={[0, 0.8, 0]} orbitRadius={4.5} speed={0.008} />
+
+                    <Text
+                        position={[0, -6, 0]}
+                        fontSize={0.4}
+                        color="#00bfff"
+                        anchorX="center"
+                        anchorY="middle"
+                        fontWeight="bold"
+                    >
+                        NASA-Based Asteroid Tracking System
+                    </Text>
+                </Canvas>
+
+                <Box
+                    position="absolute"
+                    top="0"
+                    left="0"
+                    right="0"
+                    bottom="0"
+                    pointerEvents="none"
+                    background="radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.15) 100%)"
+                    zIndex={1}
+                />
+            </Box>
+        </>
+
     );
 }

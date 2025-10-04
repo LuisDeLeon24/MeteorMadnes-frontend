@@ -65,15 +65,15 @@ const ListHeader = ({ children }) => {
     <MotionBox
       ref={ref}
       position="relative"
-      mb={8}
+      mb={{ base: 4, md: 6, lg: 8 }}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={itemVariants}
     >
       <Text
         fontWeight="900"
-        fontSize="xl"
-        mb={4}
+        fontSize={{ base: 'lg', md: 'xl' }}
+        mb={{ base: 3, md: 4 }}
         color="white"
         textTransform="uppercase"
         letterSpacing="wider"
@@ -84,7 +84,7 @@ const ListHeader = ({ children }) => {
           position: 'absolute',
           bottom: '-8px',
           left: 0,
-          width: '70px',
+          width: { base: '50px', md: '70px' },
           height: '3px',
           background: 'linear-gradient(90deg, #1e40af, #3b82f6, #60a5fa)',
           borderRadius: 'full',
@@ -96,7 +96,7 @@ const ListHeader = ({ children }) => {
       <MotionBox
         position="absolute"
         bottom="-8px"
-        left="75px"
+        left={{ base: '55px', md: '75px' }}
         w="8px"
         h="8px"
         bg="linear-gradient(135deg, #3b82f6, #60a5fa)"
@@ -151,6 +151,7 @@ const Footer = () => {
           opacity={0.7}
           top={`${15 + Math.random() * 70}%`}
           left={`${5 + Math.random() * 90}%`}
+          display={{ base: i > 5 ? 'none' : 'block', md: 'block' }}
           animate={{
             opacity: [0.3, 1, 0.3],
             scale: [1, 1.5, 1],
@@ -169,8 +170,8 @@ const Footer = () => {
         position="absolute"
         top="10%"
         right="5%"
-        width="400px"
-        height="400px"
+        width={{ base: '250px', md: '350px', lg: '400px' }}
+        height={{ base: '250px', md: '350px', lg: '400px' }}
         background="radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)"
         borderRadius="full"
         pointerEvents="none"
@@ -189,8 +190,8 @@ const Footer = () => {
         position="absolute"
         bottom="10%"
         left="5%"
-        width="350px"
-        height="350px"
+        width={{ base: '200px', md: '300px', lg: '350px' }}
+        height={{ base: '200px', md: '300px', lg: '350px' }}
         background="radial-gradient(circle, rgba(147, 197, 253, 0.12) 0%, transparent 70%)"
         borderRadius="full"
         pointerEvents="none"
@@ -209,21 +210,22 @@ const Footer = () => {
         position="absolute"
         top="15%"
         left="15%"
-        width="200px"
-        height="200px"
+        width={{ base: '150px', md: '200px' }}
+        height={{ base: '150px', md: '200px' }}
         border="1px solid rgba(59, 130, 246, 0.1)"
         borderRadius="full"
         animation="orbit 25s linear infinite"
+        display={{ base: 'none', lg: 'block' }}
       />
 
-      <Container as={MotionStack} maxW="container.xl" py={20} position="relative" zIndex={2}>
+      <Container as={MotionStack} maxW="container.xl" py={{ base: 12, md: 16, lg: 20 }} position="relative" zIndex={2} px={{ base: 4, md: 6, lg: 8 }}>
         <SimpleGrid
           templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }}
-          spacing={12}
-          mb={16}
+          spacing={{ base: 8, md: 10, lg: 12 }}
+          mb={{ base: 8, md: 12, lg: 16 }}
         >
           <MotionStack
-            spacing={8}
+            spacing={{ base: 4, md: 6, lg: 8 }}
             variants={itemVariants}
           >
             <MotionBox
@@ -231,17 +233,15 @@ const Footer = () => {
               whileHover="hover"
               variants={iconHoverVariants}
             >
-              <HStack spacing={4} align="center">
+              <HStack spacing={{ base: 3, md: 4 }} align="center">
                 <Box position="relative">
                   <MotionBox
-                    w={16}
-                    h={16}
-                    background="linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%)"
+                    w={{ base: 14, md: 16 }}
+                    h={{ base: 14, md: 16 }}
                     borderRadius="2xl"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
-                    boxShadow="0 20px 40px rgba(59, 130, 246, 0.4)"
                     position="relative"
                     _before={{
                       content: '""',
@@ -250,7 +250,6 @@ const Footer = () => {
                       left: '-3px',
                       right: '-3px',
                       bottom: '-3px',
-                      background: 'linear-gradient(45deg, #1e40af, #3b82f6, #60a5fa, #1e40af)',
                       borderRadius: '2xl',
                       zIndex: -1,
                       backgroundSize: '400% 400%',
@@ -264,7 +263,13 @@ const Footer = () => {
                       ease: "easeInOut"
                     }}
                   >
-                    <Telescope size={28} color="white" />
+                    <Box position="relative">
+                      <img
+                        src="/assets/images/Main_Logo-removebg-preview.png"
+                        alt="AstroTracker Logo"
+                        style={{ width: "60px", height: "60px" }}
+                      />
+                    </Box>
                   </MotionBox>
 
                   <MotionBox
@@ -274,8 +279,8 @@ const Footer = () => {
                     right="-1"
                     bg="linear-gradient(45deg, #059669, #10b981)"
                     color="white"
-                    fontSize="10px"
-                    px="3"
+                    fontSize={{ base: '9px', md: '10px' }}
+                    px={{ base: '2', md: '3' }}
                     py="1"
                     borderRadius="full"
                     fontWeight="bold"
@@ -297,8 +302,8 @@ const Footer = () => {
                     top="50%"
                     left="50%"
                     transform="translate(-50%, -50%)"
-                    width="80px"
-                    height="80px"
+                    width={{ base: '70px', md: '80px' }}
+                    height={{ base: '70px', md: '80px' }}
                     border="2px solid rgba(59, 130, 246, 0.2)"
                     borderRadius="full"
                     animation="radarPulse 3s ease-in-out infinite"
@@ -308,7 +313,7 @@ const Footer = () => {
                 <VStack align="flex-start" spacing={1}>
                   <MotionText
                     fontWeight="black"
-                    fontSize="3xl"
+                    fontSize={{ base: '2xl', md: '3xl' }}
                     color="white"
                     background="linear-gradient(45deg, #1e40af, #3b82f6, #60a5fa)"
                     backgroundClip="text"
@@ -318,10 +323,10 @@ const Footer = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                   >
-                    AtroTracker
+                    AstroTracker
                   </MotionText>
                   <MotionText
-                    fontSize="sm"
+                    fontSize={{ base: 'xs', md: 'sm' }}
                     color="#60a5fa"
                     fontWeight="semibold"
                     letterSpacing="wider"
@@ -337,17 +342,17 @@ const Footer = () => {
             </MotionBox>
 
             <MotionText
-              fontSize="md"
+              fontSize={{ base: 'sm', md: 'md' }}
               lineHeight="1.8"
               color="rgba(219, 234, 254, 0.8)"
-              maxW="350px"
+              maxW={{ base: 'full', lg: '350px' }}
               variants={itemVariants}
             >
               Protegiendo la Tierra con tecnología de vanguardia en detección, análisis y neutralización
               de asteroides potencialmente peligrosos. Vigilancia espacial 24/7.
             </MotionText>
 
-            <MotionStack spacing={4} variants={itemVariants}>
+            <MotionStack spacing={{ base: 3, md: 4 }} variants={itemVariants}>
               <ContactItem
                 icon={<MapPin size={16} />}
                 text="Centro Espacial, Guatemala"
@@ -360,7 +365,7 @@ const Footer = () => {
               />
               <ContactItem
                 icon={<Mail size={16} />}
-                text="mission@asteroidwatch.gt"
+                text="figueroaalvarez594@gmail.com"
                 color="#93c5fd"
               />
             </MotionStack>
@@ -368,7 +373,7 @@ const Footer = () => {
 
           <MotionStack align="flex-start" variants={itemVariants}>
             <ListHeader>Desarrolladores</ListHeader>
-            <VStack align="flex-start" spacing={3}>
+            <VStack align="flex-start" spacing={{ base: 2, md: 3 }} w="full">
               <FooterLink href="#detection">Luis De León</FooterLink>
               <FooterLink href="#tracking">Joaquín Figueroa</FooterLink>
               <FooterLink href="#interception">Jorge Alvarez</FooterLink>
@@ -380,7 +385,7 @@ const Footer = () => {
 
           <MotionStack align="flex-start" variants={itemVariants}>
             <ListHeader>Centro de Control</ListHeader>
-            <Text mb={6} fontSize="sm" color="rgba(219, 234, 254, 0.7)" lineHeight="1.6">
+            <Text mb={{ base: 4, md: 6 }} fontSize={{ base: 'xs', md: 'sm' }} color="rgba(219, 234, 254, 0.7)" lineHeight="1.6">
               Mantente informado sobre amenazas espaciales, nuevas detecciones y actualizaciones
               del sistema de defensa planetaria.
             </Text>
@@ -393,8 +398,8 @@ const Footer = () => {
                 borderColor="rgba(59, 130, 246, 0.3)"
                 color="white"
                 borderRadius="xl"
-                py={6}
-                fontSize="md"
+                py={{ base: 5, md: 6 }}
+                fontSize={{ base: 'sm', md: 'md' }}
                 backdropFilter="blur(10px)"
                 _placeholder={{ color: 'rgba(147, 197, 253, 0.5)' }}
                 _hover={{
@@ -413,12 +418,13 @@ const Footer = () => {
                 as={motion.button}
                 mt={4}
                 w="full"
-                size="lg"
+                size={{ base: 'md', md: 'lg' }}
                 background="linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
                 color="white"
                 fontWeight="bold"
                 borderRadius="xl"
-                py={6}
+                py={{ base: 5, md: 6 }}
+                fontSize={{ base: 'sm', md: 'md' }}
                 rightIcon={<ArrowRight size={16} />}
                 boxShadow="0 10px 25px rgba(59, 130, 246, 0.3)"
                 whileHover={{
@@ -434,8 +440,8 @@ const Footer = () => {
             </FormControl>
 
             <MotionBox
-              mt={6}
-              p={4}
+              mt={{ base: 4, md: 6 }}
+              p={{ base: 3, md: 4 }}
               bg="rgba(59, 130, 246, 0.1)"
               borderRadius="xl"
               border="1px solid"
@@ -444,23 +450,24 @@ const Footer = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
+              w="full"
             >
-              <Text fontSize="xs" color="#93c5fd" textAlign="center">
+              <Text fontSize={{ base: '2xs', md: 'xs' }} color="#93c5fd" textAlign="center">
                 🚀 Más de 25,000+ científicos confían en AsteroidWatch
               </Text>
             </MotionBox>
 
-            <HStack spacing={4} mt={6}>
-              <SocialButton icon={<Satellite size={20} />} label="Red Satelital" />
-              <SocialButton icon={<Globe size={20} />} label="Red Global" />
-              <SocialButton icon={<Shield size={20} />} label="Protocolo Seguro" />
+            <HStack spacing={{ base: 3, md: 4 }} mt={{ base: 4, md: 6 }} w="full" justify={{ base: 'center', md: 'flex-start' }}>
+              <SocialButton icon={<Satellite size={18} />} label="Red Satelital" />
+              <SocialButton icon={<Globe size={18} />} label="Red Global" />
+              <SocialButton icon={<Shield size={18} />} label="Protocolo Seguro" />
             </HStack>
           </MotionStack>
 
           <MotionStack align="flex-start" variants={itemVariants}>
             <ListHeader>Estado del Sistema</ListHeader>
 
-            <VStack align="flex-start" spacing={4} w="full">
+            <VStack align="flex-start" spacing={{ base: 3, md: 4 }} w="full">
               <SystemStatus
                 label="Radares Activos"
                 status="OPERATIVO"
@@ -482,8 +489,8 @@ const Footer = () => {
             </VStack>
 
             <MotionBox
-              mt={6}
-              p={4}
+              mt={{ base: 4, md: 6 }}
+              p={{ base: 3, md: 4 }}
               bg="rgba(16, 185, 129, 0.1)"
               borderRadius="xl"
               border="1px solid"
@@ -495,7 +502,7 @@ const Footer = () => {
             >
               <HStack justify="space-between" align="center">
                 <VStack align="flex-start" spacing={1}>
-                  <Text fontSize="sm" fontWeight="bold" color="#10b981">
+                  <Text fontSize={{ base: 'xs', md: 'sm' }} fontWeight="bold" color="#10b981">
                     Próximo Escaneo
                   </Text>
                   <Text fontSize="xs" color="rgba(219, 234, 254, 0.6)">
@@ -505,7 +512,7 @@ const Footer = () => {
                 <Badge
                   bg="#10b981"
                   color="white"
-                  px={3}
+                  px={{ base: 2, md: 3 }}
                   py={1}
                   borderRadius="full"
                   fontSize="xs"
@@ -526,16 +533,17 @@ const Footer = () => {
         backdropFilter="blur(20px)"
         variants={itemVariants}
       >
-        <Container maxW="container.xl" py={8}>
+        <Container maxW="container.xl" py={{ base: 6, md: 8 }} px={{ base: 4, md: 6, lg: 8 }}>
           <Flex
             direction={{ base: 'column', md: 'row' }}
             justify="space-between"
             align="center"
-            gap={6}
+            gap={{ base: 4, md: 6 }}
           >
             <MotionText
-              fontSize="sm"
+              fontSize={{ base: 'xs', md: 'sm' }}
               color="rgba(147, 197, 253, 0.6)"
+              textAlign={{ base: 'center', md: 'left' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 1 }}
@@ -543,7 +551,12 @@ const Footer = () => {
               © {new Date().getFullYear()} AstroTracker Defense System. Todos los derechos reservados.
               Comandancia Espacial Guatemala. 🌍 Protegiendo la Tierra desde 2025.
             </MotionText>
-            <HStack spacing={8} fontSize="sm">
+            <HStack
+              spacing={{ base: 4, md: 6, lg: 8 }}
+              fontSize={{ base: 'xs', md: 'sm' }}
+              flexWrap="wrap"
+              justify="center"
+            >
               <FooterLink href="#protocols">Protocolos de Defensa</FooterLink>
               <FooterLink href="#classified">Información Clasificada</FooterLink>
               <FooterLink href="#emergency">Emergencias</FooterLink>
@@ -573,11 +586,12 @@ const ContactItem = ({ icon, text, color }) => (
     as={motion.div}
     whileHover={{ x: 8, scale: 1.02 }}
     transition={{ duration: 0.2 }}
+    w="full"
   >
-    <HStack spacing={4} align="center">
+    <HStack spacing={{ base: 3, md: 4 }} align="center">
       <Box
-        w={12}
-        h={12}
+        w={{ base: 10, md: 12 }}
+        h={{ base: 10, md: 12 }}
         bg={`rgba(59, 130, 246, 0.15)`}
         borderRadius="xl"
         display="flex"
@@ -587,12 +601,13 @@ const ContactItem = ({ icon, text, color }) => (
         borderColor="rgba(59, 130, 246, 0.3)"
         backdropFilter="blur(10px)"
         boxShadow="0 4px 15px rgba(59, 130, 246, 0.2)"
+        flexShrink={0}
       >
         <Box color={color}>
           {icon}
         </Box>
       </Box>
-      <Text fontSize="sm" color="rgba(219, 234, 254, 0.8)" fontWeight="medium">
+      <Text fontSize={{ base: 'xs', md: 'sm' }} color="rgba(219, 234, 254, 0.8)" fontWeight="medium">
         {text}
       </Text>
     </HStack>
@@ -602,7 +617,7 @@ const ContactItem = ({ icon, text, color }) => (
 const SystemStatus = ({ label, status, count, color }) => (
   <MotionBox
     w="full"
-    p={3}
+    p={{ base: 2.5, md: 3 }}
     bg="rgba(59, 130, 246, 0.05)"
     borderRadius="lg"
     border="1px solid"
@@ -610,9 +625,9 @@ const SystemStatus = ({ label, status, count, color }) => (
     whileHover={{ scale: 1.02 }}
     transition={{ duration: 0.2 }}
   >
-    <HStack justify="space-between" align="center">
-      <VStack align="flex-start" spacing={1}>
-        <Text fontSize="sm" fontWeight="bold" color="white">
+    <HStack justify="space-between" align="center" spacing={2}>
+      <VStack align="flex-start" spacing={1} flex={1}>
+        <Text fontSize={{ base: 'xs', md: 'sm' }} fontWeight="bold" color="white">
           {label}
         </Text>
         <Text fontSize="xs" color={color} fontWeight="semibold">
@@ -622,11 +637,12 @@ const SystemStatus = ({ label, status, count, color }) => (
       <Badge
         bg={color}
         color="white"
-        px={3}
+        px={{ base: 2, md: 3 }}
         py={1}
         borderRadius="full"
         fontSize="xs"
         fontWeight="bold"
+        flexShrink={0}
       >
         {count}
       </Badge>
@@ -637,10 +653,10 @@ const SystemStatus = ({ label, status, count, color }) => (
 const SocialButton = ({ icon, label }) => (
   <MotionButton
     as={motion.button}
-    size="md"
+    size={{ base: 'sm', md: 'md' }}
     variant="ghost"
-    w={12}
-    h={12}
+    w={{ base: 10, md: 12 }}
+    h={{ base: 10, md: 12 }}
     bg="rgba(10, 14, 26, 0.8)"
     color="rgba(147, 197, 253, 0.7)"
     borderRadius="xl"
@@ -671,7 +687,7 @@ const FooterLink = ({ children, href = "#" }) => (
     <Link
       href={href}
       color="rgba(147, 197, 253, 0.7)"
-      fontSize="sm"
+      fontSize={{ base: 'xs', md: 'sm' }}
       fontWeight="medium"
       _hover={{
         color: '#60a5fa',
@@ -694,8 +710,10 @@ const FooterLink = ({ children, href = "#" }) => (
         transition: 'opacity 0.3s ease',
         boxShadow: '0 0 10px rgba(59, 130, 246, 0.6)'
       }}
-      _hover_before={{
-        opacity: 1
+      sx={{
+        '&:hover::before': {
+          opacity: 1
+        }
       }}
     >
       {children}
