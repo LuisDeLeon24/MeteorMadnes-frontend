@@ -24,6 +24,7 @@ import Hero from "../components/LandingPage/Hero";
 import HowItWorks from "../components/LandingPage/HowItWorks";
 import Features from "../components/LandingPage/Features";
 import SeccionCTA from "../components/LandingPage/CTASection";
+import PNGTuberWidget from "../components/Pngtuber/PNGTuberWidget";
 
 const LandingPage = () => {
   const [asteroidId, setAsteroidId] = useState("99942");
@@ -44,6 +45,7 @@ const LandingPage = () => {
       <Features />
       <SeccionCTA />
       <Footer />
+      <PNGTuberWidget />
     </>
   );
 };
