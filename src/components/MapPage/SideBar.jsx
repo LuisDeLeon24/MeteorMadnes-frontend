@@ -386,7 +386,6 @@ const ContentPanel = ({ selected, search }) => {
   );
 };
 
-// Componente principal Sidebar mejorado
 const Sidebar = ({ countryCode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -476,7 +475,6 @@ const Sidebar = ({ countryCode }) => {
         }
       }}
     >
-      {/* Línea de energía lateral animada */}
       <MotionBox
         position="absolute"
         top="0"
@@ -801,9 +799,9 @@ const Sidebar = ({ countryCode }) => {
                       bg="linear-gradient(90deg, transparent, #10b981, #059669, transparent)"
                     />
 
-                    <VStack spacing={4} align="stretch">
+                    <VStack spacing={4} align="stretch" p={6} bg="#0a0e1a" minH="100vh">
                       <HStack spacing={3}>
-                        <Icon as={TrendingUp} color="#10b981" size={24} />
+                        <Icon as={TrendingUp} color="#10b981" boxSize={6} />
                         <Text color="white" fontWeight="bold" fontSize="lg">
                           📊 Análisis de Impacto Completo
                         </Text>
@@ -812,30 +810,77 @@ const Sidebar = ({ countryCode }) => {
                       {/* Información del asteroide */}
                       <Box p={3} bg="rgba(3, 7, 18, 0.4)" borderRadius="lg" border="1px solid rgba(59, 130, 246, 0.1)">
                         <HStack spacing={2} mb={2}>
-                          <Icon as={Eye} color="#60a5fa" size={18} />
+                          <Icon as={Eye} color="#60a5fa" boxSize={5} />
                           <Text color="#60a5fa" fontWeight="bold" fontSize="sm">Objeto Detectado</Text>
                         </HStack>
                         <VStack spacing={1} align="stretch">
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Identificación:</Text>
+                            <Tooltip
+                              label="Designación oficial del objeto cercano a la Tierra detectado por observatorios astronómicos"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(59, 130, 246, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Identificación:
+                              </Text>
+                            </Tooltip>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.name || impactData.id || "N/A"}
                             </Text>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Masa estimada:</Text>
+                            <Tooltip
+                              label="Masa total del asteroide calculada mediante análisis espectroscópico y modelos de densidad"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(59, 130, 246, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Masa estimada:
+                              </Text>
+                            </Tooltip>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.massKg ? `${(impactData.massKg / 1000).toLocaleString()} ton` : "N/A"}
                             </Text>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Radio estimada:</Text>
+                            <Tooltip
+                              label="Radio del asteroide determinado por observaciones de albedo y mediciones de radar"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(59, 130, 246, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Radio estimada:
+                              </Text>
+                            </Tooltip>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.radiusM ? `${impactData.radiusM} m` : "N/A"}
                             </Text>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Velocidad:</Text>
+                            <Tooltip
+                              label="Velocidad relativa del objeto respecto a la Tierra al momento del impacto atmosférico"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(59, 130, 246, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Velocidad:
+                              </Text>
+                            </Tooltip>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.velocityKmS ? `${Math.abs(impactData.velocityKmS).toLocaleString()} km/s` : "N/A"}
                             </Text>
@@ -846,36 +891,95 @@ const Sidebar = ({ countryCode }) => {
                       {/* Impacto físico */}
                       <Box p={3} bg="rgba(220, 38, 38, 0.1)" borderRadius="lg" border="1px solid rgba(220, 38, 38, 0.2)">
                         <HStack spacing={2} mb={2}>
-                          <Icon as={Zap} color="#ef4444" size={18} />
+                          <Icon as={Zap} color="#ef4444" boxSize={5} />
                           <Text color="#ef4444" fontWeight="bold" fontSize="sm">Análisis de Impacto</Text>
                         </HStack>
                         <VStack spacing={1} align="stretch">
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Energía liberada:</Text>
+                            <Tooltip
+                              label="Energía equivalente en megatones de TNT. Para referencia: 1 MT = 1000 bombas atómicas de Hiroshima"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(239, 68, 68, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Energía liberada:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
                               {impactData.energyMt ? `${impactData.energyMt.toLocaleString()} MT` : "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Área Transversal:</Text>
+                            <Tooltip
+                              label="Área de la sección transversal del asteroide perpendicular a la dirección de entrada"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(239, 68, 68, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Área Transversal:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
                               {impactData.areaTransversal ? `${impactData.areaTransversal.toLocaleString()} m²` : "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Energía cinética:</Text>
+                            <Tooltip
+                              label="Energía cinética total calculada como ½mv². Medida en petajoules (PJ)"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(239, 68, 68, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Energía cinética:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
                               {impactData.energiaCinetica ? `${(impactData.energiaCinetica / 1e15).toLocaleString()} PJ` : "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Altura fragmentación:</Text>
+                            <Tooltip
+                              label="Altitud en la atmósfera donde el asteroide comienza a desintegrarse debido a presión aerodinámica"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(251, 146, 60, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Altura fragmentación:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="orange" fontSize="xs">
                               {impactData.alturaFragmentacion ? `${impactData.alturaFragmentacion.toFixed(1)} km` : "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Presión dinámica:</Text>
+                            <Tooltip
+                              label="Presión dinámica ejercida por el flujo atmosférico sobre el objeto durante la entrada"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(168, 85, 247, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Presión dinámica:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="purple" fontSize="xs">
                               {impactData.presionDinamica ? `${(impactData.presionDinamica / 1e6).toFixed(1)} MPa` : "N/A"}
                             </Badge>
@@ -886,53 +990,138 @@ const Sidebar = ({ countryCode }) => {
                       {/* Impacto demográfico */}
                       <Box p={3} bg="rgba(245, 101, 101, 0.1)" borderRadius="lg" border="1px solid rgba(245, 101, 101, 0.2)">
                         <HStack spacing={2} mb={2}>
-                          <Icon as={AlertTriangle} color="#f56565" size={18} />
+                          <Icon as={AlertTriangle} color="#f56565" boxSize={5} />
                           <Text color="#f56565" fontWeight="bold" fontSize="sm">Impacto Poblacional</Text>
                         </HStack>
                         <VStack spacing={1} align="stretch">
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">País:</Text>
+                            <Tooltip
+                              label="Nación donde ocurre el impacto según coordenadas de trayectoria calculadas"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(245, 101, 101, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                País:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
                               {impactData.country || "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Poblacion total:</Text>
+                            <Tooltip
+                              label="Población total del país según datos demográficos más recientes"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(245, 101, 101, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Población total:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
                               {impactData.poblacionTotal || "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Densidad poblacional:</Text>
+                            <Tooltip
+                              label="Número promedio de habitantes por kilómetro cuadrado en la zona de impacto"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(245, 101, 101, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Densidad poblacional:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
                               {impactData.densidadHabKm2 ? `${impactData.densidadHabKm2} hab/km²` : "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Población afectada:</Text>
+                            <Tooltip
+                              label="Número de personas dentro del radio de efectos directos del impacto (explosión, onda térmica)"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(245, 101, 101, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Población afectada:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
                               {impactData.nafHab ? `${impactData.nafHab.toLocaleString()} hab` : "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Víctimas directas:</Text>
+                            <Tooltip
+                              label="Estimación de fatalidades inmediatas por onda de choque, radiación térmica y proyectiles"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(245, 101, 101, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Víctimas directas:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
                               {impactData.muertesDirectas || "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Víctimas indirectas:</Text>
+                            <Tooltip
+                              label="Estimación de fatalidades por efectos secundarios: colapso de estructuras, incendios, tsunamis, etc."
+                              placement="left"
+                              hasArrow
+                              bg="rgba(251, 146, 60, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Víctimas indirectas:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="orange" fontSize="xs">
                               {impactData.muertesIndirectas || "N/A"}
                             </Badge>
                           </HStack>
+
                           <Divider borderColor="rgba(245, 101, 101, 0.2)" />
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" fontWeight="bold">Total estimado:</Text>
+                            <Tooltip
+                              label="Suma total de víctimas directas e indirectas proyectadas para este escenario de impacto"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(245, 101, 101, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" fontWeight="bold" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Total estimado:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs" fontWeight="bold">
                               {impactData.muertesTotales || "N/A"}
                             </Badge>
                           </HStack>
+
                           <Progress
                             value={impactData.sPorcentaje || 0}
                             size="sm"
@@ -949,42 +1138,113 @@ const Sidebar = ({ countryCode }) => {
                       {/* Impacto económico */}
                       <Box p={3} bg="rgba(16, 185, 129, 0.1)" borderRadius="lg" border="1px solid rgba(16, 185, 129, 0.2)">
                         <HStack spacing={2} mb={2}>
-                          <Icon as={TrendingUp} color="#10b981" size={18} />
+                          <Icon as={TrendingUp} color="#10b981" boxSize={5} />
                           <Text color="#10b981" fontWeight="bold" fontSize="sm">Impacto Económico</Text>
                         </HStack>
                         <VStack spacing={1} align="stretch">
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">PIB nacional:</Text>
+                            <Tooltip
+                              label="Producto Interno Bruto total del país afectado en dólares estadounidenses"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(16, 185, 129, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                PIB nacional:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="green" fontSize="xs">
                               ${impactData.GDPtotal || "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">PIB per cápita:</Text>
+                            <Tooltip
+                              label="PIB dividido entre la población total, indicador del nivel de vida económico promedio"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(20, 184, 166, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                PIB per cápita:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="teal" fontSize="xs">
                               ${impactData.pibPerCapita || "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Pérdida PIB total:</Text>
+                            <Tooltip
+                              label="Pérdida estimada del PIB debido a la reducción de fuerza laboral y capacidad productiva"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(251, 146, 60, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Pérdida PIB total:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="orange" fontSize="xs">
                               ${impactData.perdidaPIBTotal || "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Daños económicos:</Text>
+                            <Tooltip
+                              label="Costos totales de daños: infraestructura destruida, reconstrucción, ayuda humanitaria y recuperación"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(239, 68, 68, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Daños económicos:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
                               ${impactData.perdidasEconomicasTotal || "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Poblacion urbana:</Text>
+                            <Tooltip
+                              label="Población que reside en áreas urbanas dentro de la zona de impacto"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(239, 68, 68, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Población urbana:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
                               {impactData.poblacionUrbana || "N/A"}
                             </Badge>
                           </HStack>
+
                           <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Valor urbano por km²:</Text>
+                            <Tooltip
+                              label="Valor estimado de propiedades, infraestructura y activos urbanos por kilómetro cuadrado"
+                              placement="left"
+                              hasArrow
+                              bg="rgba(239, 68, 68, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                                Valor urbano por km²:
+                              </Text>
+                            </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
                               ${impactData.valorUrbanoUsdKm2 || "N/A"}
                             </Badge>
@@ -992,51 +1252,127 @@ const Sidebar = ({ countryCode }) => {
                         </VStack>
                       </Box>
 
-                      {/* Datos técnicos adicionales - Collapsible */}
+                      {/* Datos técnicos adicionales */}
                       <Box p={3} bg="rgba(124, 58, 237, 0.1)" borderRadius="lg" border="1px solid rgba(124, 58, 237, 0.2)">
                         <HStack spacing={2} mb={2}>
-                          <Icon as={Database} color="#8b5cf6" size={18} />
+                          <Icon as={Database} color="#8b5cf6" boxSize={5} />
                           <Text color="#8b5cf6" fontWeight="bold" fontSize="sm">Parámetros Técnicos</Text>
                         </HStack>
                         <SimpleGrid columns={2} spacing={2}>
                           <VStack align="flex-start" spacing={1}>
-                            <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">Energía sísmica:</Text>
+                            <Tooltip
+                              label="Energía sísmica generada equivalente a un terremoto. Medida en terajoules (TJ)"
+                              hasArrow
+                              bg="rgba(139, 92, 246, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                                Energía sísmica:
+                              </Text>
+                            </Tooltip>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.energiaSismica ? `${(impactData.energiaSismica / 1e12).toFixed(1)} TJ` : "N/A"}
                             </Text>
                           </VStack>
+
                           <VStack align="flex-start" spacing={1}>
-                            <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">Fuerza arrastre:</Text>
+                            <Tooltip
+                              label="Fuerza de arrastre atmosférico que actúa sobre el objeto durante la entrada. Medida en giganewtons (GN)"
+                              hasArrow
+                              bg="rgba(139, 92, 246, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                                Fuerza arrastre:
+                              </Text>
+                            </Tooltip>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.fuerzaArrastre ? `${(impactData.fuerzaArrastre / 1e9).toFixed(1)} GN` : "N/A"}
                             </Text>
                           </VStack>
+
                           <VStack align="flex-start" spacing={1}>
-                            <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">Luminosidad:</Text>
+                            <Tooltip
+                              label="Intensidad luminosa del bólido durante la entrada atmosférica. Medida en terawatts (TW)"
+                              hasArrow
+                              bg="rgba(139, 92, 246, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                                Luminosidad:
+                              </Text>
+                            </Tooltip>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.luminosidad ? `${(impactData.luminosidad / 1e12).toFixed(1)} TW` : "N/A"}
                             </Text>
                           </VStack>
+
                           <VStack align="flex-start" spacing={1}>
-                            <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">Factor letalidad:</Text>
+                            <Tooltip
+                              label="Índice de letalidad basado en densidad poblacional, energía del impacto y efectos secundarios"
+                              hasArrow
+                              bg="rgba(139, 92, 246, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                                Factor letalidad:
+                              </Text>
+                            </Tooltip>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.factorLetalidad || "N/A"}
                             </Text>
                           </VStack>
+
                           <VStack align="flex-start" spacing={1}>
-                            <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">Pérdida de masa:</Text>
+                            <Tooltip
+                              label="Tasa de ablación: masa perdida por segundo debido a calentamiento y fricción atmosférica"
+                              hasArrow
+                              bg="rgba(139, 92, 246, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                                Pérdida de masa:
+                              </Text>
+                            </Tooltip>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.perdida ? `${impactData.perdida.toLocaleString()} kg/s` : "N/A"}
                             </Text>
                           </VStack>
+
                           <VStack align="flex-start" spacing={1}>
-                            <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">Beta:</Text>
+                            <Tooltip
+                              label="Coeficiente de transferencia de momento entre el objeto y la atmósfera"
+                              hasArrow
+                              bg="rgba(139, 92, 246, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                                Beta:
+                              </Text>
+                            </Tooltip>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.beta || "N/A"}
                             </Text>
                           </VStack>
+
                           <VStack align="flex-start" spacing={1}>
-                            <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">Camas por mil:</Text>
+                            <Tooltip
+                              label="Capacidad hospitalaria del país: número de camas disponibles por cada mil habitantes"
+                              hasArrow
+                              bg="rgba(139, 92, 246, 0.95)"
+                              color="white"
+                              fontSize="xs"
+                            >
+                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                                Camas por mil:
+                              </Text>
+                            </Tooltip>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.camasPorMil || "N/A"}
                             </Text>
@@ -1055,10 +1391,9 @@ const Sidebar = ({ countryCode }) => {
                           bg: "rgba(59, 130, 246, 0.2)",
                           borderColor: "rgba(59, 130, 246, 0.5)"
                         }}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                        leftIcon={<Text>📥</Text>}
                       >
-                        📥 Exportar Resultados
+                        Exportar Resultados
                       </MotionButton>
                     </VStack>
                   </Box>
