@@ -49,22 +49,22 @@ const Navbar = () => {
       description: "Dashboard principal"
     },
     {
-      name: "Detección",
+      name: "Simulación",
       href: "/map",
       icon: Telescope,
-      description: "Sistemas de rastreo"
+      description: "Simulación de impactos"
     },
     {
       name: "Interceptación",
       href: "/earth",
       icon: Target,
-      description: "Misiones activas"
+      description: "Revisión de orbitas"
     },
     {
-      name: "Análisis",
-      href: "/",
+      name: "Quiz",
+      href: "/quiz",
       icon: Settings,
-      description: "Datos orbitales"
+      description: "Pon a prueba tus conocimientos"
     },
   ];
 
