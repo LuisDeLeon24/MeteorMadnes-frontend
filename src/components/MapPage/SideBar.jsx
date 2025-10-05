@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { toPng } from "html-to-image";
+import download from "downloadjs";
+import DataAsset from "./DataExport/DataAsset";
 import {
   Box,
   Button,
@@ -18,9 +21,11 @@ import {
   Icon,
   Progress,
   Divider,
-  useBreakpointValue
+  useBreakpointValue,
+  UnorderedList,
+  ListItem
 } from "@chakra-ui/react";
-import { QuestionIcon, ChevronRightIcon, ChevronLeftIcon } from "@chakra-ui/icons";
+import { QuestionIcon, ChevronRightIcon, ChevronLeftIcon, WarningIcon } from "@chakra-ui/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
@@ -391,6 +396,58 @@ const Sidebar = ({ countryCode }) => {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
   const [impactData, setImpactData] = useState(null);
+
+ const exportarDatos = () => {
+    if (!impactData) {
+      alert("No hay resultados para exportar");
+      return;
+    }
+
+    // Crear contenedor temporal
+    const container = document.createElement("div");
+    container.style.position = "fixed";
+    container.style.top = "0";
+    container.style.left = "0";
+    container.style.zIndex = "-1";
+    container.style.pointerEvents = "none";
+    document.body.appendChild(container);
+
+    const root = document.createElement("div");
+    root.id = "impact-result-panel";
+    container.appendChild(root);
+
+    import("react-dom/client").then(({ createRoot }) => {
+      const reactRoot = createRoot(root);
+      reactRoot.render(
+        <DataAsset
+          impactData={impactData}
+          countryCode={countryCode}
+          search={search}
+          horizonsData={horizonsData}
+          formulasData={formulasData}
+        />
+      );
+
+      // Esperar un tick para que renderice
+      setTimeout(() => {
+        const node = document.getElementById("impact-result-panel");
+        if (!node) return;
+
+        toPng(node, { cacheBust: true })
+          .then((dataUrl) => {
+            download(dataUrl, "meteorito_resultados.png");
+          })
+          .catch((err) => {
+            console.error("Error generando la imagen:", err);
+            alert("Ocurrió un error al exportar la imagen");
+          })
+          .finally(() => {
+            reactRoot.unmount();
+            document.body.removeChild(container);
+          });
+      }, 100);
+    });
+  };
 
   const sidebarWidth = useBreakpointValue({
     base: isOpen ? "320px" : "50px",
@@ -1385,21 +1442,223 @@ const Sidebar = ({ countryCode }) => {
                         </SimpleGrid>
                       </Box>
 
-                      {/* Botón de descarga/exportación */}
-                      <MotionButton
-                        size="sm"
-                        bg="rgba(59, 130, 246, 0.1)"
-                        color="#60a5fa"
-                        border="1px solid rgba(59, 130, 246, 0.3)"
-                        borderRadius="lg"
-                        _hover={{
-                          bg: "rgba(59, 130, 246, 0.2)",
-                          borderColor: "rgba(59, 130, 246, 0.5)"
-                        }}
-                        leftIcon={<Text>📥</Text>}
+                      {/* Panel de mitigaciones */}
+                      <Box
+                        p={3}
+                        bg="linear-gradient(135deg, rgba(255, 223, 107, 0.15) 0%, rgba(255, 249, 196, 0.15) 100%)"
+                        border="1px solid rgba(255, 223, 107, 0.3)"
+                        borderRadius="xl"
+                        position="relative"
+                        overflow="hidden"
                       >
-                        Exportar Resultados
-                      </MotionButton>
+                        <Box
+                          position="absolute"
+                          top="0"
+                          left="0"
+                          right="0"
+                          height="2px"
+                          bg="linear-gradient(90deg, transparent, rgba(255, 223, 107, 0.3), transparent)"
+                        />
+
+                        <VStack spacing={3} align="stretch">
+                          <HStack spacing={3}>
+                            <Icon as={Shield} color="#ffd36b" size={22} />
+                            <Text color="white" fontWeight="bold" fontSize="md">
+                              Mitigaciones
+                            </Text>
+                          </HStack>
+
+                          <Text color="rgba(255, 223, 107, 0.7)" fontSize="sm">
+                            Este módulo mostrará estrategias de mitigación basadas en datos de la NASA y el USGS.
+                          </Text>
+
+                          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                            <Box
+                              borderWidth="1px"
+                              borderRadius="lg"
+                              p={3}
+                              bg="rgba(255,255,255,0.05)"
+                            >
+                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">
+                                Predicción de Consecuencias
+                              </Text>
+                              <Text color="rgba(255, 223, 107, 0.7)" fontSize="sm">
+                                Sin datos disponibles.
+                              </Text>
+                            </Box>
+
+                            <Box
+                              borderWidth="1px"
+                              borderRadius="lg"
+                              p={3}
+                              bg="rgba(255,255,255,0.05)"
+                            >
+                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">
+                                Estrategias de Mitigación
+                              </Text>
+                              <Text color="rgba(255, 223, 107, 0.7)" fontSize="sm">
+                                Información pendiente de cálculo.
+                              </Text>
+                            </Box>
+
+                            <Box
+                              borderWidth="1px"
+                              borderRadius="lg"
+                              p={3}
+                              bg="rgba(255,255,255,0.05)"
+                            >
+                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">
+                                Evaluación de Riesgos
+                              </Text>
+                              <Text color="rgba(255, 223, 107, 0.7)" fontSize="sm">
+                                Sin estimaciones actuales.
+                              </Text>
+                            </Box>
+
+                            <Box
+                              borderWidth="1px"
+                              borderRadius="lg"
+                              p={3}
+                              bg="rgba(255,255,255,0.05)"
+                            >
+                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">
+                                Fuentes de Datos
+                              </Text>
+                              <UnorderedList color="rgba(255, 223, 107, 0.7)" fontSize="sm" ml={4}>
+                                <ListItem>NASA NEO API</ListItem>
+                                <ListItem>USGS NEIC (Terremotos)</ListItem>
+                                <ListItem>USGS DEM (Elevación)</ListItem>
+                              </UnorderedList>
+                            </Box>
+                          </SimpleGrid>
+                        </VStack>
+                      </Box>
+
+                      {/* Panel de Daño Ambiental Colateral */}
+                      <Box
+                        p={3}
+                        bg="linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(245, 101, 101, 0.15) 100%)"
+                        border="1px solid rgba(239, 68, 68, 0.3)"
+                        borderRadius="xl"
+                        position="relative"
+                        overflow="hidden"
+                      >
+                        <Box
+                          position="absolute"
+                          top="0"
+                          left="0"
+                          right="0"
+                          height="2px"
+                          bg="linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.3), transparent)"
+                        />
+
+                        <VStack spacing={3} align="stretch">
+                          <HStack spacing={3}>
+                            <Icon as={WarningIcon} color="#ef4444" boxSize={6} />
+                            <Text color="white" fontWeight="bold" fontSize="md">
+                              Daño Ambiental Colateral
+                            </Text>
+                          </HStack>
+
+                          <Text color="rgba(239, 68, 68, 0.7)" fontSize="sm">
+                            Este módulo muestra los efectos colaterales en el medio ambiente debido al impacto.
+                          </Text>
+
+                          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                            <Box
+                              borderWidth="1px"
+                              borderRadius="lg"
+                              p={3}
+                              bg="rgba(255,255,255,0.05)"
+                            >
+                              <Text color="#ef4444" fontSize="sm" fontWeight="bold">
+                                Emisiones de CO2
+                              </Text>
+                              <Text color="rgba(239, 68, 68, 0.7)" fontSize="sm">
+                                {impactData?.emisionesCO2 || "Sin datos"}
+                              </Text>
+                            </Box>
+
+                            <Box
+                              borderWidth="1px"
+                              borderRadius="lg"
+                              p={3}
+                              bg="rgba(255,255,255,0.05)"
+                            >
+                              <Text color="#ef4444" fontSize="sm" fontWeight="bold">
+                                Superficie Deforestada
+                              </Text>
+                              <Text color="rgba(239, 68, 68, 0.7)" fontSize="sm">
+                                {impactData?.deforestacionHa || "Sin datos"} ha
+                              </Text>
+                            </Box>
+
+                            <Box
+                              borderWidth="1px"
+                              borderRadius="lg"
+                              p={3}
+                              bg="rgba(255,255,255,0.05)"
+                            >
+                              <Text color="#ef4444" fontSize="sm" fontWeight="bold">
+                                Pérdida de Biodiversidad
+                              </Text>
+                              <Text color="rgba(239, 68, 68, 0.7)" fontSize="sm">
+                                {impactData?.perdidaEspecies || "Sin datos"} especies
+                              </Text>
+                            </Box>
+
+                            <Box
+                              borderWidth="1px"
+                              borderRadius="lg"
+                              p={3}
+                              bg="rgba(255,255,255,0.05)"
+                            >
+                              <Text color="#ef4444" fontSize="sm" fontWeight="bold">
+                                Contaminación del Agua
+                              </Text>
+                              <Text color="rgba(239, 68, 68, 0.7)" fontSize="sm">
+                                {impactData?.contaminacionAgua || "Sin datos"} ppm
+                              </Text>
+                            </Box>
+
+                            <Box
+                              borderWidth="1px"
+                              borderRadius="lg"
+                              p={3}
+                              bg="rgba(255,255,255,0.05)"
+                            >
+                              <Text color="#ef4444" fontSize="sm" fontWeight="bold">
+                                Ecosistemas Afectados
+                              </Text>
+                              <Text color="rgba(239, 68, 68, 0.7)" fontSize="sm">
+                                {impactData?.ecosistemasAfectados || "Sin datos"} áreas
+                              </Text>
+                            </Box>
+                          </SimpleGrid>
+                        </VStack>
+                      </Box>
+<MotionButton
+        size="sm"
+        bg="rgba(59, 130, 246, 0.1)"
+        color="#60a5fa"
+        border="1px solid rgba(59, 130, 246, 0.3)"
+        borderRadius="lg"
+        _hover={{
+          bg: "rgba(59, 130, 246, 0.2)",
+          borderColor: "rgba(59, 130, 246, 0.5)"
+        }}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() =>
+          exportarDatos(impactData, countryCode, search, horizonsData, formulasData)
+        }
+      >
+        📥 Exportar Resultados
+      </MotionButton>
+
+
+
+
                     </VStack>
                   </Box>
                 )}
