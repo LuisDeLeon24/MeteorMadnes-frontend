@@ -81,15 +81,15 @@ export const FullMap = ({ setCountryCode }) => {
     <Box position="relative" flex="1" height="100%" width="100%">
       <Box
         position="absolute"
-        top="10px"
-        left="10px"
+        top={{ base: "5px", md: "10px", lg: "20px" }}
+        left={{ base: "5px", md: "10px", lg: "20px" }}
         zIndex={1000}
-        w="400px"
+        w={{ base: "90%", sm: "300px", md: "400px", lg: "500px" }}
         bg={bg}
         border="1px solid"
         borderColor={border}
         borderRadius="md"
-        p={2}
+        p={{ base: 1.5, md: 2, lg: 3 }}
         boxShadow="lg"
       >
         <Input
@@ -97,19 +97,35 @@ export const FullMap = ({ setCountryCode }) => {
           value={search}
           onChange={(e) => handleChange(e.target.value)}
           variant="filled"
-          size="sm"
+          size={{ base: "sm", md: "md", lg: "lg" }}
+          fontSize={{ base: "sm", md: "md", lg: "lg" }}
+          px={{ base: 3, md: 4, lg: 5 }}
+          width="100%"
           bg={useColorModeValue("gray.100", "gray.700")}
           _placeholder={{ color: useColorModeValue("gray.500", "gray.300") }}
         />
+
         {suggestions.length > 0 && (
-          <Box mt={1} maxH="250px" overflowY="auto" border="1px solid" borderColor={border} borderRadius="md" bg={bg} boxShadow="md">
+          <Box
+            mt={{ base: 1, md: 2 }}
+            maxH={{ base: "180px", md: "250px" }}
+            overflowY="auto"
+            border="1px solid"
+            borderColor={border}
+            borderRadius="md"
+            bg={bg}
+            boxShadow="md"
+          >
             <List spacing={0}>
               {suggestions.map((place) => (
                 <ListItem
                   key={place.place_id}
-                  px={2}
-                  py={1}
-                  _hover={{ bg: useColorModeValue("gray.200", "gray.600"), cursor: "pointer" }}
+                  px={{ base: 2, md: 3 }}
+                  py={{ base: 1, md: 2 }}
+                  _hover={{
+                    bg: useColorModeValue("gray.200", "gray.600"),
+                    cursor: "pointer",
+                  }}
                   onClick={() => handleSelect(place)}
                 >
                   {place.display_name}
@@ -138,7 +154,7 @@ export const FullMap = ({ setCountryCode }) => {
               setZoom(13);
               const code = await getCountryCode(lat, lon);
               setCountryCode(code);
-              setSearch(""); 
+              setSearch("");
             }
           }}
         />

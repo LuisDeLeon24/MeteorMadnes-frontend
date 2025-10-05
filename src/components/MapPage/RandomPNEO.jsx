@@ -15,7 +15,8 @@ import {
   Badge,
   Icon,
   Circle,
-  Progress
+  Progress,
+  Stack
 } from "@chakra-ui/react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -91,7 +92,7 @@ export function RandomPNeosList() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        p={8}
+        p={{ base: 6, md: 8 }}
         bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
         borderRadius="xl"
         border="1px solid rgba(59, 130, 246, 0.2)"
@@ -103,7 +104,7 @@ export function RandomPNeosList() {
           <VStack spacing={4}>
             <Box position="relative">
               <Spinner 
-                size="xl" 
+                size={{ base: "lg", md: "xl" }}
                 color="#60a5fa"
                 thickness="3px"
                 speed="0.8s"
@@ -115,10 +116,16 @@ export function RandomPNeosList() {
                 transform="translate(-50%, -50%)"
                 animation="pulse 2s ease-in-out infinite"
               >
-                <Icon as={Target} color="#60a5fa" size={24} />
+                <Icon as={Target} color="#60a5fa" boxSize={{ base: 5, md: 6 }} />
               </Box>
             </Box>
-            <Text color="rgba(147, 197, 253, 0.8)" fontSize="sm" fontWeight="medium">
+            <Text 
+              color="rgba(147, 197, 253, 0.8)" 
+              fontSize={{ base: "xs", md: "sm" }} 
+              fontWeight="medium"
+              textAlign="center"
+              px={{ base: 4, md: 0 }}
+            >
               Escaneando NEOs pendientes de confirmación...
             </Text>
           </VStack>
@@ -133,23 +140,32 @@ export function RandomPNeosList() {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
-        p={4}
+        p={{ base: 3, md: 4 }}
         bg="linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(185, 28, 28, 0.1) 100%)"
         border="1px solid rgba(220, 38, 38, 0.3)"
         borderRadius="xl"
         position="relative"
       >
-        <HStack spacing={3}>
-          <Icon as={AlertTriangle} color="#ef4444" size={20} />
-          <VStack align="flex-start" spacing={1}>
-            <Text color="#ef4444" fontWeight="bold" fontSize="sm">
+        <Stack direction={{ base: "column", sm: "row" }} spacing={3} align={{ base: "center", sm: "flex-start" }}>
+          <Icon as={AlertTriangle} color="#ef4444" boxSize={{ base: 5, md: 6 }} flexShrink={0} />
+          <VStack align={{ base: "center", sm: "flex-start" }} spacing={1}>
+            <Text 
+              color="#ef4444" 
+              fontWeight="bold" 
+              fontSize={{ base: "xs", md: "sm" }}
+              textAlign={{ base: "center", sm: "left" }}
+            >
               Error de Sistema
             </Text>
-            <Text color="rgba(239, 68, 68, 0.8)" fontSize="xs">
+            <Text 
+              color="rgba(239, 68, 68, 0.8)" 
+              fontSize={{ base: "2xs", md: "xs" }}
+              textAlign={{ base: "center", sm: "left" }}
+            >
               {error}
             </Text>
           </VStack>
-        </HStack>
+        </Stack>
       </MotionBox>
     );
   }
@@ -160,23 +176,32 @@ export function RandomPNeosList() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        p={4}
+        p={{ base: 3, md: 4 }}
         bg="linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%)"
         border="1px solid rgba(245, 158, 11, 0.3)"
         borderRadius="xl"
         position="relative"
       >
-        <HStack spacing={3}>
-          <Icon as={Eye} color="#f59e0b" size={20} />
-          <VStack align="flex-start" spacing={1}>
-            <Text color="#f59e0b" fontWeight="bold" fontSize="sm">
+        <Stack direction={{ base: "column", sm: "row" }} spacing={3} align={{ base: "center", sm: "flex-start" }}>
+          <Icon as={Eye} color="#f59e0b" boxSize={{ base: 5, md: 6 }} flexShrink={0} />
+          <VStack align={{ base: "center", sm: "flex-start" }} spacing={1}>
+            <Text 
+              color="#f59e0b" 
+              fontWeight="bold" 
+              fontSize={{ base: "xs", md: "sm" }}
+              textAlign={{ base: "center", sm: "left" }}
+            >
               Sin Datos Disponibles
             </Text>
-            <Text color="rgba(245, 158, 11, 0.8)" fontSize="xs">
+            <Text 
+              color="rgba(245, 158, 11, 0.8)" 
+              fontSize={{ base: "2xs", md: "xs" }}
+              textAlign={{ base: "center", sm: "left" }}
+            >
               No se encontraron PNEOs aleatorios en este momento.
             </Text>
           </VStack>
-        </HStack>
+        </Stack>
       </MotionBox>
     );
   }
@@ -190,11 +215,11 @@ export function RandomPNeosList() {
     >
       {/* Header con título y botón de refresh */}
       <Box
-        p={4}
+        p={{ base: 3, md: 4 }}
         bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
         borderRadius="xl"
         border="1px solid rgba(59, 130, 246, 0.1)"
-        mb={4}
+        mb={{ base: 3, md: 4 }}
         position="relative"
         overflow="hidden"
       >
@@ -208,15 +233,30 @@ export function RandomPNeosList() {
           opacity={0.5}
         />
         
-        <VStack spacing={4}>
-          <HStack spacing={3} width="100%" justify="space-between">
-            <HStack spacing={3}>
-              <Icon as={Star} color="#60a5fa" size={24} />
-              <VStack align="flex-start" spacing={0}>
-                <Text color="white" fontWeight="bold" fontSize="md">
+        <VStack spacing={{ base: 3, md: 4 }}>
+          <Stack 
+            direction={{ base: "column", sm: "row" }}
+            spacing={3} 
+            width="100%" 
+            justify="space-between"
+            align={{ base: "center", sm: "flex-start" }}
+          >
+            <HStack spacing={{ base: 2, md: 3 }}>
+              <Icon as={Star} color="#60a5fa" boxSize={{ base: 5, md: 6 }} />
+              <VStack align={{ base: "center", sm: "flex-start" }} spacing={0}>
+                <Text 
+                  color="white" 
+                  fontWeight="bold" 
+                  fontSize={{ base: "sm", md: "md" }}
+                  textAlign={{ base: "center", sm: "left" }}
+                >
                   NEOs Destacados
                 </Text>
-                <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">
+                <Text 
+                  color="rgba(147, 197, 253, 0.7)" 
+                  fontSize={{ base: "2xs", md: "xs" }}
+                  textAlign={{ base: "center", sm: "left" }}
+                >
                   Pendientes de confirmación
                 </Text>
               </VStack>
@@ -227,26 +267,27 @@ export function RandomPNeosList() {
               variant="subtle" 
               bg="rgba(59, 130, 246, 0.1)" 
               color="#60a5fa"
-              px={2}
+              px={{ base: 2, md: 3 }}
               py={1}
               borderRadius="full"
-              fontSize="xs"
+              fontSize={{ base: "2xs", md: "xs" }}
             >
               {data.length} objetos
             </Badge>
-          </HStack>
+          </Stack>
 
           <MotionButton
             onClick={fetchRandomPneos}
-            size="sm"
+            size={{ base: "sm", md: "md" }}
             width="100%"
-            height="40px"
+            height={{ base: "36px", md: "40px" }}
             bg="linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
             color="white"
             fontWeight="bold"
+            fontSize={{ base: "xs", md: "sm" }}
             borderRadius="lg"
             border="2px solid rgba(59, 130, 246, 0.3)"
-            leftIcon={<Icon as={RefreshCw} size={16} />}
+            leftIcon={<Icon as={RefreshCw} boxSize={{ base: 3.5, md: 4 }} />}
             _hover={{
               background: "linear-gradient(135deg, #1e40af 0%, #2563eb 100%)",
               transform: "translateY(-1px)",
@@ -261,7 +302,7 @@ export function RandomPNeosList() {
       </Box>
 
       {/* Lista de NEOs */}
-      <VStack spacing={3} align="stretch">
+      <VStack spacing={{ base: 2.5, md: 3 }} align="stretch">
         <AnimatePresence>
           {data.map((neo, index) => {
             const {
@@ -288,7 +329,7 @@ export function RandomPNeosList() {
                   delay: index * 0.05,
                   ease: [0.4, 0, 0.2, 1]
                 }}
-                p={4}
+                p={{ base: 3, md: 4 }}
                 bg="linear-gradient(135deg, rgba(3, 7, 18, 0.3) 0%, rgba(10, 14, 26, 0.3) 100%)"
                 borderRadius="lg"
                 border="1px solid rgba(59, 130, 246, 0.1)"
@@ -314,18 +355,36 @@ export function RandomPNeosList() {
                   zIndex={1}
                 />
 
-                <VStack spacing={3} align="stretch" position="relative" zIndex={2}>
+                <VStack spacing={{ base: 2.5, md: 3 }} align="stretch" position="relative" zIndex={2}>
                   {/* Header del NEO */}
-                  <HStack justify="space-between" align="flex-start">
-                    <HStack spacing={3}>
-                      <Circle size="40px" bg="rgba(59, 130, 246, 0.1)" border="1px solid rgba(59, 130, 246, 0.2)">
-                        <Icon as={Target} color="#60a5fa" size={18} />
+                  <Stack 
+                    direction={{ base: "column", sm: "row" }}
+                    justify="space-between" 
+                    align={{ base: "stretch", sm: "flex-start" }}
+                    spacing={3}
+                  >
+                    <HStack spacing={{ base: 2, md: 3 }}>
+                      <Circle 
+                        size={{ base: "35px", md: "40px" }} 
+                        bg="rgba(59, 130, 246, 0.1)" 
+                        border="1px solid rgba(59, 130, 246, 0.2)"
+                        flexShrink={0}
+                      >
+                        <Icon as={Target} color="#60a5fa" boxSize={{ base: 4, md: 5 }} />
                       </Circle>
                       <VStack align="flex-start" spacing={0}>
-                        <Text color="white" fontWeight="bold" fontSize="sm">
+                        <Text 
+                          color="white" 
+                          fontWeight="bold" 
+                          fontSize={{ base: "xs", md: "sm" }}
+                          wordBreak="break-word"
+                        >
                           {tempDesig}
                         </Text>
-                        <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">
+                        <Text 
+                          color="rgba(147, 197, 253, 0.7)" 
+                          fontSize={{ base: "2xs", md: "xs" }}
+                        >
                           Designación temporal
                         </Text>
                       </VStack>
@@ -334,66 +393,132 @@ export function RandomPNeosList() {
                     <Badge 
                       colorScheme={getScoreColor(score)} 
                       variant="subtle"
-                      fontSize="xs"
+                      fontSize={{ base: "2xs", md: "xs" }}
                       fontWeight="bold"
+                      alignSelf={{ base: "flex-start", sm: "center" }}
                     >
                       Score: {score}
                     </Badge>
-                  </HStack>
+                  </Stack>
 
                   {/* Datos principales en grid */}
-                  <SimpleGrid columns={2} spacing={3}>
+                  <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={{ base: 2, md: 3 }}>
                     {/* Magnitud Visual */}
-                    <Box p={2} bg="rgba(59, 130, 246, 0.05)" borderRadius="md" border="1px solid rgba(59, 130, 246, 0.1)">
+                    <Box 
+                      p={{ base: 2, md: 2.5 }} 
+                      bg="rgba(59, 130, 246, 0.05)" 
+                      borderRadius="md" 
+                      border="1px solid rgba(59, 130, 246, 0.1)"
+                    >
                       <HStack spacing={2} mb={1}>
-                        <Icon as={Eye} color="#60a5fa" size={14} />
-                        <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Mag. Visual</Text>
+                        <Icon as={Eye} color="#60a5fa" boxSize={{ base: 3, md: 3.5 }} />
+                        <Text 
+                          color="rgba(147, 197, 253, 0.7)" 
+                          fontSize={{ base: "2xs", md: "xs" }}
+                        >
+                          Mag. Visual
+                        </Text>
                       </HStack>
-                      <Text color="white" fontSize="sm" fontWeight="medium">
+                      <Text 
+                        color="white" 
+                        fontSize={{ base: "xs", md: "sm" }} 
+                        fontWeight="medium"
+                      >
                         {vMagnitude}
                       </Text>
                     </Box>
 
                     {/* Fecha de descubrimiento */}
-                    <Box p={2} bg="rgba(16, 185, 129, 0.05)" borderRadius="md" border="1px solid rgba(16, 185, 129, 0.1)">
+                    <Box 
+                      p={{ base: 2, md: 2.5 }} 
+                      bg="rgba(16, 185, 129, 0.05)" 
+                      borderRadius="md" 
+                      border="1px solid rgba(16, 185, 129, 0.1)"
+                    >
                       <HStack spacing={2} mb={1}>
-                        <Icon as={Calendar} color="#10b981" size={14} />
-                        <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Descubierto</Text>
+                        <Icon as={Calendar} color="#10b981" boxSize={{ base: 3, md: 3.5 }} />
+                        <Text 
+                          color="rgba(147, 197, 253, 0.7)" 
+                          fontSize={{ base: "2xs", md: "xs" }}
+                        >
+                          Descubierto
+                        </Text>
                       </HStack>
-                      <Text color="white" fontSize="sm" fontWeight="medium">
+                      <Text 
+                        color="white" 
+                        fontSize={{ base: "xs", md: "sm" }} 
+                        fontWeight="medium"
+                      >
                         {`${discoveryDate.year}-${discoveryDate.month.toString().padStart(2, '0')}-${discoveryDate.day.toString().padStart(2, '0')}`}
                       </Text>
                     </Box>
 
                     {/* Posición */}
-                    <Box p={2} bg="rgba(124, 58, 237, 0.05)" borderRadius="md" border="1px solid rgba(124, 58, 237, 0.1)">
+                    <Box 
+                      p={{ base: 2, md: 2.5 }} 
+                      bg="rgba(124, 58, 237, 0.05)" 
+                      borderRadius="md" 
+                      border="1px solid rgba(124, 58, 237, 0.1)"
+                    >
                       <HStack spacing={2} mb={1}>
-                        <Icon as={MapPin} color="#8b5cf6" size={14} />
-                        <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Posición</Text>
+                        <Icon as={MapPin} color="#8b5cf6" boxSize={{ base: 3, md: 3.5 }} />
+                        <Text 
+                          color="rgba(147, 197, 253, 0.7)" 
+                          fontSize={{ base: "2xs", md: "xs" }}
+                        >
+                          Posición
+                        </Text>
                       </HStack>
-                      <Text color="white" fontSize="xs" fontWeight="medium">
+                      <Text 
+                        color="white" 
+                        fontSize={{ base: "2xs", md: "xs" }} 
+                        fontWeight="medium"
+                      >
                         RA: {position.ra}
                       </Text>
-                      <Text color="white" fontSize="xs" fontWeight="medium">
+                      <Text 
+                        color="white" 
+                        fontSize={{ base: "2xs", md: "xs" }} 
+                        fontWeight="medium"
+                      >
                         Dec: {position.dec}
                       </Text>
                     </Box>
 
                     {/* Observaciones */}
-                    <Box p={2} bg="rgba(245, 158, 11, 0.05)" borderRadius="md" border="1px solid rgba(245, 158, 11, 0.1)">
+                    <Box 
+                      p={{ base: 2, md: 2.5 }} 
+                      bg="rgba(245, 158, 11, 0.05)" 
+                      borderRadius="md" 
+                      border="1px solid rgba(245, 158, 11, 0.1)"
+                    >
                       <HStack spacing={2} mb={1}>
-                        <Icon as={TrendingUp} color="#f59e0b" size={14} />
-                        <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Observaciones</Text>
+                        <Icon as={TrendingUp} color="#f59e0b" boxSize={{ base: 3, md: 3.5 }} />
+                        <Text 
+                          color="rgba(147, 197, 253, 0.7)" 
+                          fontSize={{ base: "2xs", md: "xs" }}
+                        >
+                          Observaciones
+                        </Text>
                       </HStack>
-                      <Text color="white" fontSize="sm" fontWeight="medium">
+                      <Text 
+                        color="white" 
+                        fontSize={{ base: "xs", md: "sm" }} 
+                        fontWeight="medium"
+                      >
                         {nObs} obs
                       </Text>
                     </Box>
                   </SimpleGrid>
 
                   {/* Datos adicionales */}
-                  <Box p={2} bg="rgba(3, 7, 18, 0.3)" borderRadius="md" border="1px solid rgba(59, 130, 246, 0.05)">
-                    <SimpleGrid columns={3} spacing={2} fontSize="xs">
+                  <Box 
+                    p={{ base: 2, md: 2.5 }} 
+                    bg="rgba(3, 7, 18, 0.3)" 
+                    borderRadius="md" 
+                    border="1px solid rgba(59, 130, 246, 0.05)"
+                  >
+                    <SimpleGrid columns={3} spacing={{ base: 1.5, md: 2 }} fontSize={{ base: "2xs", md: "xs" }}>
                       <VStack spacing={1}>
                         <Text color="rgba(147, 197, 253, 0.5)">Arco</Text>
                         <Text color="white" fontWeight="medium">{arc}</Text>
@@ -412,8 +537,18 @@ export function RandomPNeosList() {
                   {/* Barra de progreso basada en score */}
                   <Box>
                     <HStack justify="space-between" mb={1}>
-                      <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Nivel de Prioridad</Text>
-                      <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">{score}%</Text>
+                      <Text 
+                        color="rgba(147, 197, 253, 0.7)" 
+                        fontSize={{ base: "2xs", md: "xs" }}
+                      >
+                        Nivel de Prioridad
+                      </Text>
+                      <Text 
+                        color="rgba(147, 197, 253, 0.7)" 
+                        fontSize={{ base: "2xs", md: "xs" }}
+                      >
+                        {score}%
+                      </Text>
                     </HStack>
                     <Progress
                       value={score}
@@ -425,20 +560,32 @@ export function RandomPNeosList() {
                   </Box>
 
                   {/* Footer con fecha de actualización */}
-                  <HStack justify="space-between" pt={2}>
+                  <Stack 
+                    direction={{ base: "column", sm: "row" }}
+                    justify="space-between" 
+                    pt={2}
+                    spacing={{ base: 2, sm: 0 }}
+                  >
                     <HStack spacing={2}>
-                      <Icon as={Clock} color="rgba(147, 197, 253, 0.5)" size={12} />
-                      <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">
+                      <Icon as={Clock} color="rgba(147, 197, 253, 0.5)" boxSize={{ base: 3, md: 3.5 }} />
+                      <Text 
+                        color="rgba(147, 197, 253, 0.5)" 
+                        fontSize={{ base: "2xs", md: "xs" }}
+                      >
                         Actualizado: {updated}
                       </Text>
                     </HStack>
                     
                     {notSeenDays > 7 && (
-                      <Badge colorScheme="red" variant="subtle" fontSize="xs">
+                      <Badge 
+                        colorScheme="red" 
+                        variant="subtle" 
+                        fontSize={{ base: "2xs", md: "xs" }}
+                      >
                         ⚠️ Crítico
                       </Badge>
                     )}
-                  </HStack>
+                  </Stack>
                 </VStack>
               </MotionBox>
             );
