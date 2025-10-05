@@ -9,20 +9,19 @@ export const useFormulas = () => {
   const refetch = async (payloadData) => {
     setLoading(true);
     setError(null);
-    
+
     try {
       console.log("📤 useFormulas refetch llamado con:", payloadData);
 
       // ✅ PAYLOAD CORRECTO para fórmulas FÍSICAS
       const payloadFisicas = {
-      id: payloadData.id || payloadData.asteroidName, // ← ¡ESTE CAMPO SÍ EXISTE!
-    };
+        id: payloadData.id || payloadData.asteroidName, // ← ¡ESTE CAMPO SÍ EXISTE!
+      };
 
-      // ✅ PAYLOAD CORRECTO para fórmulas DEMOGRÁFICAS  
+      // ✅ PAYLOAD CORRECTO para fórmulas DEMOGRÁFICAS
       const payloadDemograficas = {
-        country: payloadData.country, // 'GT'
+        country: payloadData.country,        // 'GT'
         areaAfectadaKm2: payloadData.areaAfectadaKm2, // 200
-
       };
 
       console.log("➡️ Payload Físicas:", payloadFisicas);
@@ -41,7 +40,6 @@ export const useFormulas = () => {
       if (fisicasResponse?.error) {
         throw new Error(`Físicas: ${fisicasResponse.msg}`);
       }
-      
       if (demograficasResponse?.error) {
         throw new Error(`Demográficas: ${demograficasResponse.msg}`);
       }
@@ -51,8 +49,8 @@ export const useFormulas = () => {
         ...demograficasResponse.data,
         ...fisicasResponse.data
       };
-      console.log("✅ Datos combinados:", combinedData);
 
+      console.log("✅ Datos combinados:", combinedData);
       setData(combinedData);
       return combinedData;
 
@@ -61,15 +59,11 @@ export const useFormulas = () => {
       const errorMsg = err.message || 'Error desconocido';
       setError(errorMsg);
       throw new Error(errorMsg);
+
     } finally {
       setLoading(false);
     }
   };
 
-  return { 
-    data, 
-    loading, 
-    error, 
-    refetch
-  };
+  return { data, loading, error, refetch };
 };

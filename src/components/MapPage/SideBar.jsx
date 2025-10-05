@@ -400,8 +400,14 @@ const Sidebar = ({ countryCode }) => {
     console.log("🚀 Iniciando simulación...");
     setImpactData(null);
 
-    if (!countryCode) { alert("Selecciona una ubicación"); return; }
-    if (!search) { alert("Ingresa un asteroide"); return; }
+    if (!countryCode) {
+      alert("Selecciona una ubicación");
+      return;
+    }
+    if (!search) {
+      alert("Ingresa un asteroide");
+      return;
+    }
 
     try {
       const freshData = await fetchHORIZONS(search);
@@ -419,16 +425,15 @@ const Sidebar = ({ countryCode }) => {
       }
 
       const payloadData = {
-        country: "GT",
-        areaAfectadaKm2: 200,
-        id: "99942",
+        country: countryCode,
+        areaAfectadaKm2: impactEstimation.areaKm2, // ✔️ usar el valor calculado
+        id: search
       };
 
       const simulationResponse = await refetch(payloadData);
       const resultData = simulationResponse?.data ?? simulationResponse;
 
       setImpactData({ ...resultData, ...impactEstimation, countryCode });
-
     } catch (err) {
       console.error(err);
       alert("Error en la simulación");

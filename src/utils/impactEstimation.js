@@ -2,11 +2,12 @@
 export function estimateImpactAreaFromHORIZONS(horizonsData) {
   if (!horizonsData || !horizonsData.basicInfo) return null;
 
-  const { radius } = horizonsData.basicInfo; // km
+  const { radius, type, density: densityFromAPI, velocity: velocityFromAPI } = horizonsData.basicInfo; // km, tipo, opcional
   if (!radius || radius <= 0) return null;
 
-  const density = 3000; // kg/m3 promedio
-  const velocity = 20000; // m/s promedio impacto
+  // Valores predeterminados según tipo de asteroide
+  const density = densityFromAPI || (type === "metallic" ? 7800 : 3000); // kg/m³
+  const velocity = velocityFromAPI || 20000; // m/s, promedio
 
   const radiusM = radius * 1000; // convertir km -> m
   const mass = (4 / 3) * Math.PI * radiusM ** 3 * density; // kg
