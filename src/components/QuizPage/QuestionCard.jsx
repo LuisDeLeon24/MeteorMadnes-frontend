@@ -31,6 +31,7 @@ const QuestionCard = ({ question, options, current, total, onSelect }) => (
           width="100%"
           py={6}
           bg="rgba(59,130,246,0.1)"
+          color="white"            // <-- fuerza color blanco
           border="1px solid rgba(59,130,246,0.3)"
           _hover={{
             bg: "rgba(59,130,246,0.2)",
