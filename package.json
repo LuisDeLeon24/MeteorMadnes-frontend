@@ -19,6 +19,7 @@
     "@react-three/fiber": "^8.18.0",
     "axios": "^1.12.2",
     "dotenv": "^17.2.1",
+    "downloadjs": "^1.4.7",
     "framer-motion": "^12.23.12",
     "html-to-image": "^1.11.13",
     "lazy": "^1.0.11",
