@@ -9,7 +9,7 @@ const routes = [
   { path: '/', element: <LandingPage/> },
   { path: '/earth', element: <EnhancedEarthScene /> },
   { path: '/map', element: <MapPage /> },
-    { path: '/dataExport', element: <DataExport /> }
+  { path: '/dataExport', element: <DataExport /> }
 ];
 
 export default routes;

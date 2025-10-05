@@ -1461,69 +1461,47 @@ const Sidebar = ({ countryCode }) => {
                         />
 
                         <VStack spacing={3} align="stretch">
+                        {/* Panel Mitigaciones */}
+                        <Box>
                           <HStack spacing={3}>
-                            <Icon as={Shield} color="#ffd36b" size={22} />
+                            <Icon as={Shield} color="#ffd36b" boxSize={6} />
                             <Text color="white" fontWeight="bold" fontSize="md">
                               Mitigaciones
                             </Text>
                           </HStack>
 
                           <Text color="rgba(255, 223, 107, 0.7)" fontSize="sm">
-                            Este módulo mostrará estrategias de mitigación basadas en datos de la NASA y el USGS.
+                            Estrategias de mitigación basadas en datos de la NASA y USGS.
                           </Text>
 
-                          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                            <Box
-                              borderWidth="1px"
-                              borderRadius="lg"
-                              p={3}
-                              bg="rgba(255,255,255,0.05)"
-                            >
-                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">
-                                Predicción de Consecuencias
-                              </Text>
+                          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} mt={2}>
+                            <Box borderWidth="1px" borderRadius="lg" p={3} bg="rgba(255,255,255,0.05)">
+                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">Consecuencias</Text>
                               <Text color="rgba(255, 223, 107, 0.7)" fontSize="sm">
-                                Sin datos disponibles.
+                                Explosión aérea, onda de choque, incendios, tsunamis.
+                                Destrucción de infraestructuras y pérdida de vidas.
+
                               </Text>
                             </Box>
 
-                            <Box
-                              borderWidth="1px"
-                              borderRadius="lg"
-                              p={3}
-                              bg="rgba(255,255,255,0.05)"
-                            >
-                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">
-                                Estrategias de Mitigación
-                              </Text>
+                            <Box borderWidth="1px" borderRadius="lg" p={3} bg="rgba(255,255,255,0.05)">
+                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">Estrategias de Mitigación</Text>
                               <Text color="rgba(255, 223, 107, 0.7)" fontSize="sm">
-                                Información pendiente de cálculo.
+                                Evacuación preventiva, reforzamiento de infraestructuras críticas.
+                                Programas de educación y preparación comunitaria.
                               </Text>
                             </Box>
 
-                            <Box
-                              borderWidth="1px"
-                              borderRadius="lg"
-                              p={3}
-                              bg="rgba(255,255,255,0.05)"
-                            >
-                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">
-                                Evaluación de Riesgos
-                              </Text>
+                            <Box borderWidth="1px" borderRadius="lg" p={3} bg="rgba(255,255,255,0.05)">
+                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">Evaluación de Riesgos</Text>
                               <Text color="rgba(255, 223, 107, 0.7)" fontSize="sm">
-                                Sin estimaciones actuales.
+                                Análisis de vulnerabilidades locales.
+                                Identificación de áreas de alto riesgo y población vulnerable.
                               </Text>
                             </Box>
 
-                            <Box
-                              borderWidth="1px"
-                              borderRadius="lg"
-                              p={3}
-                              bg="rgba(255,255,255,0.05)"
-                            >
-                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">
-                                Fuentes de Datos
-                              </Text>
+                            <Box borderWidth="1px" borderRadius="lg" p={3} bg="rgba(255,255,255,0.05)">
+                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">Fuentes de Datos</Text>
                               <UnorderedList color="rgba(255, 223, 107, 0.7)" fontSize="sm" ml={4}>
                                 <ListItem>NASA NEO API</ListItem>
                                 <ListItem>USGS NEIC (Terremotos)</ListItem>
@@ -1531,7 +1509,11 @@ const Sidebar = ({ countryCode }) => {
                               </UnorderedList>
                             </Box>
                           </SimpleGrid>
-                        </VStack>
+                        </Box>
+
+                        
+                      </VStack>
+
                       </Box>
 
                       {/* Panel de Daño Ambiental Colateral */}
@@ -1572,10 +1554,12 @@ const Sidebar = ({ countryCode }) => {
                               bg="rgba(255,255,255,0.05)"
                             >
                               <Text color="#ef4444" fontSize="sm" fontWeight="bold">
-                                Emisiones de CO2
+                                Emisiones de Gases
                               </Text>
                               <Text color="rgba(239, 68, 68, 0.7)" fontSize="sm">
-                                {impactData?.emisionesCO2 || "Sin datos"}
+                                Alta cantidad de gases y partículas dañinas liberadas a la atmósfera.
+                                Extremadamente peligrosas en rangos de hasta 100km de la zona de impacto.
+                                No salir sin protección adecuada.
                               </Text>
                             </Box>
 
@@ -1589,7 +1573,8 @@ const Sidebar = ({ countryCode }) => {
                                 Superficie Deforestada
                               </Text>
                               <Text color="rgba(239, 68, 68, 0.7)" fontSize="sm">
-                                {impactData?.deforestacionHa || "Sin datos"} ha
+                                Se estima que los impactos de asteroides pueden arrazar bosques enteros.
+                                provocando junto con ellos incendios forestales y perdidas de biodiversidad
                               </Text>
                             </Box>
 
@@ -1603,7 +1588,8 @@ const Sidebar = ({ countryCode }) => {
                                 Pérdida de Biodiversidad
                               </Text>
                               <Text color="rgba(239, 68, 68, 0.7)" fontSize="sm">
-                                {impactData?.perdidaEspecies || "Sin datos"} especies
+                                Se estima una perdida total de la biodiversidad en la zona de impacto
+                                incluyendo flora y fauna terrestre y acuática.
                               </Text>
                             </Box>
 
@@ -1617,7 +1603,7 @@ const Sidebar = ({ countryCode }) => {
                                 Contaminación del Agua
                               </Text>
                               <Text color="rgba(239, 68, 68, 0.7)" fontSize="sm">
-                                {impactData?.contaminacionAgua || "Sin datos"} ppm
+                                Calculamos un gran impacto en la calidad del agua haciendola no apta para el consumo humano
                               </Text>
                             </Box>
 
@@ -1631,13 +1617,13 @@ const Sidebar = ({ countryCode }) => {
                                 Ecosistemas Afectados
                               </Text>
                               <Text color="rgba(239, 68, 68, 0.7)" fontSize="sm">
-                                {impactData?.ecosistemasAfectados || "Sin datos"} áreas
+                                Perdida total de ecosistemas
                               </Text>
                             </Box>
                           </SimpleGrid>
                         </VStack>
                       </Box>
-<MotionButton
+      <MotionButton
         size="sm"
         bg="rgba(59, 130, 246, 0.1)"
         color="#60a5fa"
