@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const MotionBox = motion.create(Box);
 
 const DataAsset = ({ impactData, countryCode, search, horizonsData, formulasData }) => {
-  const backgroundColor = "#0D1B46";
+  const backgroundColor = "#000000ff";
   const topBlockColor = "rgba(255, 255, 255, 0.9)"; // menos brillo
   const textColor = "rgba(255, 255, 255, 0.9)";
 
