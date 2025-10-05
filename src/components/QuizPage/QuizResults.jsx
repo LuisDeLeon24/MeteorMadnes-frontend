@@ -28,11 +28,19 @@ const QuizResults = ({ score, total, onRestart }) => {
   };
 
   return (
-    <VStack spacing={6} textAlign="center" minH="100vh" justify="center">
-      <Icon as={Trophy} boxSize={16} color="#60a5fa" />
+    <VStack
+      spacing={{ base: 4, md: 6 }}
+      textAlign="center"
+      minH="100vh"
+      justify="center"
+      px={{ base: 4, md: 8 }}
+    >
+      {/* Icono responsive */}
+      <Icon as={Trophy} boxSize={{ base: 12, md: 16 }} color="#60a5fa" />
 
+      {/* Score Heading responsive */}
       <MotionHeading
-        size="3xl"
+        size={{ base: "2xl", md: "3xl" }}
         bgGradient="linear(to-r, #60a5fa, #93c5fd)"
         bgClip="text"
         initial={{ opacity: 0, y: 20 }}
@@ -41,15 +49,20 @@ const QuizResults = ({ score, total, onRestart }) => {
         {score}/{total}
       </MotionHeading>
 
-      <Text color="rgba(219,234,254,0.8)">
+      {/* Texto motivacional */}
+      <Text fontSize={{ base: "sm", md: "md" }} color="rgba(219,234,254,0.8)">
         {score / total > 0.7
           ? "¡Excelente trabajo, comandante!"
           : "Sigue practicando, el cosmos te espera."}
       </Text>
 
+      {/* Botón de reintentar */}
       <Button
         onClick={onRestart}
-        mt={4}
+        mt={2}
+        px={{ base: 6, md: 8 }}
+        py={{ base: 4, md: 6 }}
+        fontSize={{ base: "sm", md: "md" }}
         bgGradient="linear(to-r, #1e3a8a, #3b82f6)"
         color="white"
         borderRadius="full"
@@ -58,10 +71,13 @@ const QuizResults = ({ score, total, onRestart }) => {
         Reintentar
       </Button>
 
-      {/* Botón para descargar solo si es perfecto */}
+      {/* Botón de descargar premio solo si es perfecto */}
       {score === total && (
         <Button
           mt={2}
+          px={{ base: 6, md: 8 }}
+          py={{ base: 4, md: 6 }}
+          fontSize={{ base: "sm", md: "md" }}
           bgGradient="linear(to-r, #10b981, #06b6d4)"
           color="white"
           borderRadius="full"
@@ -73,7 +89,7 @@ const QuizResults = ({ score, total, onRestart }) => {
         </Button>
       )}
 
-      {/* BadgeView invisible pero renderizado para html-to-image */}
+      {/* BadgeView invisible para html-to-image */}
       <Box position="absolute" top={0} left={0} opacity={0} pointerEvents="none">
         <BadgeView
           ref={badgeRef}
