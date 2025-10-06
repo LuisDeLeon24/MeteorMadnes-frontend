@@ -17,7 +17,7 @@ import {
   GridItem,
 } from '@chakra-ui/react';
 import { FITS } from '../Hooks/fits.js';
-import FileInput from '../components/FitPage/fileInput.jsx';
+import FileInput from '../components/FitPage/FileInput.jsx';
 
 const FitsPage = () => {
   const [fitsInstance, setFitsInstance] = useState(null);
