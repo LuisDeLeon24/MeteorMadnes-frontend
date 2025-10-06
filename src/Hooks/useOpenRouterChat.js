@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
-const OPENROUTER_API_KEY = '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';
+const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_KEY;
+
+console.log("🔑 API Key:", OPENROUTER_API_KEY);
+console.log(import.meta.env);
 
 export function useOpenRouterChat() {
   const [loading, setLoading] = useState(false);
