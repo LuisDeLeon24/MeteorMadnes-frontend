@@ -399,7 +399,6 @@ const Sidebar = ({ countryCode }) => {
   const handleStartSimulation = async () => {
     console.log("🚀 Iniciando simulación...");
 
-
     if (!countryCode) {
       alert("Selecciona una ubicación");
       return;
@@ -410,6 +409,7 @@ const Sidebar = ({ countryCode }) => {
     }
 
     try {
+      // 1️⃣ Obtener datos de HORIZONS
       const freshData = await fetchHORIZONS(search);
       const dataToUse = freshData || horizonsData;
 
@@ -420,27 +420,24 @@ const Sidebar = ({ countryCode }) => {
         return;
       }
 
+      // 2️⃣ PRIMERO obtener datos físicos (incluyendo velocidad)
+      const payloadFisicas = { id: search };
+      const simulationResponse = await refetch(payloadFisicas);
+      const resultData = simulationResponse?.data ?? simulationResponse;
 
+      console.log("✅ Velocidad calculada del backend:", resultData?.velocityKmS);
 
+      // 3️⃣ AHORA calcular el área de impacto con la velocidad correcta
       const impactEstimation = estimateImpactAreaFromHORIZONS(
         dataToUse,
         1e6,
-        formulasData?.velocityKmS
+        resultData?.velocityKmS // ← Ahora SÍ tiene el valor correcto
       );
 
       if (!impactEstimation?.areaKm2) {
         alert("No se pudo calcular el área de impacto");
         return;
       }
-
-      const payloadData = {
-        country: countryCode,
-        areaAfectadaKm2: impactEstimation.areaKm2, // ✔️ usar el valor calculado
-        id: search
-      };
-
-      const simulationResponse = await refetch(payloadData);
-      const resultData = simulationResponse?.data ?? simulationResponse;
 
       setImpactData({ ...resultData, ...impactEstimation, countryCode });
     } catch (err) {
