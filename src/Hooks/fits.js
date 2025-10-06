@@ -85,7 +85,6 @@ function FITS(div_id, n_rois) {
     };
 }
 
-
 /* return a new canvas with z-index z with initial size same as parent.
  */
 function FITS_newCanvas(parent, name, z) {
@@ -99,7 +98,6 @@ function FITS_newCanvas(parent, name, z) {
 
     return (cid);
 }
-
 
 /* capture the new FITS file from the given ArrayBuffer with the given name into roi[0].
  */
@@ -227,11 +225,9 @@ FITS.prototype.setNewImage = function(filename, fitsab) {
         throw (this.filename + ": BITPIX " + this.header.BITPIX + " is not yet supported");
     }
 
-
     // display by faking a resize event which does everything
     this.handleResize();
 }
-
 
 /* called to display the FITS header in its own window.
  * if force is true, we create a new window; if false, we only update the header window if it already
@@ -261,7 +257,6 @@ FITS.prototype.showHeader = function(force) {
     // display
     this.header_win.document.documentElement.innerHTML = text;
 }
-
 
 /* compute some image stats at the given ROI.
  * ROI must have x, y, width and height.
@@ -370,7 +365,6 @@ FITS.prototype.setContrast = function(roi, contrast) {
     this.renderROI(roi, false, false);
 }
 
-
 /* return black white pixel values given contrast and stats.
  */
 FITS.prototype.findBlackAndWhite = function(contrast, stats) {
@@ -456,7 +450,6 @@ FITS.prototype.findBlackAndWhite = function(contrast, stats) {
 
 }
 
-
 // called when user resizes the div containing the canvases
 FITS.prototype.handleResize = function() {
     if (!this.image)
@@ -497,7 +490,6 @@ FITS.prototype.handleResize = function() {
     this.renderAll();
 }
 
-
 // (re)render everything, be prepared to adjust ROIs and glass sizes
 FITS.prototype.renderAll = function() {
     // update all ROIS first so rois[0] can use stats in rois[icroi] for contrast
@@ -527,7 +519,6 @@ FITS.prototype.setStretch = function(s) {
     this.stretch = s;
     this.renderAll();
 }
-
 
 // allow user to enable/disable a given roi
 FITS.prototype.enableROI = function(roi_n, enable) {
@@ -570,7 +561,6 @@ FITS.prototype.redefineROI = function(roi_n, roi_defn) {
     if (this.rois.length > 1 && roi == this.rois[this.icroi])
         this.renderROI(this.rois[0], false, false);
 }
-
 
 /* render the given ROI and invoke userROIChangedHandler, if any, with redef
  */
@@ -618,7 +608,6 @@ FITS.prototype.renderROI = function(roi, redef, moved) {
         throw ("Unknown stetch: " + this.stretch + ", choices are linear, square and sqrt");
     }
 
-
     // render as gray scale from black to white, or all transparent if disabled
     if (roi.enabled) {
         var roiimage = new ImageData(roi.width, roi.height);
@@ -635,7 +624,7 @@ FITS.prototype.renderROI = function(roi, redef, moved) {
                 datai++;
             }
         }
-        roiimage.data = roidata; // reattach
+        //// eliminacion de roi data // reattach
 
         // display it, must go through a temp canvas in order to use drawImage
         var tempcan = document.createElement("canvas");
@@ -669,7 +658,6 @@ FITS.prototype.renderROI = function(roi, redef, moved) {
     if (this.userROIChangedHandler != undefined)
         this.userROIChangedHandler(roi, redef, moved);
 }
-
 
 
 /* given image coords of glass center, draw a magnified portion on the glass canvas
@@ -738,7 +726,6 @@ FITS.prototype.renderGlass = function(image_loc) {
     this.gctx.stroke();
 }
 
-
 /* convert image to FITS coords.
  * if the given object contains at least {x, y, height} then return a copy of the object with x and y
  *   converted to FITS coordinates, including arranging for new reference corner to be visually in the
@@ -781,7 +768,6 @@ FITS.prototype.FITS2Image = function(fitsloc) {
     return (imageloc);
 }
 
-
 /* convert screen coords in a javascript event to image coords
  */
 FITS.prototype.event2image = function(event) {
@@ -808,7 +794,6 @@ FITS.prototype.event2image = function(event) {
     return (imgcoords);
 }
 
-
 /* function user can call to register a function we call whenever the mouse moves over the image,
  *   or cancel same if undefined.
  * if we do call handler, first argument will be a object containing x and y in FITS coords, second will be
@@ -818,7 +803,6 @@ FITS.prototype.addMouseHandler = function(handler) {
     this.userMouseHandler = handler;
 }
 
-
 /* function user can call to register a function we call whenever an ROI changes location or shape,
  *   or cancel same if undefined.
  * if we do call handler, argument will be an object with ROI details.
@@ -827,13 +811,11 @@ FITS.prototype.addROIChangedHandler = function(handler) {
     this.userROIChangedHandler = handler;
 }
 
-
 /* function user can call to register a function we call whenever the FITS canvases are resized
  */
 FITS.prototype.addResizeHandler = function(handler) {
     addResizeListener(this.div_id, handler);
 }
-
 
 
 /* function user can call to register a canvas on which we draw a magnified region centered under 
@@ -842,7 +824,6 @@ FITS.prototype.addResizeHandler = function(handler) {
 FITS.prototype.addGlassCanvas = function(canvas_id) {
     this.userGlassCanvas = canvas_id;
 }
-
 
 /* given an image location, set this.drag_roi and this.drag_code, if any.
  * don't worry too much about resolving ambiguities if some ROIs overlap.
@@ -910,7 +891,6 @@ FITS.prototype.findROI = function(image_loc) {
         }
     }
 }
-
 
 /* update the position of the drag_roi to the given image loc
  */
@@ -1031,14 +1011,12 @@ FITS.prototype.moveROI = function(image_loc) {
         this.renderROI(this.rois[0], false, false);
 }
 
-
 /* clear the given canvas context
  */
 FITS.prototype.clearLayer = function(ctx) {
     // ctx is already scaled to accept image coords
     ctx.clearRect(0, 0, this.width, this.height);
 }
-
 
 /* our keyboard handler, much like a regular listener but includes the context FITS object in
  *   addition to the usual javascript event.
@@ -1051,7 +1029,6 @@ function FITS_handleKeyboard(e, thisfits) {
     thisfits.showGlass = e.shiftKey;
     thisfits.updateGlass();
 }
-
 
 /* our real mousemove handler, much like a regular listener but includes the context FITS object in
  *   addition to the usual javascript event.
@@ -1190,7 +1167,6 @@ FITS.prototype.updateGlass = function() {
     }
 }
 
-
 /* given an ROI and a canvas ID, display a histogram of the image pixels.
  * TODO: add tick marks
  */
@@ -1289,11 +1265,10 @@ FITS.prototype.displayHistogram = function(roi, canvas_id) {
  * still experimental
  */
 function noSmoothing(ctx) {
-    ctx.imageSmoothingEnabled = false;
-    ctx.mozImageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = true;
+    ctx.mozImageSmoothingEnabled = true;
 
 }
-
 
 /* The following wonderous bit of magic is from
  *   http://www.backalleycoder.com/2013/03/18/cross-browser-event-based-element-resize-detection
@@ -1363,3 +1338,9 @@ function createResizeListener() {
         }
     }
 }
+
+// Al final del archivo
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { FITS };
+}
+export { FITS };

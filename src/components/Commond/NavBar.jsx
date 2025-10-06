@@ -45,7 +45,7 @@ const Navbar = () => {
   const navLinks = [
     {
       name: "Centro de Control",
-      href: "/",
+      href: "/fits",
       icon: Activity,
       description: "Dashboard principal"
     },

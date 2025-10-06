@@ -44,6 +44,7 @@ const FileInput = ({ fits }) => {
         justifyContent="space-between"
         alignItems="center"
         px={6}
+        boxShadow="0 0 10px #0ea5e9"
       >
         <Text noOfLines={1} overflow="hidden" textOverflow="ellipsis">
           {fileName || "Seleccionar archivos"}
@@ -53,13 +54,16 @@ const FileInput = ({ fits }) => {
       <Box
         p={3}
         borderRadius="lg"
-        bg="blue.900"
+        bg="#1b1c35"
         w="full"
         minH="40px"
-        color="blue.100"
+        color="#0ea5e9"
         fontSize="sm"
+        boxShadow="inset 0 0 5px #0ea5e9"
       >
-        {fileName ? `Archivo: ${fileName}` : "Aquí se mostrará el nombre del archivo seleccionado"}
+        {fileName
+          ? `Archivo: ${fileName}`
+          : "Aquí se mostrará el nombre del archivo seleccionado"}
       </Box>
     </VStack>
   );
