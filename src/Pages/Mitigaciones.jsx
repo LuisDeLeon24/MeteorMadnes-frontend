@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Wrench, ZapOff, ShieldCheck, Rocket } from "lucide-react";
 import MitigationCard from "../components/MitigacionesPage/MitigationCard";
 import Navbar from "../components/Commond/NavBar";
+import PNGTuberWidget from "../components/Pngtuber/PNGTuberWidget";
 import Footer from "../components/Commond/Footer";
 
 const MotionBox = motion(Box);
@@ -94,6 +95,7 @@ const MitigationsPage = () => {
 
       </VStack>
     </Box>
+      <PNGTuberWidget />
         <Footer />
     </>
   );
