@@ -413,12 +413,18 @@ const Sidebar = ({ countryCode }) => {
       const freshData = await fetchHORIZONS(search);
       const dataToUse = freshData || horizonsData;
 
+      console.log("Datos que llegan a estimateImpactAreaFromHORIZONS:", dataToUse);
+      
       if (!dataToUse) {
         alert("No se pudo obtener información del asteroide");
         return;
       }
 
-      const impactEstimation = estimateImpactAreaFromHORIZONS(dataToUse);
+      const impactEstimation = estimateImpactAreaFromHORIZONS(
+        dataToUse,
+        1e6,
+        formulasData.velocityKmS
+      );
       if (!impactEstimation?.areaKm2) {
         alert("No se pudo calcular el área de impacto");
         return;
@@ -851,7 +857,7 @@ const Sidebar = ({ countryCode }) => {
                           <HStack justify="space-between">
                             <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Energía liberada:</Text>
                             <Badge colorScheme="red" fontSize="xs">
-                              {impactData.energyMt ? `${impactData.energyMt.toLocaleString()} MT` : "N/A"}
+                              {impactData.energiaLiberada ? `${impactData.energiaLiberada.toLocaleString()} MT` : "N/A"}
                             </Badge>
                           </HStack>
                           <HStack justify="space-between">
@@ -864,12 +870,6 @@ const Sidebar = ({ countryCode }) => {
                             <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Energía cinética:</Text>
                             <Badge colorScheme="red" fontSize="xs">
                               {impactData.energiaCinetica ? `${(impactData.energiaCinetica / 1e15).toLocaleString()} PJ` : "N/A"}
-                            </Badge>
-                          </HStack>
-                          <HStack justify="space-between">
-                            <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Altura fragmentación:</Text>
-                            <Badge colorScheme="orange" fontSize="xs">
-                              {impactData.alturaFragmentacion ? `${impactData.alturaFragmentacion.toFixed(1)} km` : "N/A"}
                             </Badge>
                           </HStack>
                           <HStack justify="space-between">
@@ -998,12 +998,6 @@ const Sidebar = ({ countryCode }) => {
                         </HStack>
                         <SimpleGrid columns={2} spacing={2}>
                           <VStack align="flex-start" spacing={1}>
-                            <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">Energía sísmica:</Text>
-                            <Text color="white" fontSize="xs" fontWeight="medium">
-                              {impactData.energiaSismica ? `${(impactData.energiaSismica / 1e12).toFixed(1)} TJ` : "N/A"}
-                            </Text>
-                          </VStack>
-                          <VStack align="flex-start" spacing={1}>
                             <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">Fuerza arrastre:</Text>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.fuerzaArrastre ? `${(impactData.fuerzaArrastre / 1e9).toFixed(1)} GN` : "N/A"}
@@ -1019,12 +1013,6 @@ const Sidebar = ({ countryCode }) => {
                             <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">Factor letalidad:</Text>
                             <Text color="white" fontSize="xs" fontWeight="medium">
                               {impactData.factorLetalidad || "N/A"}
-                            </Text>
-                          </VStack>
-                          <VStack align="flex-start" spacing={1}>
-                            <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">Pérdida de masa:</Text>
-                            <Text color="white" fontSize="xs" fontWeight="medium">
-                              {impactData.perdida ? `${impactData.perdida.toLocaleString()} kg/s` : "N/A"}
                             </Text>
                           </VStack>
                           <VStack align="flex-start" spacing={1}>
