@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-
+import Navbar from '../components/Commond/NavBar.jsx';
+import Footer from '../components/Commond/Footer.jsx';
 import {
   Box,
   Button,
@@ -209,7 +210,9 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
   };
 
   return (
-    <Box p={6} bg="#1e1f3f" minH="100vh">
+    <>
+      <Navbar />
+      <Box p={6} bg="#1e1f3f" minH="100vh">
       {/* Link superior */}
       <Box textAlign="center" mb={4}>
         <Text
@@ -443,6 +446,9 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
         </GridItem>
       </Grid>
     </Box>
+      <Footer />
+    </>
+
   );
 };
 

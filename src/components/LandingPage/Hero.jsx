@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import {
     Box,
     Container,
@@ -38,7 +39,7 @@ const Hero = () => {
     const [currentFeature, setCurrentFeature] = useState(0);
     const [progress, setProgress] = useState(0);
     const [asteroidCount, setAsteroidCount] = useState(847);
-
+    const navigate = useNavigate();
     const features = [
         { icon: <Telescope size={20} />, text: "Detección Temprana", color: "#0ea5e9" },
         { icon: <Radar size={20} />, text: "Análisis Orbital", color: "#3b82f6" },
@@ -379,57 +380,59 @@ const Hero = () => {
                                     w="full"
                                 >
                                     <MotionButton
-                                        size={{ base: "lg", md: "xl" }}
-                                        px={{ base: 6, md: 10 }}
-                                        py={{ base: 6, md: 8 }}
-                                        fontSize={{ base: "md", md: "lg" }}
-                                        fontWeight="bold"
-                                        borderRadius="2xl"
-                                        bg="linear-gradient(135deg, #0ea5e9, #3b82f6)"
-                                        color="white"
-                                        whileHover={{
-                                            scale: 1.05,
-                                            boxShadow: "0 20px 40px rgba(14, 165, 233, 0.4)",
-                                            y: -3
-                                        }}
-                                        whileTap={{ scale: 0.95 }}
-                                        _hover={{
-                                            bg: "linear-gradient(135deg, #3b82f6, #1d4ed8)"
-                                        }}
-                                        w={{ base: "full", sm: "auto" }}
-                                    >
-                                        <HStack spacing={{ base: 2, md: 3 }}>
-                                            <Text>Activar Sistema</Text>
-                                            <ArrowRight size={18} />
-                                        </HStack>
-                                    </MotionButton>
+        onClick={() => navigate("/earth")}
+        size={{ base: "lg", md: "xl" }}
+        px={{ base: 6, md: 10 }}
+        py={{ base: 6, md: 8 }}
+        fontSize={{ base: "md", md: "lg" }}
+        fontWeight="bold"
+        borderRadius="2xl"
+        bg="linear-gradient(135deg, #0ea5e9, #3b82f6)"
+        color="white"
+        whileHover={{
+          scale: 1.05,
+          boxShadow: "0 20px 40px rgba(14, 165, 233, 0.4)",
+          y: -3
+        }}
+        whileTap={{ scale: 0.95 }}
+        _hover={{
+          bg: "linear-gradient(135deg, #3b82f6, #1d4ed8)"
+        }}
+        w={{ base: "full", sm: "auto" }}
+      >
+        <HStack spacing={{ base: 2, md: 3 }}>
+          <Text>Activar Sistema</Text>
+          <ArrowRight size={18} />
+        </HStack>
+      </MotionButton>
 
-                                    <MotionButton
-                                        size={{ base: "lg", md: "xl" }}
-                                        px={{ base: 6, md: 8 }}
-                                        py={{ base: 6, md: 8 }}
-                                        fontSize={{ base: "md", md: "lg" }}
-                                        fontWeight="semibold"
-                                        borderRadius="2xl"
-                                        variant="outline"
-                                        borderColor="blue.500"
-                                        color="white"
-                                        _hover={{
-                                            bg: "rgba(14, 165, 233, 0.1)",
-                                            borderColor: "blue.400"
-                                        }}
-                                        whileHover={{
-                                            scale: 1.02,
-                                            y: -2
-                                        }}
-                                        whileTap={{ scale: 0.98 }}
-                                        w={{ base: "full", sm: "auto" }}
-                                    >
-                                        <HStack spacing={2}>
-                                            <Play size={16} />
-                                            <Text>Simulación</Text>
-                                        </HStack>
-                                    </MotionButton>
+      <MotionButton
+        onClick={() => navigate("/map")}
+        size={{ base: "lg", md: "xl" }}
+        px={{ base: 6, md: 8 }}
+        py={{ base: 6, md: 8 }}
+        fontSize={{ base: "md", md: "lg" }}
+        fontWeight="semibold"
+        borderRadius="2xl"
+        variant="outline"
+        borderColor="blue.500"
+        color="white"
+        _hover={{
+          bg: "rgba(14, 165, 233, 0.1)",
+          borderColor: "blue.400"
+        }}
+        whileHover={{
+          scale: 1.02,
+          y: -2
+        }}
+        whileTap={{ scale: 0.98 }}
+        w={{ base: "full", sm: "auto" }}
+      >
+        <HStack spacing={2}>
+          <Play size={16} />
+          <Text>Simulación</Text>
+        </HStack>
+      </MotionButton>
                                 </Stack>
                             </MotionBox>
 

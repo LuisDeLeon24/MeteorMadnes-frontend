@@ -355,18 +355,13 @@ const Footer = () => {
             <MotionStack spacing={{ base: 3, md: 4 }} variants={itemVariants}>
               <ContactItem
                 icon={<MapPin size={16} />}
-                text="Centro Espacial, Guatemala"
+                text="BADVOIDS"
                 color="#3b82f6"
               />
               <ContactItem
                 icon={<Radio size={16} />}
-                text="Frecuencia: +502 SPACE-911"
+                text="@Badvoids.gt"
                 color="#60a5fa"
-              />
-              <ContactItem
-                icon={<Mail size={16} />}
-                text="figueroaalvarez594@gmail.com"
-                color="#93c5fd"
               />
             </MotionStack>
           </MotionStack>
@@ -469,21 +464,21 @@ const Footer = () => {
 
             <VStack align="flex-start" spacing={{ base: 3, md: 4 }} w="full">
               <SystemStatus
-                label="Radares Activos"
+                label="FITS Visibles"
                 status="OPERATIVO"
                 count="47/47"
                 color="#10b981"
               />
               <SystemStatus
-                label="Satélites Online"
+                label="Simuladores"
                 status="NOMINAL"
                 count="523/525"
                 color="#3b82f6"
               />
               <SystemStatus
-                label="Amenazas Detectadas"
+                label="Punteo promedio"
                 status="MONITOREANDO"
-                count="3 NEO"
+                count=" 8 pts"
                 color="#f59e0b"
               />
             </VStack>
@@ -503,10 +498,10 @@ const Footer = () => {
               <HStack justify="space-between" align="center">
                 <VStack align="flex-start" spacing={1}>
                   <Text fontSize={{ base: 'xs', md: 'sm' }} fontWeight="bold" color="#10b981">
-                    Próximo Escaneo
+                    MASA SPACE APPS
                   </Text>
                   <Text fontSize="xs" color="rgba(219, 234, 254, 0.6)">
-                    Sector 7-Alpha
+                    BADVOIDS
                   </Text>
                 </VStack>
                 <Badge

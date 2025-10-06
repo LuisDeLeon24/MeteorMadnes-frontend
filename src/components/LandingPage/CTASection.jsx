@@ -13,6 +13,7 @@ import {
     Circle
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import { useNavigate } from "react-router-dom";
 import { useInView } from 'react-intersection-observer';
 import {
     ArrowRight,
@@ -28,7 +29,7 @@ import {
 const MotionBox = motion(Box);
 const MotionVStack = motion(VStack);
 const MotionButton = motion(Button);
-
+const navigate = useNavigate();
 const FloatingAsteroid = ({ delay = 0, size = 6, top = "20%", left = "10%" }) => (
     <MotionBox
         position="absolute"
@@ -430,44 +431,45 @@ const SeccionCTA = () => {
                         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
                         transition={{ duration: 0.8, delay: 0.7 }}
                     >
-                        <MotionButton
-                            size="lg"
-                            height="80px"
-                            width={{ base: "full", md: "450px" }}
-                            fontSize="xl"
-                            fontWeight="bold"
-                            rightIcon={<ArrowRight />}
-                            bg="linear-gradient(135deg, #1e3a8a, #3b82f6)"
-                            color="white"
-                            border="2px solid rgba(59, 130, 246, 0.5)"
-                            borderRadius="2xl"
-                            boxShadow="0 20px 40px rgba(59, 130, 246, 0.4), 0 0 0 1px rgba(96, 165, 250, 0.3)"
-                            position="relative"
-                            overflow="hidden"
-                            whileHover={{ scale: 1.05, y: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                            _hover={{
-                                bg: "linear-gradient(135deg, #1e40af, #2563eb)",
-                                boxShadow: "0 25px 50px rgba(59, 130, 246, 0.5), 0 0 50px rgba(96, 165, 250, 0.3)",
-                                borderColor: "rgba(96, 165, 250, 0.8)",
-                                _before: {
-                                    opacity: 1,
-                                }
-                            }}
-                            _before={{
-                                content: '""',
-                                position: 'absolute',
-                                top: 0,
-                                left: '-100%',
-                                width: '100%',
-                                height: '100%',
-                                bg: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
-                                opacity: 0,
-                                transition: 'all 0.6s ease',
-                            }}
-                        >
-                            INICIAR MISIÓN ESPACIAL
-                        </MotionButton>
+                       <MotionButton
+    size="lg"
+    height="80px"
+    width={{ base: "full", md: "450px" }}
+    fontSize="xl"
+    fontWeight="bold"
+    rightIcon={<ArrowRight />}
+    bg="linear-gradient(135deg, #1e3a8a, #3b82f6)"
+    color="white"
+    border="2px solid rgba(59, 130, 246, 0.5)"
+    borderRadius="2xl"
+    boxShadow="0 20px 40px rgba(59, 130, 246, 0.4), 0 0 0 1px rgba(96, 165, 250, 0.3)"
+    position="relative"
+    overflow="hidden"
+    whileHover={{ scale: 1.05, y: -2 }}
+    whileTap={{ scale: 0.98 }}
+    _hover={{
+        bg: "linear-gradient(135deg, #1e40af, #2563eb)",
+        boxShadow: "0 25px 50px rgba(59, 130, 246, 0.5), 0 0 50px rgba(96, 165, 250, 0.3)",
+        borderColor: "rgba(96, 165, 250, 0.8)",
+        _before: {
+            opacity: 1,
+        }
+    }}
+    _before={{
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: '-100%',
+        width: '100%',
+        height: '100%',
+        bg: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+        opacity: 0,
+        transition: 'all 0.6s ease',
+    }}
+    onClick={() => navigate("/map")} // 👈 aquí agregas la navegación
+>
+    INICIAR MISIÓN ESPACIAL
+</MotionButton>
                     </MotionBox>
 
                     {/* Features badges espaciales */}

@@ -44,10 +44,10 @@ const Navbar = () => {
 
   const navLinks = [
     {
-      name: "Centro de Control",
+      name: "FITS",
       href: "/fits",
       icon: Activity,
-      description: "Dashboard principal"
+      description: "FITS Viewer"
     },
     {
       name: "Simulación",
@@ -142,30 +142,35 @@ const handleCommandClick = () => {
               />
             </Box>
 
-            <VStack align="flex-start" spacing={0}>
-              <Heading
-                size={{ base: "md", md: "lg" }}
-                color="white"
-                fontFamily="monospace"
-                fontWeight="black"
-                letterSpacing="tight"
-                textShadow="0 0 20px rgba(96, 165, 250, 0.3)"
-                bgGradient="linear(to-r, #f8fafc, #60a5fa, #dbeafe)"
-                bgClip="text"
-              >
-                AstroTracker
-              </Heading>
-              <Text
-                fontSize={{ base: "2xs", md: "xs" }}
-                color="#60a5fa"
-                fontWeight="semibold"
-                letterSpacing="wider"
-                textTransform="uppercase"
-                display={{ base: "none", sm: "block" }}
-              >
-                Asteroid Response System
-              </Text>
-            </VStack>
+            <VStack
+  align="flex-start"
+  spacing={0}
+  cursor="pointer" // indica que se puede hacer click
+  onClick={() => navigate("/")} // 👈 redirige a la página principal
+>
+  <Heading
+    size={{ base: "md", md: "lg" }}
+    color="white"
+    fontFamily="monospace"
+    fontWeight="black"
+    letterSpacing="tight"
+    textShadow="0 0 20px rgba(96, 165, 250, 0.3)"
+    bgGradient="linear(to-r, #f8fafc, #60a5fa, #dbeafe)"
+    bgClip="text"
+  >
+    AstroTracker
+  </Heading>
+  <Text
+    fontSize={{ base: "2xs", md: "xs" }}
+    color="#60a5fa"
+    fontWeight="semibold"
+    letterSpacing="wider"
+    textTransform="uppercase"
+    display={{ base: "none", sm: "block" }}
+  >
+    Asteroid Response System
+  </Text>
+</VStack>
           </MotionFlex>
 
           <Spacer />
