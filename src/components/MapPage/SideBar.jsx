@@ -398,7 +398,7 @@ const Sidebar = ({ countryCode }) => {
 
   const handleStartSimulation = async () => {
     console.log("🚀 Iniciando simulación...");
-    setImpactData(null);
+
 
     if (!countryCode) {
       alert("Selecciona una ubicación");
@@ -420,11 +420,14 @@ const Sidebar = ({ countryCode }) => {
         return;
       }
 
+
+
       const impactEstimation = estimateImpactAreaFromHORIZONS(
         dataToUse,
         1e6,
-        formulasData.velocityKmS
+        formulasData?.velocityKmS
       );
+
       if (!impactEstimation?.areaKm2) {
         alert("No se pudo calcular el área de impacto");
         return;
@@ -443,6 +446,7 @@ const Sidebar = ({ countryCode }) => {
     } catch (err) {
       console.error(err);
       alert("Error en la simulación");
+      err.message && setImpactData({ error: err.message });
     }
   };
 
