@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Box, Button, HStack, VStack, Text, Image, Input, IconButton, useToast, Spinner } from '@chakra-ui/react';
 import { useOpenRouterChat } from '../../Hooks/useOpenRouterChat';
 
-const idleImage = 'src/components/Pngtuber/images/idle.png';
-const talkingImage = 'src/components/Pngtuber/images/talking.png';
-const chatIdleImage = 'src/components/Pngtuber/images/chat-idle.png';
-const chatTalkingImage = 'src/components/Pngtuber/images/chat-talking.png';
+const idleImage = '/images/idle.png';
+const talkingImage = '/images/talking.png';
+const chatIdleImage = '/images/chat-idle.png';
+const chatTalkingImage = '/images/chat-talking.png';
 
 const AstroTrackerAssistant = () => {
   const [currentMessage, setCurrentMessage] = useState("¡Hola! 👋 Soy tu asistente de AstroTracker");
