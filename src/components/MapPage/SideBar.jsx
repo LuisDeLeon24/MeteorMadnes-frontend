@@ -397,55 +397,76 @@ const Sidebar = ({ countryCode }) => {
   const { data: formulasData, loading, error, refetch } = useFormulas();
 
   const handleStartSimulation = async () => {
-    console.log("🚀 Iniciando simulación...");
+  console.log("🚀 Iniciando simulación...");
 
-    if (!countryCode) {
-      alert("Selecciona una ubicación");
+  if (!countryCode) {
+    alert("Selecciona una ubicación");
+    return;
+  }
+  if (!search) {
+    alert("Ingresa un asteroide");
+    return;
+  }
+
+  try {
+    // 1️⃣ Obtener datos de HORIZONS
+    const freshData = await fetchHORIZONS(search);
+    const dataToUse = freshData || horizonsData;
+
+    console.log("Datos HORIZONS:", dataToUse);
+
+    if (!dataToUse) {
+      alert("No se pudo obtener información del asteroide");
       return;
     }
-    if (!search) {
-      alert("Ingresa un asteroide");
+
+    // 2️⃣ Obtener datos físicos (incluyendo velocidad)
+    const payloadFisicas = { id: search };
+    const fisicasData = await refetch(payloadFisicas);
+    console.log("✅ Datos físicos:", fisicasData);
+
+    // 3️⃣ Calcular área de impacto
+    const impactEstimation = estimateImpactAreaFromHORIZONS(
+      dataToUse,
+      1e6,
+      fisicasData?.velocityKmS
+    );
+
+    if (!impactEstimation?.areaKm2) {
+      alert("No se pudo calcular el área de impacto");
       return;
     }
 
-    try {
-      // 1️⃣ Obtener datos de HORIZONS
-      const freshData = await fetchHORIZONS(search);
-      const dataToUse = freshData || horizonsData;
+    // 4️⃣ Llamar a fórmulas demográficas usando la área calculada
+    const payloadDemograficas = {
+      id: search,
+      country: countryCode,
+      areaAfectadaKm2: impactEstimation.areaKm2
+    };
 
-      console.log("Datos que llegan a estimateImpactAreaFromHORIZONS:", dataToUse);
-      
-      if (!dataToUse) {
-        alert("No se pudo obtener información del asteroide");
-        return;
-      }
+    const combinedData = await refetch(payloadDemograficas);
 
-      // 2️⃣ PRIMERO obtener datos físicos (incluyendo velocidad)
-      const payloadFisicas = { id: search };
-      const simulationResponse = await refetch(payloadFisicas);
-      const resultData = simulationResponse?.data ?? simulationResponse;
+    // 5️⃣ Actualizar estado con todos los datos
+    setImpactData({
+      ...fisicasData,
+      ...impactEstimation,
+      ...combinedData,
+      countryCode
+    });
 
-      console.log("✅ Velocidad calculada del backend:", resultData?.velocityKmS);
+    console.log("✅ Simulación completa:", {
+      ...fisicasData,
+      ...impactEstimation,
+      ...combinedData,
+      countryCode
+    });
 
-      // 3️⃣ AHORA calcular el área de impacto con la velocidad correcta
-      const impactEstimation = estimateImpactAreaFromHORIZONS(
-        dataToUse,
-        1e6,
-        resultData?.velocityKmS // ← Ahora SÍ tiene el valor correcto
-      );
-
-      if (!impactEstimation?.areaKm2) {
-        alert("No se pudo calcular el área de impacto");
-        return;
-      }
-
-      setImpactData({ ...resultData, ...impactEstimation, countryCode });
-    } catch (err) {
-      console.error(err);
-      alert("Error en la simulación");
-      err.message && setImpactData({ error: err.message });
-    }
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Error en la simulación");
+    err.message && setImpactData({ error: err.message });
+  }
+};
 
   return (
     <MotionBox
