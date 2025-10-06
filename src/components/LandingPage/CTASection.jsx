@@ -29,7 +29,7 @@ import {
 const MotionBox = motion(Box);
 const MotionVStack = motion(VStack);
 const MotionButton = motion(Button);
-const navigate = useNavigate();
+
 const FloatingAsteroid = ({ delay = 0, size = 6, top = "20%", left = "10%" }) => (
     <MotionBox
         position="absolute"
@@ -173,6 +173,7 @@ const FeatureBadge = ({ icon, text, delay = 0 }) => (
 );
 
 const SeccionCTA = () => {
+    const navigate = useNavigate();
     const { ref, inView } = useInView({
         threshold: 0.1,
         triggerOnce: true,
