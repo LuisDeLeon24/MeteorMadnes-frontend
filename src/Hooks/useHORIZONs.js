@@ -1,17 +1,16 @@
 import { useState, useCallback } from "react";
-import { Horizons } from "../Services"; // ajusta la ruta según tu estructura
+import { Horizons } from "../Services";
 
 export function useHORIZONs() {
-  const [data, setData] = useState(null);       // datos de la API
-  const [loading, setLoading] = useState(false); // estado de carga
-  const [error, setError] = useState(null);     // errores
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Función para traer datos del asteroide
   const fetchHORIZONS = useCallback(async (id) => {
     if (!id) {
       setError("Se requiere un ID de asteroide");
       setData(null);
-      return;
+      return null;
     }
 
     setLoading(true);
@@ -23,16 +22,21 @@ export function useHORIZONs() {
       if (!response?.data) {
         setData(null);
         setError("Asteroide no encontrado");
+        return null;
       } else {
         setData(response.data);
+        return response.data;
       }
     } catch (err) {
-      setError(err.message || "Error inesperado");
+      const errorMsg = err.message || "Error inesperado";
+      setError(errorMsg);
       setData(null);
+      return null;
     } finally {
       setLoading(false);
     }
   }, []);
+
   console.log("HORIZONS Hook Data:", data);
   return { data, loading, error, fetchHORIZONS };
 }
