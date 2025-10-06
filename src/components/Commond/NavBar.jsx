@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -30,7 +31,7 @@ import {
   Settings,
   Target,
   Menu,
-  X
+  ZapOff
 } from "lucide-react";
 
 const MotionBox = motion(Box);
@@ -64,9 +65,21 @@ const Navbar = () => {
       name: "Quiz",
       href: "/quiz",
       icon: Settings,
-      description: "Pon a prueba tus conocimientos"
+      description: "Desafía tu mente"
+    },
+    {
+      name: "Mitigaciones",
+      href: "/mitigations",
+      icon: ZapOff,
+      description: "Protegete"
     },
   ];
+
+  const navigate = useNavigate();
+
+const handleCommandClick = () => {
+  navigate("/map"); // Aquí va la ruta de destino
+};
 
   return (
     <>
@@ -227,37 +240,8 @@ const Navbar = () => {
             display={{ base: "none", lg: "block" }}
           >
             <HStack spacing={4}>
-              {/* Monitor de amenazas */}
-              <Box
-                bg="rgba(59, 130, 246, 0.1)"
-                borderRadius="xl"
-                px={4}
-                py={2}
-                border="1px solid rgba(59, 130, 246, 0.2)"
-                backdropFilter="blur(10px)"
-                display={{ base: "none", xl: "block" }}
-              >
-                <HStack spacing={3}>
-                  <Circle size="8px" bg="#10b981" opacity={0.8}>
-                    <Box
-                      position="absolute"
-                      width="8px"
-                      height="8px"
-                      bg="#10b981"
-                      borderRadius="full"
-                      animation="pulse 2s ease-in-out infinite"
-                    />
-                  </Circle>
-                  <VStack align="flex-start" spacing={0}>
-                    <Text fontSize="xs" color="#60a5fa" fontWeight="bold">
-                      AMENAZAS
-                    </Text>
-                    <Text fontSize="xs" color="white" fontWeight="bold">
-                      3 NEO Monitoreando
-                    </Text>
-                  </VStack>
-                </HStack>
-              </Box>
+             <Box>
+             </Box>
 
               {/* Botón de comando */}
               <MotionButton
@@ -282,6 +266,7 @@ const Navbar = () => {
                 transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
                 position="relative"
                 overflow="hidden"
+                onClick={handleCommandClick} // 👈 aquí agregas esto
               >
                 Centro de Comando
               </MotionButton>

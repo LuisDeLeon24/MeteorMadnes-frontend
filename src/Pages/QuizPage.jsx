@@ -8,6 +8,7 @@ import QuizResults from '../components/QuizPage/QuizResults';
 import BadgeView from '../ImagesViews/BadgeView';
 import NavBar from '../components/Commond/NavBar';
 import quizData from '../utils/quizData';
+import Footer from '../components/Commond/Footer';
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -138,6 +139,7 @@ export default function QuizPage() {
           />
         </Box>
       </Box>
+      <Footer />
     </>
   );
 }

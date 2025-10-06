@@ -379,7 +379,7 @@ const Footer = () => {
               <FooterLink href="#interception">Jorge Alvarez</FooterLink>
               <FooterLink href="#research">Anderson Gómez</FooterLink>
               <FooterLink href="#alerts">Juan Cajchun</FooterLink>
-              <FooterLink href="#alerts">Werner Paredes</FooterLink>
+              <FooterLink href="#alerts">José Rivera</FooterLink>
             </VStack>
           </MotionStack>
 
