@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const OPENROUTER_API_KEY = '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';
+const OPENROUTER_API_KEY = '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';
 
 export function useOpenRouterChat() {
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ export function useOpenRouterChat() {
         headers: {
           'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': window.location.href || 'https://astrotracker.app',
+          'HTTP-Referer': window.location.href || 'https://https://www.astrotracker.wiki',
           'X-Title': 'AstroTracker Assistant',
         },
         body: JSON.stringify({

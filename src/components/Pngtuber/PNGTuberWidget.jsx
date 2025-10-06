@@ -4,11 +4,13 @@ import { useOpenRouterChat } from '../../Hooks/useOpenRouterChat';
 
 const idleImage = 'src/components/Pngtuber/images/idle.png';
 const talkingImage = 'src/components/Pngtuber/images/talking.png';
+const chatIdleImage = 'src/components/Pngtuber/images/chat-idle.png';
+const chatTalkingImage = 'src/components/Pngtuber/images/chat-talking.png';
 
 const AstroTrackerAssistant = () => {
   const [currentMessage, setCurrentMessage] = useState("¡Hola! 👋 Soy tu asistente de AstroTracker");
   const [isTalking, setIsTalking] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isMinimized, setIsMinimized] = useState(false);
   const [chatMode, setChatMode] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
@@ -18,21 +20,17 @@ const AstroTrackerAssistant = () => {
   
   const recognitionRef = useRef(null);
   const toast = useToast();
-  const selectedVoiceRef = useRef(null); // Para guardar la voz seleccionada
-  const hasSpokenRef = useRef(false); // Para evitar repeticiones
+  const selectedVoiceRef = useRef(null);
+  const hasSpokenRef = useRef(false);
   
-  // Usar el hook personalizado de OpenRouter
   const { sendMessage, response, loading, error } = useOpenRouterChat();
 
-  // Inicializar Web Speech Recognition y cargar voz UNA SOLA VEZ
   useEffect(() => {
-    // Cargar y seleccionar voz femenina UNA SOLA VEZ
     const loadVoices = () => {
       const voices = window.speechSynthesis.getVoices();
       if (voices.length > 0 && !selectedVoiceRef.current) {
         console.log('🎤 Voces disponibles:', voices.map(v => v.name));
         
-        // Buscar SOLO Microsoft Yolanda Online (Natural) - Spanish (Nicaragua)
         const yolandaVoice = voices.find(v => 
           v.name === 'Microsoft Yolanda Online (Natural) - Spanish (Nicaragua)'
         );
@@ -67,8 +65,7 @@ const AstroTrackerAssistant = () => {
         const transcript = event.results[0][0].transcript;
         setMessages(prev => [...prev, { type: 'user', text: transcript }]);
         
-        // Usar el hook para enviar el mensaje
-        hasSpokenRef.current = false; // Resetear flag antes de enviar
+        hasSpokenRef.current = false;
         await handleSendMessage(transcript);
       };
 
@@ -86,17 +83,15 @@ const AstroTrackerAssistant = () => {
     }
   }, []);
 
-  // Manejar la respuesta del hook - SIN REPETIR
   useEffect(() => {
     if (response && !hasSpokenRef.current) {
-      hasSpokenRef.current = true; // Marcar como hablado
+      hasSpokenRef.current = true;
       setMessages(prev => [...prev, { type: 'bot', text: response }]);
       setCurrentMessage(response);
       speak(response);
     }
   }, [response]);
 
-  // Manejar errores del hook
   useEffect(() => {
     if (error) {
       toast({
@@ -112,7 +107,6 @@ const AstroTrackerAssistant = () => {
     }
   }, [error]);
 
-  // Text-to-Speech con voz femenina default del sistema
   const speak = (text) => {
     if (isMuted) return;
     
@@ -121,7 +115,6 @@ const AstroTrackerAssistant = () => {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'es-ES';
     
-    // Usar la voz guardada (siempre la misma voz femenina)
     if (selectedVoiceRef.current) {
       utterance.voice = selectedVoiceRef.current;
     }
@@ -151,7 +144,6 @@ const AstroTrackerAssistant = () => {
     setIsTalking(false);
   };
 
-  // Función para enviar mensaje usando el hook
   const handleSendMessage = async (userMessage) => {
     await sendMessage(userMessage);
   };
@@ -162,7 +154,7 @@ const AstroTrackerAssistant = () => {
       setMessages(prev => [...prev, { type: 'user', text: userMsg }]);
       setInputText('');
       
-      hasSpokenRef.current = false; // Resetear flag antes de enviar
+      hasSpokenRef.current = false;
       await handleSendMessage(userMsg);
     }
   };
@@ -179,8 +171,6 @@ const AstroTrackerAssistant = () => {
     }
   };
 
-  if (!isVisible) return null;
-
   return (
     <Box
       position="fixed"
@@ -192,8 +182,45 @@ const AstroTrackerAssistant = () => {
       alignItems="flex-end"
       gap={3}
     >
+      {/* Minimized Bubble */}
+      {isMinimized && (
+        <Box 
+          width="60px"
+          height="60px"
+          borderRadius="full"
+          bg="linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
+          boxShadow="0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.3)"
+          cursor="pointer"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          transition="all 0.3s"
+          animation="pulse 2s infinite"
+          onClick={() => setIsMinimized(false)}
+          _hover={{
+            transform: 'scale(1.1)',
+            boxShadow: '0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.4)'
+          }}
+          css={{
+            '@keyframes pulse': {
+              '0%, 100%': { opacity: 1 },
+              '50%': { opacity: 0.5 }
+            }
+          }}
+        >
+          <Image
+            src={isTalking ? talkingImage : idleImage}
+            alt="Assistant"
+            width="50px"
+            height="50px"
+            objectFit="contain"
+            filter="drop-shadow(0 0 5px rgba(59, 130, 246, 0.5))"
+          />
+        </Box>
+      )}
+
       {/* Chat Window */}
-      {chatMode && (
+      {!isMinimized && chatMode && (
         <Box
           bg="linear-gradient(180deg, #0a1628 0%, #1a2942 50%, #0f1f3a 100%)"
           borderRadius="2xl"
@@ -364,7 +391,7 @@ const AstroTrackerAssistant = () => {
             overflow="hidden"
           >
             <Image
-              src={isTalking ? talkingImage : idleImage}
+              src={isTalking ? chatTalkingImage : chatIdleImage}
               alt="Assistant"
               height="110px"
               objectFit="contain"
@@ -428,8 +455,8 @@ const AstroTrackerAssistant = () => {
         </Box>
       )}
 
-      {/* Speech Bubble - Solo visible cuando NO está en chat mode */}
-      {!chatMode && (
+      {/* Speech Bubble */}
+      {!isMinimized && !chatMode && (
         <Box
           bg="rgba(10, 22, 40, 0.95)"
           backdropFilter="blur(10px)"
@@ -456,8 +483,8 @@ const AstroTrackerAssistant = () => {
         </Box>
       )}
 
-      {/* Character - Solo visible cuando NO está en chat mode */}
-      {!chatMode && (
+      {/* Character */}
+      {!isMinimized && !chatMode && (
         <Box position="relative">
           <Box
             bg="linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
@@ -487,7 +514,7 @@ const AstroTrackerAssistant = () => {
             size="xs"
             onClick={(e) => {
               e.stopPropagation();
-              setIsVisible(false);
+              setIsMinimized(true);
             }}
             bg="rgba(239, 68, 68, 0.9)"
             color="white"
@@ -507,8 +534,8 @@ const AstroTrackerAssistant = () => {
         </Box>
       )}
 
-      {/* Controls - Solo visible cuando NO está en chat mode */}
-      {!chatMode && (
+      {/* Controls */}
+      {!isMinimized && !chatMode && (
         <HStack spacing={2} bg="rgba(10, 22, 40, 0.9)" backdropFilter="blur(10px)" p={2} borderRadius="20px" border="1px solid" borderColor="rgba(59, 130, 246, 0.3)">
           <IconButton
             icon={<Text fontSize="16px">{isMuted ? '🔇' : '🔊'}</Text>}
