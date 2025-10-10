@@ -460,7 +460,6 @@ const Sidebar = ({ countryCode }) => {
 
   const handleStartSimulation = async () => {
     console.log("🚀 Iniciando simulación...");
-    setImpactData(null);
 
     if (!countryCode) {
       alert("Selecciona una ubicación");
@@ -472,33 +471,61 @@ const Sidebar = ({ countryCode }) => {
     }
 
     try {
+      // 1️⃣ Obtener datos de HORIZONS
       const freshData = await fetchHORIZONS(search);
-      const dataToUse = freshData || horizonsData;
 
-      if (!dataToUse) {
+      if (!freshData) {
         alert("No se pudo obtener información del asteroide");
         return;
       }
 
-      const impactEstimation = estimateImpactAreaFromHORIZONS(dataToUse);
+      console.log("Datos HORIZONS:", freshData);
+
+      // 2️⃣ Obtener datos físicos
+      const payloadFisicas = { id: search };
+      const fisicasData = await refetch(payloadFisicas);
+      console.log("✅ Datos físicos:", fisicasData);
+
+      // 3️⃣ Calcular área de impacto
+      const impactEstimation = estimateImpactAreaFromHORIZONS(
+        freshData,
+        1e6,
+        fisicasData?.velocityKmS
+      );
+
       if (!impactEstimation?.areaKm2) {
         alert("No se pudo calcular el área de impacto");
         return;
       }
 
-      const payloadData = {
+      // 4️⃣ Llamar a fórmulas demográficas
+      const payloadDemograficas = {
+        id: search,
         country: countryCode,
-        areaAfectadaKm2: impactEstimation.areaKm2, // ✔️ usar el valor calculado
-        id: search
+        areaAfectadaKm2: impactEstimation.areaKm2
       };
 
-      const simulationResponse = await refetch(payloadData);
-      const resultData = simulationResponse?.data ?? simulationResponse;
+      const combinedData = await refetch(payloadDemograficas);
 
-      setImpactData({ ...resultData, ...impactEstimation, countryCode });
+      // 5️⃣ Actualizar estado
+      setImpactData({
+        ...fisicasData,
+        ...impactEstimation,
+        ...combinedData,
+        countryCode
+      });
+
+      console.log("✅ Simulación completa:", {
+        ...fisicasData,
+        ...impactEstimation,
+        ...combinedData,
+        countryCode
+      });
+
     } catch (err) {
       console.error(err);
       alert("Error en la simulación");
+      if (err.message) setImpactData({ error: err.message });
     }
   };
 
@@ -971,7 +998,7 @@ const Sidebar = ({ countryCode }) => {
                               </Text>
                             </Tooltip>
                             <Badge colorScheme="red" fontSize="xs">
-                              {impactData.energyMt ? `${impactData.energyMt.toLocaleString()} MT` : "N/A"}
+                              {impactData.energiaLiberada ? `${impactData.energiaLiberada.toLocaleString()} MT` : "N/A"}
                             </Badge>
                           </HStack>
 
@@ -1010,25 +1037,6 @@ const Sidebar = ({ countryCode }) => {
                               {impactData.energiaCinetica ? `${(impactData.energiaCinetica / 1e15).toLocaleString()} PJ` : "N/A"}
                             </Badge>
                           </HStack>
-
-                          <HStack justify="space-between">
-                            <Tooltip
-                              label="Altitud en la atmósfera donde el asteroide comienza a desintegrarse debido a presión aerodinámica"
-                              placement="left"
-                              hasArrow
-                              bg="rgba(251, 146, 60, 0.95)"
-                              color="white"
-                              fontSize="xs"
-                            >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
-                                Altura fragmentación:
-                              </Text>
-                            </Tooltip>
-                            <Badge colorScheme="orange" fontSize="xs">
-                              {impactData.alturaFragmentacion ? `${impactData.alturaFragmentacion.toFixed(1)} km` : "N/A"}
-                            </Badge>
-                          </HStack>
-
                           <HStack justify="space-between">
                             <Tooltip
                               label="Presión dinámica ejercida por el flujo atmosférico sobre el objeto durante la entrada"
@@ -1323,23 +1331,6 @@ const Sidebar = ({ countryCode }) => {
                         <SimpleGrid columns={2} spacing={2}>
                           <VStack align="flex-start" spacing={1}>
                             <Tooltip
-                              label="Energía sísmica generada equivalente a un terremoto. Medida en terajoules (TJ)"
-                              hasArrow
-                              bg="rgba(139, 92, 246, 0.95)"
-                              color="white"
-                              fontSize="xs"
-                            >
-                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
-                                Energía sísmica:
-                              </Text>
-                            </Tooltip>
-                            <Text color="white" fontSize="xs" fontWeight="medium">
-                              {impactData.energiaSismica ? `${(impactData.energiaSismica / 1e12).toFixed(1)} TJ` : "N/A"}
-                            </Text>
-                          </VStack>
-
-                          <VStack align="flex-start" spacing={1}>
-                            <Tooltip
                               label="Fuerza de arrastre atmosférico que actúa sobre el objeto durante la entrada. Medida en giganewtons (GN)"
                               hasArrow
                               bg="rgba(139, 92, 246, 0.95)"
@@ -1388,24 +1379,6 @@ const Sidebar = ({ countryCode }) => {
                               {impactData.factorLetalidad || "N/A"}
                             </Text>
                           </VStack>
-
-                          <VStack align="flex-start" spacing={1}>
-                            <Tooltip
-                              label="Tasa de ablación: masa perdida por segundo debido a calentamiento y fricción atmosférica"
-                              hasArrow
-                              bg="rgba(139, 92, 246, 0.95)"
-                              color="white"
-                              fontSize="xs"
-                            >
-                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
-                                Pérdida de masa:
-                              </Text>
-                            </Tooltip>
-                            <Text color="white" fontSize="xs" fontWeight="medium">
-                              {impactData.perdida ? `${impactData.perdida.toLocaleString()} kg/s` : "N/A"}
-                            </Text>
-                          </VStack>
-
                           <VStack align="flex-start" spacing={1}>
                             <Tooltip
                               label="Coeficiente de transferencia de momento entre el objeto y la atmósfera"
