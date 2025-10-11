@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "https://meteormadnes-backend.onrender.com",
+  baseURL: "https://meteormadnes-backend.onrender.com/MeteorMadnes",
   timeout: 1000000,
 });
 
