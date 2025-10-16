@@ -20,11 +20,11 @@ const QuizIntro = ({ onStart }) => (
       bgClip="text"
       fontWeight="900"
     >
-      Misión: Defender la Tierra 
+      Mission: Defend Earth
     </Heading>
     <Text color="rgba(219,234,254,0.8)" fontSize="lg" maxW="600px">
-      ¿Estás listo para poner a prueba tus conocimientos sobre asteroides y defensa planetaria?
-      <br /> Responde correctamente para elevar tu rango de misión y ganar una insignia especial.
+      Are you ready to test your knowledge about asteroids and planetary defense?
+      <br /> Answer correctly to raise your mission rank and earn a special badge.
     </Text>
     <MotionButton
       onClick={onStart}
@@ -37,7 +37,7 @@ const QuizIntro = ({ onStart }) => (
       leftIcon={<Icon as={Rocket} />}
       whileHover={{ scale: 1.05, y: -5 }}
     >
-      Iniciar Misión
+      Start Mission
     </MotionButton>
   </VStack>
 );

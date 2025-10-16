@@ -235,7 +235,7 @@ const FeatureCard = ({ icon, title, description, index, isInView }) => {
                         transform: "translateX(0)"
                     }}
                 >
-                    <Text mr={2}>Iniciar Escaneo</Text>
+                    <Text mr={2}>Start Scan</Text>
                     <MotionBox
                         whileHover={{ x: 5 }}
                         transition={{ duration: 0.2 }}
@@ -319,33 +319,33 @@ const Features = () => {
     const features = [
         {
             icon: Telescope,
-            title: 'Detección Automática Avanzada',
-            description: 'Sistemas de radar y telescopios ópticos con IA para identificar asteroides potencialmente peligrosos a millones de kilómetros.',
+            title: 'Advanced Automatic Detection',
+            description: 'AI-powered radar systems and optical telescopes to identify potentially hazardous asteroids millions of kilometers away.',
         },
         {
             icon: Shield,
-            title: 'Análisis de Amenaza Planetaria',
-            description: 'Evaluación en tiempo real del riesgo de impacto y cálculo de trayectorias con precisión milimétrica.',
+            title: 'Planetary Threat Analysis',
+            description: 'Real-time impact risk assessment and trajectory calculation with millimeter precision.',
         },
         {
             icon: Zap,
-            title: 'Predicción de Trayectorias',
-            description: 'Algoritmos cuánticos que predicen rutas orbitales hasta 100 años en el futuro con exactitud científica.',
+            title: 'Trajectory Prediction',
+            description: 'Quantum algorithms that predict orbital paths up to 100 years into the future with scientific accuracy.',
         },
         {
             icon: Target,
-            title: 'Sistema de Interceptación',
-            description: 'Coordinación automatizada de misiles de desviación y cargas nucleares para neutralización controlada.',
+            title: 'Interception System',
+            description: 'Automated coordination of deflection missiles and nuclear payloads for controlled neutralization.',
         },
         {
             icon: Satellite,
-            title: 'Red de Satélites Centinela',
-            description: 'Constelación de 500+ satélites monitoreando continuamente el espacio cercano a la Tierra.',
+            title: 'Sentinel Satellite Network',
+            description: 'Constellation of 500+ satellites continuously monitoring near-Earth space.',
         },
         {
             icon: Activity,
-            title: 'Monitoreo Sísmico Espacial',
-            description: 'Análisis espectral de composición mineral y detección de fragmentación en tiempo real.',
+            title: 'Space Seismic Monitoring',
+            description: 'Spectral analysis of mineral composition and real-time fragmentation detection.',
         },
     ];
 
@@ -432,7 +432,7 @@ const Features = () => {
                         backdropFilter="blur(10px)"
                     >
                         <Icon as={Star} boxSize={{ base: 3, md: 4 }} />
-                        <Text>DEFENSA PLANETARIA ACTIVA</Text>
+                        <Text>ACTIVE PLANETARY DEFENSE</Text>
                     </Badge>
 
                     {/* Título principal holográfico */}
@@ -448,7 +448,7 @@ const Features = () => {
                         textShadow={{ base: "none", md: "0 0 40px rgba(96, 165, 250, 0.3)" }}
                         px={{ base: 2, md: 0 }}
                     >
-                        Interceptación
+                        Asteroid
                         <Text
                             as="span"
                             display="block"
@@ -456,7 +456,7 @@ const Features = () => {
                             bgClip="text"
                             mt={{ base: 2, md: 0 }}
                         >
-                            Asteroid System
+                            Interception System
                         </Text>
                     </Heading>
 
@@ -469,8 +469,8 @@ const Features = () => {
                         fontWeight="400"
                         px={{ base: 4, md: 0 }}
                     >
-                        Protege la Tierra con tecnología de detección y análisis de última generación.
-                        Monitoreo continuo de objetos cercanos a la Tierra con precisión militar.
+                        Protect Earth with state-of-the-art detection and analysis technology.
+                        Continuous monitoring of near-Earth objects with military precision.
                     </Text>
 
                     {/* Línea de energía */}
@@ -518,10 +518,10 @@ const Features = () => {
                     transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
                 >
                     {[
-                        { number: "99.97%", label: "Precisión de Detección" },
-                        { number: "< 5s", label: "Tiempo de Respuesta" },
-                        { number: "24/7", label: "Vigilancia Continua" },
-                        { number: "50M+", label: "Objetos Rastreados" }
+                        { number: "99.97%", label: "Detection Accuracy" },
+                        { number: "< 5s", label: "Response Time" },
+                        { number: "24/7", label: "Continuous Vigilance" },
+                        { number: "50M+", label: "Objects Tracked" }
                     ].map((stat, index) => (
                         <VStack
                             key={index}

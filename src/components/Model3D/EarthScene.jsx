@@ -3,455 +3,455 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Stars, Sphere, useTexture, Text, Trail } from "@react-three/drei";
 import Navbar from "../Commond/NavBar";
 import {
-    Box,
-    VStack,
-    Text as ChakraText,
-    Badge,
-    HStack,
-    Button,
-    Divider,
-    Input,
-    InputGroup,
-    InputLeftElement,
-    Collapse,
-    useDisclosure,
-    Icon
+    Box,
+    VStack,
+    Text as ChakraText,
+    Badge,
+    HStack,
+    Button,
+    Divider,
+    Input,
+    InputGroup,
+    InputLeftElement,
+    Collapse,
+    useDisclosure,
+    Icon
 } from "@chakra-ui/react";
 import { SearchIcon, ChevronUpIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import * as THREE from "three";
 
 const REAL_ASTEROIDS = [
-    {
-        name: "Apophis",
-        type: "NEA",
-        size: 0.025,
-        distance: 5.2,
-        period: 323.6,
-        eccentricity: 0.19,
-        inclination: 3.33,
-        color: "#8B4513",
-        diameter: "370m",
-        discoveryYear: 2004,
-        hazardous: true,
-        composition: "Stony",
-        nextApproach: "2029"
-    },
-    {
-        name: "Bennu",
-        type: "NEA",
-        size: 0.015,
-        distance: 4.8,
-        period: 436.6,
-        eccentricity: 0.20,
-        inclination: 6.03,
-        color: "#2F4F4F",
-        diameter: "492m",
-        discoveryYear: 1999,
-        hazardous: true,
-        composition: "Carbonaceous",
-        nextApproach: "2060"
-    },
-    {
-        name: "Didymos",
-        type: "NEA",
-        size: 0.020,
-        distance: 5.1,
-        period: 770.1,
-        eccentricity: 0.38,
-        inclination: 3.41,
-        color: "#696969",
-        diameter: "780m",
-        discoveryYear: 1996,
-        hazardous: false,
-        composition: "Stony",
-        nextApproach: "2123"
-    },
-    {
-        name: "Ceres",
-        type: "MBA",
-        size: 0.080,
-        distance: 8.5,
-        period: 1679.8,
-        eccentricity: 0.08,
-        inclination: 10.6,
-        color: "#A0522D",
-        diameter: "940km",
-        discoveryYear: 1801,
-        hazardous: false,
-        composition: "Ice-Rock",
-        nextApproach: "N/A"
-    },
-    {
-        name: "Vesta",
-        type: "MBA",
-        size: 0.045,
-        distance: 7.8,
-        period: 1325.4,
-        eccentricity: 0.09,
-        inclination: 7.14,
-        color: "#D2691E",
-        diameter: "525km",
-        discoveryYear: 1807,
-        hazardous: false,
-        composition: "Rocky",
-        nextApproach: "N/A"
-    },
-    {
-        name: "Pallas",
-        type: "MBA",
-        size: 0.042,
-        distance: 8.2,
-        period: 1686.5,
-        eccentricity: 0.23,
-        inclination: 34.8,
-        color: "#708090",
-        diameter: "512km",
-        discoveryYear: 1802,
-        hazardous: false,
-        composition: "Stony",
-        nextApproach: "N/A"
-    },
-    {
-        name: "Hygiea",
-        type: "MBA",
-        size: 0.035,
-        distance: 9.1,
-        period: 2029.2,
-        eccentricity: 0.12,
-        inclination: 3.84,
-        color: "#8FBC8F",
-        diameter: "434km",
-        discoveryYear: 1849,
-        hazardous: false,
-        composition: "Carbonaceous",
-        nextApproach: "N/A"
-    },
-    {
-        name: "Eros",
-        type: "MBA",
-        size: 0.018,
-        distance: 6.8,
-        period: 643.2,
-        eccentricity: 0.22,
-        inclination: 10.8,
-        color: "#CD853F",
-        diameter: "16.8km",
-        discoveryYear: 1898,
-        hazardous: false,
-        composition: "Silicate",
-        nextApproach: "N/A"
-    },
-    {
-        name: "Mathilde",
-        type: "MBA",
-        size: 0.025,
-        distance: 7.6,
-        period: 1269.3,
-        eccentricity: 0.27,
-        inclination: 6.7,
-        color: "#556B2F",
-        diameter: "52.8km",
-        discoveryYear: 1885,
-        hazardous: false,
-        composition: "Carbonaceous",
-        nextApproach: "N/A"
-    },
-    {
-        name: "Gaspra",
-        type: "MBA",
-        size: 0.012,
-        distance: 6.2,
-        period: 1199.1,
-        eccentricity: 0.17,
-        inclination: 4.1,
-        color: "#BC8F8F",
-        diameter: "12.2km",
-        discoveryYear: 1916,
-        hazardous: false,
-        composition: "Stony",
-        nextApproach: "N/A"
-    },
-    {
-        name: "Hektor",
-        type: "Trojan",
-        size: 0.035,
-        distance: 12.8,
-        period: 4307.8,
-        eccentricity: 0.02,
-        inclination: 18.2,
-        color: "#4682B4",
-        diameter: "225km",
-        discoveryYear: 1907,
-        hazardous: false,
-        composition: "Dark",
-        nextApproach: "N/A"
-    },
-    {
-        name: "Patroclus",
-        type: "Trojan",
-        size: 0.028,
-        distance: 12.6,
-        period: 4285.9,
-        eccentricity: 0.14,
-        inclination: 22.0,
-        color: "#5F9EA0",
-        diameter: "140km",
-        discoveryYear: 1906,
-        hazardous: false,
-        composition: "Dark",
-        nextApproach: "N/A"
-    },
+    {
+        name: "Apophis",
+        type: "NEA",
+        size: 0.025,
+        distance: 5.2,
+        period: 323.6,
+        eccentricity: 0.19,
+        inclination: 3.33,
+        color: "#8B4513",
+        diameter: "370m",
+        discoveryYear: 2004,
+        hazardous: true,
+        composition: "Stony",
+        nextApproach: "2029"
+    },
+    {
+        name: "Bennu",
+        type: "NEA",
+        size: 0.015,
+        distance: 4.8,
+        period: 436.6,
+        eccentricity: 0.20,
+        inclination: 6.03,
+        color: "#2F4F4F",
+        diameter: "492m",
+        discoveryYear: 1999,
+        hazardous: true,
+        composition: "Carbonaceous",
+        nextApproach: "2060"
+    },
+    {
+        name: "Didymos",
+        type: "NEA",
+        size: 0.020,
+        distance: 5.1,
+        period: 770.1,
+        eccentricity: 0.38,
+        inclination: 3.41,
+        color: "#696969",
+        diameter: "780m",
+        discoveryYear: 1996,
+        hazardous: false,
+        composition: "Stony",
+        nextApproach: "2123"
+    },
+    {
+        name: "Ceres",
+        type: "MBA",
+        size: 0.080,
+        distance: 8.5,
+        period: 1679.8,
+        eccentricity: 0.08,
+        inclination: 10.6,
+        color: "#A0522D",
+        diameter: "940km",
+        discoveryYear: 1801,
+        hazardous: false,
+        composition: "Ice-Rock",
+        nextApproach: "N/A"
+    },
+    {
+        name: "Vesta",
+        type: "MBA",
+        size: 0.045,
+        distance: 7.8,
+        period: 1325.4,
+        eccentricity: 0.09,
+        inclination: 7.14,
+        color: "#D2691E",
+        diameter: "525km",
+        discoveryYear: 1807,
+        hazardous: false,
+        composition: "Rocky",
+        nextApproach: "N/A"
+    },
+    {
+        name: "Pallas",
+        type: "MBA",
+        size: 0.042,
+        distance: 8.2,
+        period: 1686.5,
+        eccentricity: 0.23,
+        inclination: 34.8,
+        color: "#708090",
+        diameter: "512km",
+        discoveryYear: 1802,
+        hazardous: false,
+        composition: "Stony",
+        nextApproach: "N/A"
+    },
+    {
+        name: "Hygiea",
+        type: "MBA",
+        size: 0.035,
+        distance: 9.1,
+        period: 2029.2,
+        eccentricity: 0.12,
+        inclination: 3.84,
+        color: "#8FBC8F",
+        diameter: "434km",
+        discoveryYear: 1849,
+        hazardous: false,
+        composition: "Carbonaceous",
+        nextApproach: "N/A"
+    },
+    {
+        name: "Eros",
+        type: "MBA",
+        size: 0.018,
+        distance: 6.8,
+        period: 643.2,
+        eccentricity: 0.22,
+        inclination: 10.8,
+        color: "#CD853F",
+        diameter: "16.8km",
+        discoveryYear: 1898,
+        hazardous: false,
+        composition: "Silicate",
+        nextApproach: "N/A"
+    },
+    {
+        name: "Mathilde",
+        type: "MBA",
+        size: 0.025,
+        distance: 7.6,
+        period: 1269.3,
+        eccentricity: 0.27,
+        inclination: 6.7,
+        color: "#556B2F",
+        diameter: "52.8km",
+        discoveryYear: 1885,
+        hazardous: false,
+        composition: "Carbonaceous",
+        nextApproach: "N/A"
+    },
+    {
+        name: "Gaspra",
+        type: "MBA",
+        size: 0.012,
+        distance: 6.2,
+        period: 1199.1,
+        eccentricity: 0.17,
+        inclination: 4.1,
+        color: "#BC8F8F",
+        diameter: "12.2km",
+        discoveryYear: 1916,
+        hazardous: false,
+        composition: "Stony",
+        nextApproach: "N/A"
+    },
+    {
+        name: "Hektor",
+        type: "Trojan",
+        size: 0.035,
+        distance: 12.8,
+        period: 4307.8,
+        eccentricity: 0.02,
+        inclination: 18.2,
+        color: "#4682B4",
+        diameter: "225km",
+        discoveryYear: 1907,
+        hazardous: false,
+        composition: "Dark",
+        nextApproach: "N/A"
+    },
+    {
+        name: "Patroclus",
+        type: "Trojan",
+        size: 0.028,
+        distance: 12.6,
+        period: 4285.9,
+        eccentricity: 0.14,
+        inclination: 22.0,
+        color: "#5F9EA0",
+        diameter: "140km",
+        discoveryYear: 1906,
+        hazardous: false,
+        composition: "Dark",
+        nextApproach: "N/A"
+    },
 ];
 
 function RealisticAsteroid({ asteroidData, timeScale = 1, showOrbits = true, onAsteroidClick, isSelected = false, onPositionUpdate }) {
-    const asteroidRef = useRef();
-    const [currentPosition, setCurrentPosition] = useState([0, 0, 0]);
+    const asteroidRef = useRef();
+    const [currentPosition, setCurrentPosition] = useState([0, 0, 0]);
 
-    const calculateOrbitalPosition = (time, asteroid) => {
-        const { distance, period, eccentricity, inclination } = asteroid;
+    const calculateOrbitalPosition = (time, asteroid) => {
+        const { distance, period, eccentricity, inclination } = asteroid;
 
-        const periodYears = period / 365.25;
-        const meanAnomaly = (time * timeScale / periodYears) * 2 * Math.PI;
+        const periodYears = period / 365.25;
+        const meanAnomaly = (time * timeScale / periodYears) * 2 * Math.PI;
 
-        let eccentricAnomaly = meanAnomaly;
-        for (let i = 0; i < 5; i++) {
-            eccentricAnomaly = meanAnomaly + eccentricity * Math.sin(eccentricAnomaly);
-        }
+        let eccentricAnomaly = meanAnomaly;
+        for (let i = 0; i < 5; i++) {
+            eccentricAnomaly = meanAnomaly + eccentricity * Math.sin(eccentricAnomaly);
+        }
 
-        const trueAnomaly = 2 * Math.atan(Math.sqrt((1 + eccentricity) / (1 - eccentricity)) * Math.tan(eccentricAnomaly / 2));
-        const radius = distance * (1 - eccentricity * eccentricity) / (1 + eccentricity * Math.cos(trueAnomaly));
+        const trueAnomaly = 2 * Math.atan(Math.sqrt((1 + eccentricity) / (1 - eccentricity)) * Math.tan(eccentricAnomaly / 2));
+        const radius = distance * (1 - eccentricity * eccentricity) / (1 + eccentricity * Math.cos(trueAnomaly));
 
-        const x = radius * Math.cos(trueAnomaly);
-        const y = radius * Math.sin(trueAnomaly);
+        const x = radius * Math.cos(trueAnomaly);
+        const y = radius * Math.sin(trueAnomaly);
 
-        const incRad = (inclination * Math.PI) / 180;
-        const finalX = x;
-        const finalY = y * Math.cos(incRad);
-        const finalZ = y * Math.sin(incRad);
+        const incRad = (inclination * Math.PI) / 180;
+        const finalX = x;
+        const finalY = y * Math.cos(incRad);
+        const finalZ = y * Math.sin(incRad);
 
-        return [finalX, finalY, finalZ];
-    };
+        return [finalX, finalY, finalZ];
+    };
 
-    useFrame((state) => {
-        if (asteroidRef.current) {
-            const time = state.clock.getElapsedTime() * 0.1;
-            const position = calculateOrbitalPosition(time, asteroidData);
+    useFrame((state) => {
+        if (asteroidRef.current) {
+            const time = state.clock.getElapsedTime() * 0.1;
+            const position = calculateOrbitalPosition(time, asteroidData);
 
-            asteroidRef.current.position.set(...position);
-            setCurrentPosition(position);
+            asteroidRef.current.position.set(...position);
+            setCurrentPosition(position);
 
-            // Reportar posición al componente padre
-            if (onPositionUpdate) {
-                onPositionUpdate(asteroidData.name, position);
-            }
+            // Report position to parent component
+            if (onPositionUpdate) {
+                onPositionUpdate(asteroidData.name, position);
+            }
 
-            // Solo notificar posición si está seleccionado
-            if (isSelected && onAsteroidClick) {
-                onAsteroidClick(asteroidData, position, true);
-            }
+            // Only notify position if selected
+            if (isSelected && onAsteroidClick) {
+                onAsteroidClick(asteroidData, position, true);
+            }
 
-            // Rotación del asteroide
-            asteroidRef.current.rotation.x += 0.001;
-            asteroidRef.current.rotation.y += 0.002;
-            asteroidRef.current.rotation.z += 0.0005;
-        }
-    });
+            // Asteroid rotation
+            asteroidRef.current.rotation.x += 0.001;
+            asteroidRef.current.rotation.y += 0.002;
+            asteroidRef.current.rotation.z += 0.0005;
+        }
+    });
 
-    const getAsteroidGeometry = (type) => {
-        switch (type) {
-            case "NEA":
-                return <dodecahedronGeometry args={[asteroidData.size, 1]} />;
-            case "MBA":
-                return <icosahedronGeometry args={[asteroidData.size, 1]} />;
-            case "Trojan":
-                return <octahedronGeometry args={[asteroidData.size, 1]} />;
-            default:
-                return <sphereGeometry args={[asteroidData.size, 16, 16]} />;
-        }
-    };
+    const getAsteroidGeometry = (type) => {
+        switch (type) {
+            case "NEA":
+                return <dodecahedronGeometry args={[asteroidData.size, 1]} />;
+            case "MBA":
+                return <icosahedronGeometry args={[asteroidData.size, 1]} />;
+            case "Trojan":
+                return <octahedronGeometry args={[asteroidData.size, 1]} />;
+            default:
+                return <sphereGeometry args={[asteroidData.size, 16, 16]} />;
+        }
+    };
 
-    return (
-        <group>
-            {/* Órbita del asteroide */}
-            {showOrbits && !isSelected && (
-                <mesh>
-                    <ringGeometry args={[asteroidData.distance - 0.1, asteroidData.distance + 0.1, 64]} />
-                    <meshBasicMaterial
-                        color={asteroidData.color}
-                        transparent={true}
-                        opacity={0.1}
-                        side={THREE.DoubleSide}
-                    />
-                </mesh>
-            )}
+    return (
+        <group>
+            {/* Asteroid Orbit */}
+            {showOrbits && !isSelected && (
+                <mesh>
+                    <ringGeometry args={[asteroidData.distance - 0.1, asteroidData.distance + 0.1, 64]} />
+                    <meshBasicMaterial
+                        color={asteroidData.color}
+                        transparent={true}
+                        opacity={0.1}
+                        side={THREE.DoubleSide}
+                    />
+                </mesh>
+            )}
 
-            {/* Órbita destacada para asteroide seleccionado */}
-            {isSelected && (
-                <mesh>
-                    <ringGeometry args={[asteroidData.distance - 0.05, asteroidData.distance + 0.05, 64]} />
-                    <meshBasicMaterial
-                        color={asteroidData.color}
-                        transparent={true}
-                        opacity={0.4}
-                        side={THREE.DoubleSide}
-                    />
-                </mesh>
-            )}
+            {/* Highlighted orbit for selected asteroid */}
+            {isSelected && (
+                <mesh>
+                    <ringGeometry args={[asteroidData.distance - 0.05, asteroidData.distance + 0.05, 64]} />
+                    <meshBasicMaterial
+                        color={asteroidData.color}
+                        transparent={true}
+                        opacity={0.4}
+                        side={THREE.DoubleSide}
+                    />
+                </mesh>
+            )}
 
-            {/* El asteroide con trail */}
-            <Trail
-                width={isSelected ? 0.4 : 0.2}
-                length={isSelected ? 30 : 20}
-                color={new THREE.Color(asteroidData.color)}
-                attenuation={(t) => t * t * t}
-            >
-                <mesh ref={asteroidRef}>
-                    {getAsteroidGeometry(asteroidData.type)}
-                    <meshPhongMaterial
-                        color={asteroidData.color}
-                        shininess={30}
-                        specular="#444444"
-                        bumpScale={0.02}
-                        emissive={isSelected ? asteroidData.color : "#000000"}
-                        emissiveIntensity={isSelected ? 0.4 : 0}
-                    />
-                </mesh>
-            </Trail>
+            {/* The asteroid with trail */}
+            <Trail
+                width={isSelected ? 0.4 : 0.2}
+                length={isSelected ? 30 : 20}
+                color={new THREE.Color(asteroidData.color)}
+                attenuation={(t) => t * t * t}
+            >
+                <mesh ref={asteroidRef}>
+                    {getAsteroidGeometry(asteroidData.type)}
+                    <meshPhongMaterial
+                        color={asteroidData.color}
+                        shininess={30}
+                        specular="#444444"
+                        bumpScale={0.02}
+                        emissive={isSelected ? asteroidData.color : "#000000"}
+                        emissiveIntensity={isSelected ? 0.4 : 0}
+                    />
+                </mesh>
+            </Trail>
 
-            {/* Etiqueta del asteroide - siempre visible pero más destacada si está seleccionado */}
-            <Text
-                position={[currentPosition[0], currentPosition[1] + (isSelected ? 0.5 : 0.3), currentPosition[2]]}
-                fontSize={isSelected ? 0.12 : 0.08}
-                color={isSelected ? "#ffffff" : asteroidData.color}
-                anchorX="center"
-                anchorY="middle"
-                renderOrder={1000}
-                outlineWidth={isSelected ? 0.01 : 0}
-                outlineColor="#000000"
-            >
-                {asteroidData.name}
-            </Text>
+            {/* Asteroid label - always visible but more highlighted if selected */}
+            <Text
+                position={[currentPosition[0], currentPosition[1] + (isSelected ? 0.5 : 0.3), currentPosition[2]]}
+                fontSize={isSelected ? 0.12 : 0.08}
+                color={isSelected ? "#ffffff" : asteroidData.color}
+                anchorX="center"
+                anchorY="middle"
+                renderOrder={1000}
+                outlineWidth={isSelected ? 0.01 : 0}
+                outlineColor="#000000"
+            >
+                {asteroidData.name}
+            </Text>
 
-            {/* Anillo de selección mejorado */}
-            {isSelected && (
-                <>
-                    <mesh position={currentPosition}>
-                        <ringGeometry args={[asteroidData.size + 0.08, asteroidData.size + 0.12, 32]} />
-                        <meshBasicMaterial
-                            color={asteroidData.color}
-                            transparent={true}
-                            opacity={0.8}
-                            side={THREE.DoubleSide}
-                        />
-                    </mesh>
-                    {/* Anillo pulsante */}
-                    <mesh position={currentPosition}>
-                        <ringGeometry args={[asteroidData.size + 0.15, asteroidData.size + 0.18, 32]} />
-                        <meshBasicMaterial
-                            color={asteroidData.color}
-                            transparent={true}
-                            opacity={0.3 + Math.sin(Date.now() * 0.005) * 0.3}
-                            side={THREE.DoubleSide}
-                        />
-                    </mesh>
-                </>
-            )}
-        </group>
-    );
+            {/* Enhanced selection ring */}
+            {isSelected && (
+                <>
+                    <mesh position={currentPosition}>
+                        <ringGeometry args={[asteroidData.size + 0.08, asteroidData.size + 0.12, 32]} />
+                        <meshBasicMaterial
+                            color={asteroidData.color}
+                            transparent={true}
+                            opacity={0.8}
+                            side={THREE.DoubleSide}
+                        />
+                    </mesh>
+                    {/* Pulsing ring */}
+                    <mesh position={currentPosition}>
+                        <ringGeometry args={[asteroidData.size + 0.15, asteroidData.size + 0.18, 32]} />
+                        <meshBasicMaterial
+                            color={asteroidData.color}
+                            transparent={true}
+                            opacity={0.3 + Math.sin(Date.now() * 0.005) * 0.3}
+                            side={THREE.DoubleSide}
+                        />
+                    </mesh>
+                </>
+            )}
+        </group>
+    );
 }
 
 function CameraController({ targetPosition, isFollowing, asteroidSize, resetTrigger }) {
-    const { camera, controls } = useThree();
-    const [isTransitioning, setIsTransitioning] = useState(false);
+    const { camera, controls } = useThree();
+    const [isTransitioning, setIsTransitioning] = useState(false);
 
-    useEffect(() => {
-        if (resetTrigger && controls) {
-            // Resetear a vista general
-            const targetPos = new THREE.Vector3(0, 8, 12);
-            const targetLookAt = new THREE.Vector3(0, 0, 0);
+    useEffect(() => {
+        if (resetTrigger && controls) {
+            // Reset to general view
+            const targetPos = new THREE.Vector3(0, 8, 12);
+            const targetLookAt = new THREE.Vector3(0, 0, 0);
 
-            setIsTransitioning(true);
+            setIsTransitioning(true);
 
-            // Animación suave de regreso
-            const animateCamera = () => {
-                camera.position.lerp(targetPos, 0.05);
-                if (controls && controls.target) {
-                    controls.target.lerp(targetLookAt, 0.05);
-                    controls.update();
-                }
+            // Smooth animated return
+            const animateCamera = () => {
+                camera.position.lerp(targetPos, 0.05);
+                if (controls && controls.target) {
+                    controls.target.lerp(targetLookAt, 0.05);
+                    controls.update();
+                }
 
-                if (camera.position.distanceTo(targetPos) > 0.1) {
-                    requestAnimationFrame(animateCamera);
-                } else {
-                    setIsTransitioning(false);
-                }
-            };
+                if (camera.position.distanceTo(targetPos) > 0.1) {
+                    requestAnimationFrame(animateCamera);
+                } else {
+                    setIsTransitioning(false);
+                }
+            };
 
-            requestAnimationFrame(animateCamera);
-        }
-    }, [resetTrigger, camera, controls]);
+            requestAnimationFrame(animateCamera);
+        }
+    }, [resetTrigger, camera, controls]);
 
-    // Efecto para manejar cuando se activa el seguimiento
-    useEffect(() => {
-        if (isFollowing && targetPosition && controls && controls.target) {
-            console.log("Iniciando seguimiento hacia posición:", targetPosition);
-            setIsTransitioning(true);
+    // Effect to handle when tracking is activated
+    useEffect(() => {
+        if (isFollowing && targetPosition && controls && controls.target) {
+            console.log("Starting tracking towards position:", targetPosition);
+            setIsTransitioning(true);
 
-            const asteroidPos = new THREE.Vector3(...targetPosition);
-            const baseDistance = Math.max(asteroidSize * 15, 1.0);
-            const distance = baseDistance + (asteroidSize > 0.05 ? 2 : 0);
+            const asteroidPos = new THREE.Vector3(...targetPosition);
+            const baseDistance = Math.max(asteroidSize * 15, 1.0);
+            const distance = baseDistance + (asteroidSize > 0.05 ? 2 : 0);
 
-            const offset = new THREE.Vector3(
-                distance * 0.7,
-                distance * 0.4,
-                distance * 0.8
-            );
+            const offset = new THREE.Vector3(
+                distance * 0.7,
+                distance * 0.4,
+                distance * 0.8
+            );
 
-            const targetCameraPosition = asteroidPos.clone().add(offset);
+            const targetCameraPosition = asteroidPos.clone().add(offset);
 
-            // Animación rápida hacia el asteroide
-            const animateToAsteroid = () => {
-                camera.position.lerp(targetCameraPosition, 0.1);
-                controls.target.lerp(asteroidPos, 0.1);
-                controls.update();
+            // Fast animation towards the asteroid
+            const animateToAsteroid = () => {
+                camera.position.lerp(targetCameraPosition, 0.1);
+                controls.target.lerp(asteroidPos, 0.1);
+                controls.update();
 
-                const distanceToTarget = camera.position.distanceTo(targetCameraPosition);
-                const targetDistance = controls.target.distanceTo(asteroidPos);
+                const distanceToTarget = camera.position.distanceTo(targetCameraPosition);
+                const targetDistance = controls.target.distanceTo(asteroidPos);
 
-                if (distanceToTarget > 0.3 || targetDistance > 0.1) {
-                    requestAnimationFrame(animateToAsteroid);
-                } else {
-                    setIsTransitioning(false);
-                    console.log("Seguimiento iniciado correctamente");
-                }
-            };
+                if (distanceToTarget > 0.3 || targetDistance > 0.1) {
+                    requestAnimationFrame(animateToAsteroid);
+                } else {
+                    setIsTransitioning(false);
+                    console.log("Tracking successfully initiated");
+                }
+            };
 
-            animateToAsteroid();
-        }
-    }, [isFollowing, targetPosition, asteroidSize, controls, camera]);
+            animateToAsteroid();
+        }
+    }, [isFollowing, targetPosition, asteroidSize, controls, camera]);
 
-    useFrame(() => {
-        if (isFollowing && targetPosition && !isTransitioning && controls && controls.target) {
-            const asteroidPos = new THREE.Vector3(...targetPosition);
-            const baseDistance = Math.max(asteroidSize * 15, 1.0);
-            const distance = baseDistance + (asteroidSize > 0.05 ? 2 : 0);
+    useFrame(() => {
+        if (isFollowing && targetPosition && !isTransitioning && controls && controls.target) {
+            const asteroidPos = new THREE.Vector3(...targetPosition);
+            const baseDistance = Math.max(asteroidSize * 15, 1.0);
+            const distance = baseDistance + (asteroidSize > 0.05 ? 2 : 0);
 
-            const offset = new THREE.Vector3(
-                distance * 0.7,
-                distance * 0.4,
-                distance * 0.8
-            );
+            const offset = new THREE.Vector3(
+                distance * 0.7,
+                distance * 0.4,
+                distance * 0.8
+            );
 
-            const targetCameraPosition = asteroidPos.clone().add(offset);
+            const targetCameraPosition = asteroidPos.clone().add(offset);
 
-            // Seguimiento suave continuo
-            camera.position.lerp(targetCameraPosition, 0.04);
-            controls.target.lerp(asteroidPos, 0.06);
-            controls.update();
-        }
-    });
+            // Continuous smooth tracking
+            camera.position.lerp(targetCameraPosition, 0.04);
+            controls.target.lerp(asteroidPos, 0.06);
+            controls.update();
+        }
+    });
 
-    return null;
+    return null;
 }
 
 function DefenseSatellite({ position, orbitRadius = 3, speed = 0.01 }) {
@@ -678,7 +678,7 @@ function AsteroidList({ asteroids, selectedAsteroid, onAsteroidSelect, searchTer
             <VStack spacing={3} align="stretch">
                 <HStack justify="space-between" align="center">
                     <ChakraText fontWeight="bold" fontSize="md" color="cyan.300">
-                        🚀 Lista de Asteroides
+                        🚀 Asteroid List
                     </ChakraText>
                     <Button
                         size="sm"
@@ -698,7 +698,7 @@ function AsteroidList({ asteroids, selectedAsteroid, onAsteroidSelect, searchTer
                                 <SearchIcon color="gray.400" />
                             </InputLeftElement>
                             <Input
-                                placeholder="Buscar asteroide..."
+                                placeholder="Search asteroid..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 bg="rgba(255, 255, 255, 0.1)"
@@ -789,7 +789,7 @@ function AsteroidList({ asteroids, selectedAsteroid, onAsteroidSelect, searchTer
 
                                             <HStack justify="space-between" w="100%">
                                                 <ChakraText fontSize="xs" color="gray.300">
-                                                    Distancia: {asteroid.distance.toFixed(1)} AU
+                                                    Distance: {asteroid.distance.toFixed(1)} AU
                                                 </ChakraText>
                                                 <ChakraText fontSize="xs" color="gray.300">
                                                     {asteroid.composition}
@@ -802,7 +802,7 @@ function AsteroidList({ asteroids, selectedAsteroid, onAsteroidSelect, searchTer
                                                         ⚠️
                                                     </ChakraText>
                                                     <ChakraText fontSize="xs" color="orange.300">
-                                                        Próximo acercamiento: {asteroid.nextApproach}
+                                                        Next Approach: {asteroid.nextApproach}
                                                     </ChakraText>
                                                 </HStack>
                                             )}
@@ -814,7 +814,7 @@ function AsteroidList({ asteroids, selectedAsteroid, onAsteroidSelect, searchTer
 
                         <Box p={2} bg="rgba(255, 255, 255, 0.05)" borderRadius="md">
                             <ChakraText fontSize="xs" color="gray.400" textAlign="center">
-                                {filteredAsteroids.length} de {asteroids.length} asteroides
+                                {filteredAsteroids.length} of {asteroids.length} asteroids
                             </ChakraText>
                         </Box>
                     </VStack>
@@ -894,324 +894,324 @@ function DetailedAsteroidInfo({ selectedAsteroid, isFollowing, onStopFollowing }
 
                 <VStack align="start" spacing={2} w="100%">
                     <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Diámetro:</ChakraText>
+                        <ChakraText fontSize="xs" color="gray.400">Diameter:</ChakraText>
                         <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.diameter}</ChakraText>
                     </HStack>
 
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Distancia:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.distance.toFixed(1)} AU</ChakraText>
-                    </HStack>
+ <HStack justify="space-between" w="100%">
+                        <ChakraText fontSize="xs" color="gray.400">Distance:</ChakraText>
+                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.distance.toFixed(1)} AU</ChakraText>
+                    </HStack>
 
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Período orbital:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{(selectedAsteroid.period / 365.25).toFixed(1)} años</ChakraText>
-                    </HStack>
+                    <HStack justify="space-between" w="100%">
+                        <ChakraText fontSize="xs" color="gray.400">Orbital Period:</ChakraText>
+                        <ChakraText fontSize="xs" fontWeight="semibold">{(selectedAsteroid.period / 365.25).toFixed(1)} years</ChakraText>
+                    </HStack>
 
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Excentricidad:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.eccentricity.toFixed(3)}</ChakraText>
-                    </HStack>
+                    <HStack justify="space-between" w="100%">
+                        <ChakraText fontSize="xs" color="gray.400">Eccentricity:</ChakraText>
+                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.eccentricity.toFixed(3)}</ChakraText>
+                    </HStack>
 
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Inclinación:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.inclination.toFixed(1)}°</ChakraText>
-                    </HStack>
+                    <HStack justify="space-between" w="100%">
+                        <ChakraText fontSize="xs" color="gray.400">Inclination:</ChakraText>
+                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.inclination.toFixed(1)}°</ChakraText>
+                    </HStack>
 
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Composición:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.composition}</ChakraText>
-                    </HStack>
+                    <HStack justify="space-between" w="100%">
+                        <ChakraText fontSize="xs" color="gray.400">Composition:</ChakraText>
+                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.composition}</ChakraText>
+                    </HStack>
 
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Descubrimiento:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.discoveryYear}</ChakraText>
-                    </HStack>
+                    <HStack justify="space-between" w="100%">
+                        <ChakraText fontSize="xs" color="gray.400">Discovery:</ChakraText>
+                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.discoveryYear}</ChakraText>
+                    </HStack>
 
-                    {selectedAsteroid.nextApproach !== "N/A" && (
-                        <HStack justify="space-between" w="100%">
-                            <ChakraText fontSize="xs" color="gray.400">Próximo acercamiento:</ChakraText>
-                            <ChakraText fontSize="xs" fontWeight="semibold" color="orange.300">
-                                {selectedAsteroid.nextApproach}
-                            </ChakraText>
-                        </HStack>
-                    )}
-                </VStack>
+                    {selectedAsteroid.nextApproach !== "N/A" && (
+                        <HStack justify="space-between" w="100%">
+                            <ChakraText fontSize="xs" color="gray.400">Next Approach:</ChakraText>
+                            <ChakraText fontSize="xs" fontWeight="semibold" color="orange.300">
+                                {selectedAsteroid.nextApproach}
+                            </ChakraText>
+                        </HStack>
+                    )}
+                </VStack>
 
-                {selectedAsteroid.hazardous && (
-                    <Box
-                        w="100%"
-                        bg="rgba(255, 165, 0, 0.1)"
-                        p={2}
-                        borderRadius="md"
-                        border="1px solid rgba(255, 165, 0, 0.3)"
-                    >
-                        <ChakraText fontSize="xs" color="orange.300" fontWeight="semibold">
-                            ⚠️ Objeto Potencialmente Peligroso
-                        </ChakraText>
-                        <ChakraText fontSize="xs" color="orange.200">
-                            Bajo monitoreo constante por NASA
-                        </ChakraText>
-                    </Box>
-                )}
-            </VStack>
-        </Box>
-    );
+                {selectedAsteroid.hazardous && (
+                    <Box
+                        w="100%"
+                        bg="rgba(255, 165, 0, 0.1)"
+                        p={2}
+                        borderRadius="md"
+                        border="1px solid rgba(255, 165, 0, 0.3)"
+                    >
+                        <ChakraText fontSize="xs" color="orange.300" fontWeight="semibold">
+                            ⚠️ Potentially Hazardous Object
+                        </ChakraText>
+                        <ChakraText fontSize="xs" color="orange.200">
+                            Under constant monitoring by NASA
+                        </ChakraText>
+                    </Box>
+                )}
+            </VStack>
+        </Box>
+    );
 }
 
 function SystemControls({ timeScale, setTimeScale, showOrbits, setShowOrbits, onResetView, selectedAsteroid }) {
-    return (
-        <Box
-            position="absolute"
-            bottom="20px"
-            left="20px"
-            bg="rgba(0, 0, 0, 0.8)"
-            backdropFilter="blur(10px)"
-            borderRadius="lg"
-            p={4}
-            zIndex={10}
-            border="1px solid rgba(255, 255, 255, 0.1)"
-            marginBottom='100px'
-        >
-            <VStack spacing={3}>
-                <HStack>
-                    <ChakraText color="white" fontSize="sm" fontWeight="semibold">Velocidad:</ChakraText>
-                    <Button size="xs" onClick={() => setTimeScale(0.5)} colorScheme={timeScale === 0.5 ? "blue" : "gray"}>0.5x</Button>
-                    <Button size="xs" onClick={() => setTimeScale(1)} colorScheme={timeScale === 1 ? "blue" : "gray"}>1x</Button>
-                    <Button size="xs" onClick={() => setTimeScale(2)} colorScheme={timeScale === 2 ? "blue" : "gray"}>2x</Button>
-                    <Button size="xs" onClick={() => setTimeScale(5)} colorScheme={timeScale === 5 ? "blue" : "gray"}>5x</Button>
-                </HStack>
+    return (
+        <Box
+            position="absolute"
+            bottom="20px"
+            left="20px"
+            bg="rgba(0, 0, 0, 0.8)"
+            backdropFilter="blur(10px)"
+            borderRadius="lg"
+            p={4}
+            zIndex={10}
+            border="1px solid rgba(255, 255, 255, 0.1)"
+            marginBottom='100px'
+        >
+            <VStack spacing={3}>
+                <HStack>
+                    <ChakraText color="white" fontSize="sm" fontWeight="semibold">Speed:</ChakraText>
+                    <Button size="xs" onClick={() => setTimeScale(0.5)} colorScheme={timeScale === 0.5 ? "blue" : "gray"}>0.5x</Button>
+                    <Button size="xs" onClick={() => setTimeScale(1)} colorScheme={timeScale === 1 ? "blue" : "gray"}>1x</Button>
+                    <Button size="xs" onClick={() => setTimeScale(2)} colorScheme={timeScale === 2 ? "blue" : "gray"}>2x</Button>
+                    <Button size="xs" onClick={() => setTimeScale(5)} colorScheme={timeScale === 5 ? "blue" : "gray"}>5x</Button>
+                </HStack>
 
-                <HStack spacing={2}>
-                    <Button
-                        size="sm"
-                        onClick={() => setShowOrbits(!showOrbits)}
-                        colorScheme={showOrbits ? "blue" : "gray"}
-                    >
-                        {showOrbits ? "Ocultar Órbitas" : "Mostrar Órbitas"}
-                    </Button>
+                <HStack spacing={2}>
+                    <Button
+                        size="sm"
+                        onClick={() => setShowOrbits(!showOrbits)}
+                        colorScheme={showOrbits ? "blue" : "gray"}
+                    >
+                        {showOrbits ? "Hide Orbits" : "Show Orbits"}
+                    </Button>
 
-                    {selectedAsteroid && (
-                        <Button
-                            size="sm"
-                            onClick={onResetView}
-                            colorScheme="green"
-                            variant="outline"
-                        >
-                            Vista General
-                        </Button>
-                    )}
-                </HStack>
-            </VStack>
-        </Box>
-    );
+                    {selectedAsteroid && (
+                        <Button
+                            size="sm"
+                            onClick={onResetView}
+                            colorScheme="green"
+                            variant="outline"
+                        >
+                            General View
+                        </Button>
+                    )}
+                </HStack>
+            </VStack>
+        </Box>
+    );
 }
 
 export default function RealisticAsteroidEarthScene() {
-    const [selectedAsteroid, setSelectedAsteroid] = useState(null);
-    const [timeScale, setTimeScale] = useState(1);
-    const [showOrbits, setShowOrbits] = useState(true);
-    const [isFollowing, setIsFollowing] = useState(false);
-    const [targetPosition, setTargetPosition] = useState(null);
-    const [resetTrigger, setResetTrigger] = useState(0);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [asteroidPositions, setAsteroidPositions] = useState({});
+    const [selectedAsteroid, setSelectedAsteroid] = useState(null);
+    const [timeScale, setTimeScale] = useState(1);
+    const [showOrbits, setShowOrbits] = useState(true);
+    const [isFollowing, setIsFollowing] = useState(false);
+    const [targetPosition, setTargetPosition] = useState(null);
+    const [resetTrigger, setResetTrigger] = useState(0);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [asteroidPositions, setAsteroidPositions] = useState({});
 
-    const calculateAsteroidPosition = (asteroid) => {
-        const time = Date.now() * 0.0001;
-        const { distance, period, eccentricity, inclination } = asteroid;
+    const calculateAsteroidPosition = (asteroid) => {
+        const time = Date.now() * 0.0001;
+        const { distance, period, eccentricity, inclination } = asteroid;
 
-        const periodYears = period / 365.25;
-        const meanAnomaly = (time / periodYears) * 2 * Math.PI;
+        const periodYears = period / 365.25;
+        const meanAnomaly = (time / periodYears) * 2 * Math.PI;
 
-        let eccentricAnomaly = meanAnomaly;
-        for (let i = 0; i < 5; i++) {
-            eccentricAnomaly = meanAnomaly + eccentricity * Math.sin(eccentricAnomaly);
-        }
+        let eccentricAnomaly = meanAnomaly;
+        for (let i = 0; i < 5; i++) {
+            eccentricAnomaly = meanAnomaly + eccentricity * Math.sin(eccentricAnomaly);
+        }
 
-        const trueAnomaly = 2 * Math.atan(Math.sqrt((1 + eccentricity) / (1 - eccentricity)) * Math.tan(eccentricAnomaly / 2));
-        const radius = distance * (1 - eccentricity * eccentricity) / (1 + eccentricity * Math.cos(trueAnomaly));
+        const trueAnomaly = 2 * Math.atan(Math.sqrt((1 + eccentricity) / (1 - eccentricity)) * Math.tan(eccentricAnomaly / 2));
+        const radius = distance * (1 - eccentricity * eccentricity) / (1 + eccentricity * Math.cos(trueAnomaly));
 
-        const x = radius * Math.cos(trueAnomaly);
-        const y = radius * Math.sin(trueAnomaly);
+        const x = radius * Math.cos(trueAnomaly);
+        const y = radius * Math.sin(trueAnomaly);
 
-        const incRad = (inclination * Math.PI) / 180;
-        const finalX = x;
-        const finalY = y * Math.cos(incRad);
-        const finalZ = y * Math.sin(incRad);
+        const incRad = (inclination * Math.PI) / 180;
+        const finalX = x;
+        const finalY = y * Math.cos(incRad);
+        const finalZ = y * Math.sin(incRad);
 
-        return [finalX, finalY, finalZ];
-    };
+        return [finalX, finalY, finalZ];
+    };
 
-    const handleAsteroidClick = (asteroid, position, isUpdate = false) => {
-        if (!isUpdate) {
-            console.log("Asteroide seleccionado:", asteroid.name);
-            setSelectedAsteroid(asteroid);
-            setIsFollowing(true);
-            setResetTrigger(0);
-        }
-        setTargetPosition([...position]);
-    };
+    const handleAsteroidClick = (asteroid, position, isUpdate = false) => {
+        if (!isUpdate) {
+            console.log("Asteroide seleccionado:", asteroid.name);
+            setSelectedAsteroid(asteroid);
+            setIsFollowing(true);
+            setResetTrigger(0);
+        }
+        setTargetPosition([...position]);
+    };
 
-    const handleAsteroidSelect = (asteroid) => {
-        console.log("Asteroide seleccionado desde lista:", asteroid.name);
-        setSelectedAsteroid(asteroid);
-        setResetTrigger(0);
-        setSearchTerm("");
+    const handleAsteroidSelect = (asteroid) => {
+        console.log("Asteroide seleccionado desde lista:", asteroid.name);
+        setSelectedAsteroid(asteroid);
+        setResetTrigger(0);
+        setSearchTerm("");
 
-        const storedPosition = asteroidPositions[asteroid.name];
-        if (storedPosition) {
-            console.log("Usando posición almacenada:", storedPosition);
-            setTargetPosition(storedPosition);
-            setIsFollowing(true);
-        } else {
-            // Calcular posición como respaldo
-            const currentPosition = calculateAsteroidPosition(asteroid);
-            console.log("Calculando posición:", currentPosition);
-            setTargetPosition(currentPosition);
-            setIsFollowing(true);
-        }
-    };
+        const storedPosition = asteroidPositions[asteroid.name];
+        if (storedPosition) {
+            console.log("Usando posición almacenada:", storedPosition);
+            setTargetPosition(storedPosition);
+            setIsFollowing(true);
+        } else {
+            // Calcular posición como respaldo
+            const currentPosition = calculateAsteroidPosition(asteroid);
+            console.log("Calculando posición:", currentPosition);
+            setTargetPosition(currentPosition);
+            setIsFollowing(true);
+        }
+    };
 
-    const updateAsteroidPosition = (asteroidName, position) => {
-        setAsteroidPositions(prev => ({
-            ...prev,
-            [asteroidName]: [...position]
-        }));
-    };
+    const updateAsteroidPosition = (asteroidName, position) => {
+        setAsteroidPositions(prev => ({
+            ...prev,
+            [asteroidName]: [...position]
+        }));
+    };
 
-    const handleStopFollowing = () => {
-        setIsFollowing(false);
-        setTargetPosition(null);
-        setSelectedAsteroid(null);
-        setResetTrigger(Date.now());
-    };
+    const handleStopFollowing = () => {
+        setIsFollowing(false);
+        setTargetPosition(null);
+        setSelectedAsteroid(null);
+        setResetTrigger(Date.now());
+    };
 
-    const handleResetView = () => {
-        setIsFollowing(false);
-        setTargetPosition(null);
-        setSelectedAsteroid(null);
-        setResetTrigger(Date.now());
-    };
+    const handleResetView = () => {
+        setIsFollowing(false);
+        setTargetPosition(null);
+        setSelectedAsteroid(null);
+        setResetTrigger(Date.now());
+    };
 
-    // useEffect(() => {
-    //     const randomAsteroid = REAL_ASTEROIDS[Math.floor(Math.random() * REAL_ASTEROIDS.length)];
-    //     setSelectedAsteroid(randomAsteroid);
-    // }, []);
+    // useEffect(() => {
+    //     const randomAsteroid = REAL_ASTEROIDS[Math.floor(Math.random() * REAL_ASTEROIDS.length)];
+    //     setSelectedAsteroid(randomAsteroid);
+    // }, []);
 
-    return (
-        <>
-            <Navbar />
-            <Box
-                width="100vw"
-                height="100vh"
-                bg="linear-gradient(135deg, #000000 0%, #0a0a2e 30%, #1a1a3a 70%, #2a2a4a 100%)"
-                position="relative"
-            >
-                <AsteroidList
-                    asteroids={REAL_ASTEROIDS}
-                    selectedAsteroid={selectedAsteroid}
-                    onAsteroidSelect={handleAsteroidSelect}
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                />
+    return (
+        <>
+            <Navbar />
+            <Box
+                width="100vw"
+                height="100vh"
+                bg="linear-gradient(135deg, #000000 0%, #0a0a2e 30%, #1a1a3a 70%, #2a2a4a 100%)"
+                position="relative"
+            >
+                <AsteroidList
+                    asteroids={REAL_ASTEROIDS}
+                    selectedAsteroid={selectedAsteroid}
+                    onAsteroidSelect={handleAsteroidSelect}
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                />
 
-                <DetailedAsteroidInfo
-                    selectedAsteroid={selectedAsteroid}
-                    isFollowing={isFollowing}
-                    onStopFollowing={handleStopFollowing}
-                />
+                <DetailedAsteroidInfo
+                    selectedAsteroid={selectedAsteroid}
+                    isFollowing={isFollowing}
+                    onStopFollowing={handleStopFollowing}
+                />
 
-                <SystemControls
-                    timeScale={timeScale}
-                    setTimeScale={setTimeScale}
-                    showOrbits={showOrbits}
-                    setShowOrbits={setShowOrbits}
-                    onResetView={handleResetView}
-                    selectedAsteroid={selectedAsteroid}
-                />
+                <SystemControls
+                    timeScale={timeScale}
+                    setTimeScale={setTimeScale}
+                    showOrbits={showOrbits}
+                    setShowOrbits={setShowOrbits}
+                    onResetView={handleResetView}
+                    selectedAsteroid={selectedAsteroid}
+                />
 
-                <Canvas
-                    camera={{ position: [0, 8, 12], fov: 60 }}
-                    gl={{ antialias: true, alpha: true }}
-                    shadows
-                >
-                    <CameraController
-                        targetPosition={targetPosition}
-                        isFollowing={isFollowing}
-                        asteroidSize={selectedAsteroid?.size || 0.025}
-                        resetTrigger={resetTrigger}
-                    />
+                <Canvas
+                    camera={{ position: [0, 8, 12], fov: 60 }}
+                    gl={{ antialias: true, alpha: true }}
+                    shadows
+                >
+                    <CameraController
+                        targetPosition={targetPosition}
+                        isFollowing={isFollowing}
+                        asteroidSize={selectedAsteroid?.size || 0.025}
+                        resetTrigger={resetTrigger}
+                    />
 
-                    <SunLight />
+                    <SunLight />
 
-                    <pointLight
-                        position={[-10, -8, -10]}
-                        intensity={0.2}
-                        color="#4169e1"
-                    />
+                    <pointLight
+                        position={[-10, -8, -10]}
+                        intensity={0.2}
+                        color="#4169e1"
+                    />
 
-                    <OrbitControls
-                        enableZoom={true}
-                        enablePan={true}
-                        minDistance={0.1}
-                        maxDistance={25}
-                        autoRotate={false}
-                        enabled={!isFollowing}
-                    />
+                    <OrbitControls
+                        enableZoom={true}
+                        enablePan={true}
+                        minDistance={0.1}
+                        maxDistance={25}
+                        autoRotate={false}
+                        enabled={!isFollowing}
+                    />
 
-                    <Stars
-                        radius={400}
-                        depth={80}
-                        count={12000}
-                        factor={8}
-                        saturation={0.4}
-                        fade
-                        speed={0.3}
-                    />
+                    <Stars
+                        radius={400}
+                        depth={80}
+                        count={12000}
+                        factor={8}
+                        saturation={0.4}
+                        fade
+                        speed={0.3}
+                    />
 
-                    <EnhancedEarth />
+                    <EnhancedEarth />
 
-                    {REAL_ASTEROIDS.map((asteroid, index) => (
-                        <RealisticAsteroid
-                            key={index}
-                            asteroidData={asteroid}
-                            timeScale={timeScale}
-                            showOrbits={showOrbits}
-                            onAsteroidClick={handleAsteroidClick}
-                            onPositionUpdate={updateAsteroidPosition}
-                            isSelected={selectedAsteroid?.name === asteroid.name}
-                        />
-                    ))}
+                    {REAL_ASTEROIDS.map((asteroid, index) => (
+                        <RealisticAsteroid
+                            key={index}
+                            asteroidData={asteroid}
+                            timeScale={timeScale}
+                            showOrbits={showOrbits}
+                            onAsteroidClick={handleAsteroidClick}
+                            onPositionUpdate={updateAsteroidPosition}
+                            isSelected={selectedAsteroid?.name === asteroid.name}
+                        />
+                    ))}
 
-                    <DefenseSatellite position={[0, 1, 0]} orbitRadius={3.2} speed={0.015} />
-                    <DefenseSatellite position={[0, -0.5, 0]} orbitRadius={3.8} speed={-0.012} />
-                    <DefenseSatellite position={[0, 0.8, 0]} orbitRadius={4.5} speed={0.008} />
+                    <DefenseSatellite position={[0, 1, 0]} orbitRadius={3.2} speed={0.015} />
+                    <DefenseSatellite position={[0, -0.5, 0]} orbitRadius={3.8} speed={-0.012} />
+                    <DefenseSatellite position={[0, 0.8, 0]} orbitRadius={4.5} speed={0.008} />
 
-                    <Text
-                        position={[0, -6, 0]}
-                        fontSize={0.4}
-                        color="#00bfff"
-                        anchorX="center"
-                        anchorY="middle"
-                        fontWeight="bold"
-                    >
-                        NASA-Based Asteroid Tracking System
-                    </Text>
-                </Canvas>
+                    <Text
+                        position={[0, -6, 0]}
+                        fontSize={0.4}
+                        color="#00bfff"
+                        anchorX="center"
+                        anchorY="middle"
+                        fontWeight="bold"
+                    >
+                        NASA-Based Asteroid Tracking System
+                    </Text>
+                </Canvas>
 
-                <Box
-                    position="absolute"
-                    top="0"
-                    left="0"
-                    right="0"
-                    bottom="0"
-                    pointerEvents="none"
-                    background="radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.15) 100%)"
-                    zIndex={1}
-                />
-            </Box>
-        </>
+                <Box
+                    position="absolute"
+                    top="0"
+                    left="0"
+                    right="0"
+                    bottom="0"
+                    pointerEvents="none"
+                    background="radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.15) 100%)"
+                    zIndex={1}
+                />
+            </Box>
+        </>
 
-    );
+    );
 }

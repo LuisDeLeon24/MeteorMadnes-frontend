@@ -17,7 +17,7 @@ const MotionFlex = motion(Flex);
 const AstroSpinner = ({
     size = "lg",
     showText = true,
-    loadingText = "Analizando órbitas...",
+    loadingText = "Analyzing orbits...",
     variant = "orbital"
 }) => {
     const sizeConfig = {
@@ -404,7 +404,7 @@ export const SpinnerExamples = () => {
                 <AstroSpinner
                     size="lg"
                     variant="orbital"
-                    loadingText="Calibrando sistemas de defensa..."
+                    loadingText="Calibrating defense systems..."
                 />
             </Box>
 
@@ -416,7 +416,7 @@ export const SpinnerExamples = () => {
                 <AstroSpinner
                     size="md"
                     variant="pulse"
-                    loadingText="Sincronizando telemetría..."
+                    loadingText="Synchronizing telemetry..."
                 />
             </Box>
 
@@ -428,7 +428,7 @@ export const SpinnerExamples = () => {
                 <AstroSpinner
                     size="sm"
                     variant="radar"
-                    loadingText="Escaneando amenazas..."
+                    loadingText="Scanning for threats..."
                 />
             </Box>
         </VStack>

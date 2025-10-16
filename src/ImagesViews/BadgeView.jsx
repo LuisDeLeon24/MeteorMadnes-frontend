@@ -2,7 +2,7 @@ import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { VStack, Text, Box, Image, HStack } from '@chakra-ui/react';
 
 const BadgeView = forwardRef(({
-  title = "¡Felicidades!",
+  title = "Congratulations!",
   teamImage,
   logoImage,
   badgeImage
@@ -40,7 +40,7 @@ const BadgeView = forwardRef(({
     >
       {/* Logos pequeños */}
       <HStack spacing={2} position="absolute" top={4} left={4}>
-        {teamImage && <Image src={teamImage} alt="Equipo" boxSize="40px" borderRadius="md" />}
+        {teamImage && <Image src={teamImage} alt="Team" boxSize="40px" borderRadius="md" />}
         {logoImage && <Image src={logoImage} alt="Logo" boxSize="40px" borderRadius="md" />}
       </HStack>
 
@@ -80,10 +80,10 @@ const BadgeView = forwardRef(({
       {/* Mensaje adicional */}
       <VStack spacing={3} mt={4} px={6} textAlign="center">
         <Text fontSize="md" fontWeight="medium" color="gray.200">
-          El equipo de <b>BadVoids</b> y <b>AstroTracker</b> te otorgan este badge por tu desempeño en el quiz.
+          The <b>BadVoids</b> and <b>AstroTracker</b> team award you this badge for your performance in the quiz.
         </Text>
         <Text fontSize="sm" color="gray.400">
-          No olvides compartirlo en tus redes y etiquetarnos como: <b>@BadVoids</b>
+          Don't forget to share it on your networks and tag us as: <b>@BadVoids</b>
         </Text>
         <Text fontSize="sm" color="gray.400">
           www.astrotracker.wiki
@@ -94,4 +94,3 @@ const BadgeView = forwardRef(({
 });
 
 export default BadgeView;
-

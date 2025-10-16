@@ -335,7 +335,7 @@ const Footer = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                   >
-                    Sistema de rastreo
+                    Tracking System
                   </MotionText>
                 </VStack>
               </HStack>
@@ -348,8 +348,8 @@ const Footer = () => {
               maxW={{ base: 'full', lg: '350px' }}
               variants={itemVariants}
             >
-              Protegiendo la Tierra con tecnología de vanguardia en detección, análisis y neutralización
-              de asteroides potencialmente peligrosos. Vigilancia espacial 24/7.
+              Protecting Earth with cutting-edge technology in the detection, analysis, and neutralization 
+              of potentially hazardous asteroids. 24/7 space surveillance.
             </MotionText>
 
             <MotionStack spacing={{ base: 3, md: 4 }} variants={itemVariants}>
@@ -367,7 +367,7 @@ const Footer = () => {
           </MotionStack>
 
           <MotionStack align="flex-start" variants={itemVariants}>
-            <ListHeader>Desarrolladores</ListHeader>
+            <ListHeader>Developers</ListHeader>
             <VStack align="flex-start" spacing={{ base: 2, md: 3 }} w="full">
               <FooterLink href="#detection">Luis De León</FooterLink>
               <FooterLink href="#tracking">Joaquín Figueroa</FooterLink>
@@ -379,15 +379,15 @@ const Footer = () => {
           </MotionStack>
 
           <MotionStack align="flex-start" variants={itemVariants}>
-            <ListHeader>Centro de Control</ListHeader>
+            <ListHeader>Control Center</ListHeader>
             <Text mb={{ base: 4, md: 6 }} fontSize={{ base: 'xs', md: 'sm' }} color="rgba(219, 234, 254, 0.7)" lineHeight="1.6">
-              Mantente informado sobre amenazas espaciales, nuevas detecciones y actualizaciones
-              del sistema de defensa planetaria.
+              Stay informed about space threats, new detections,
+              and updates to the planetary defense system.
             </Text>
 
             <FormControl>
               <Input
-                placeholder="comandante@correo.com"
+                placeholder="commander@email.com"
                 bg="rgba(10, 14, 26, 0.8)"
                 border="2px solid"
                 borderColor="rgba(59, 130, 246, 0.3)"
@@ -430,7 +430,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.98 }}
                 transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
               >
-                Unirse a la Misión
+                Join the Mission
               </MotionButton>
             </FormControl>
 
@@ -448,36 +448,36 @@ const Footer = () => {
               w="full"
             >
               <Text fontSize={{ base: '2xs', md: 'xs' }} color="#93c5fd" textAlign="center">
-                🚀 Más de 25,000+ científicos confían en AsteroidWatch
+                🚀 Over 25,000+ scientists trust AsteroidWatch
               </Text>
             </MotionBox>
 
             <HStack spacing={{ base: 3, md: 4 }} mt={{ base: 4, md: 6 }} w="full" justify={{ base: 'center', md: 'flex-start' }}>
-              <SocialButton icon={<Satellite size={18} />} label="Red Satelital" />
-              <SocialButton icon={<Globe size={18} />} label="Red Global" />
-              <SocialButton icon={<Shield size={18} />} label="Protocolo Seguro" />
+              <SocialButton icon={<Satellite size={18} />} label="Satellite Network" />
+              <SocialButton icon={<Globe size={18} />} label="Global Network" />
+              <SocialButton icon={<Shield size={18} />} label="Secure Protocol" />
             </HStack>
           </MotionStack>
 
           <MotionStack align="flex-start" variants={itemVariants}>
-            <ListHeader>Estado del Sistema</ListHeader>
+            <ListHeader>System Status</ListHeader>
 
             <VStack align="flex-start" spacing={{ base: 3, md: 4 }} w="full">
               <SystemStatus
-                label="FITS Visibles"
-                status="OPERATIVO"
+                label="Visible FITS"
+                status="OPERATIONAL"
                 count="47/47"
                 color="#10b981"
               />
               <SystemStatus
-                label="Simuladores"
+                label="Simulators"
                 status="NOMINAL"
                 count="523/525"
                 color="#3b82f6"
               />
               <SystemStatus
-                label="Punteo promedio"
-                status="MONITOREANDO"
+                label="Average Score"
+                status="MONITORING"
                 count=" 8 pts"
                 color="#f59e0b"
               />
@@ -543,8 +543,8 @@ const Footer = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 1 }}
             >
-              © {new Date().getFullYear()} AstroTracker Defense System. Todos los derechos reservados.
-              Comandancia Espacial Guatemala. 🌍 Protegiendo la Tierra desde 2025.
+              © {new Date().getFullYear()} AstroTracker Defense System. All Rights Reserved.
+              Guatemala Space Command. 🌍 Protecting Earth since 2025.
             </MotionText>
             <HStack
               spacing={{ base: 4, md: 6, lg: 8 }}
@@ -552,9 +552,9 @@ const Footer = () => {
               flexWrap="wrap"
               justify="center"
             >
-              <FooterLink href="#protocols">Protocolos de Defensa</FooterLink>
-              <FooterLink href="#classified">Información Clasificada</FooterLink>
-              <FooterLink href="#emergency">Emergencias</FooterLink>
+              <FooterLink href="#protocols">Defense Protocols</FooterLink>
+              <FooterLink href="#classified">Classified Information</FooterLink>
+              <FooterLink href="#emergency">Emergencies</FooterLink>
             </HStack>
           </Flex>
         </Container>

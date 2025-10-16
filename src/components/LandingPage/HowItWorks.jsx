@@ -159,9 +159,9 @@ const StepCard = ({ icon, title, description, index, isInView }) => {
 
 const FeaturesBanner = ({ isInView }) => {
     const features = [
-        { icon: Telescope, text: "Detección Temprana", color: "#0ea5e9" },
-        { icon: Zap, text: "Análisis Instantáneo", color: "#3b82f6" },
-        { icon: Shield, text: "Protección Total", color: "#1d4ed8" }
+        { icon: Telescope, text: "Early Detection", color: "#0ea5e9" },
+        { icon: Zap, text: "Instant Analysis", color: "#3b82f6" },
+        { icon: Shield, text: "Total Protection", color: "#1d4ed8" }
     ];
 
     return (
@@ -208,23 +208,23 @@ const HowItWorks = () => {
     const steps = [
         {
             icon: Satellite,
-            title: 'Detección Espacial',
-            description: 'Red de telescopios y satélites rastrea continuamente el espacio cercano a la Tierra, identificando nuevos objetos y actualizando trayectorias.',
+            title: 'Space Detection',
+            description: 'Network of telescopes and satellites continuously track near-Earth space, identifying new objects and updating trajectories.',
         },
         {
             icon: Radar,
-            title: 'Análisis Orbital',
-            description: 'Algoritmos avanzados calculan trayectorias precisas, velocidades y probabilidades de impacto usando datos de múltiples fuentes astronómicas.',
+            title: 'Orbital Analysis',
+            description: 'Advanced algorithms calculate precise trajectories, velocities, and impact probabilities using data from multiple astronomical sources.',
         },
         {
             icon: Activity,
-            title: 'Evaluación de Riesgo',
-            description: 'Sistema de clasificación automática determina el nivel de amenaza basado en tamaño, composición, velocidad y trayectoria del objeto.',
+            title: 'Risk Assessment',
+            description: 'Automatic classification system determines the threat level based on the object’s size, composition, speed, and trajectory.',
         },
         {
             icon: Target,
-            title: 'Protocolo de Defensa',
-            description: 'Activación inmediata de sistemas de interceptación y notificación a agencias espaciales internacionales para respuesta coordinada.',
+            title: 'Defense Protocol',
+            description: 'Immediate activation of interception systems and notification to international space agencies for a coordinated response.',
         },
     ];
 
@@ -321,7 +321,7 @@ const HowItWorks = () => {
                         fontWeight="600"
                         letterSpacing="wide"
                     >
-                        SISTEMA DE DEFENSA PLANETARIA
+                        PLANETARY DEFENSE SYSTEM
                     </Badge>
 
                     <Heading
@@ -333,7 +333,7 @@ const HowItWorks = () => {
                         bgClip="text"
                         letterSpacing="tight"
                     >
-                        ¿Cómo funciona?
+                        How It Works?
                     </Heading>
 
                     <Text
@@ -343,7 +343,7 @@ const HowItWorks = () => {
                         lineHeight="1.8"
                         fontWeight="400"
                     >
-                        Protección continua a través de monitoreo espacial avanzado, análisis predictivo y sistemas de respuesta automática.
+                        Continuous protection through advanced space monitoring, predictive analysis, and automatic response systems.
                     </Text>
 
                     <Divider
@@ -476,7 +476,7 @@ const HowItWorks = () => {
                             fontWeight="bold"
                             letterSpacing="wide"
                         >
-                            TECNOLOGÍA ESPACIAL AVANZADA
+                            ADVANCED SPACE TECHNOLOGY
                         </Badge>
 
                         <Heading
@@ -486,7 +486,7 @@ const HowItWorks = () => {
                             bgClip="text"
                             fontWeight="700"
                         >
-                            Impulsado por IA Astronómica
+                            Powered by Astronomical AI
                         </Heading>
 
                         <Text
@@ -494,9 +494,9 @@ const HowItWorks = () => {
                             lineHeight="1.8"
                             fontSize="md"
                         >
-                            Nuestros algoritmos de aprendizaje automático han sido entrenados con décadas de datos astronómicos,
-                            permitiendo predecir trayectorias con precisión milimétrica, calcular probabilidades de impacto
-                            y coordinar respuestas de defensa planetaria en tiempo real.
+                            Our machine learning algorithms have been trained with decades of astronomical data,
+                            allowing us to predict trajectories with millimeter precision, calculate impact probabilities,
+                            and coordinate planetary defense responses in real time.
                         </Text>
 
                         <FeaturesBanner isInView={inView} />

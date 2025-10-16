@@ -48,7 +48,7 @@ export function estimateImpactAreaFromHORIZONS(horizonsData, paisSuperficieKm2 ,
   console.log(`- Área afectada: ${areaKm2.toFixed(2)} km²`);
 
   return {
-    asteroidName: horizonsData.basicInfo.name || "Desconocido",
+    asteroidName: horizonsData.basicInfo.name || "Unknown",
     impactDate,
     velocityKmS: Number(velocityKmS.toFixed(2)),
     velocityMS: Number(velocityMS.toFixed(2)),

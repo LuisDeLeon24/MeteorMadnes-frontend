@@ -18,7 +18,7 @@ const AnswerFeedback = ({ correct }) => (
   >
     <Icon as={correct ? CheckCircle : XCircle} boxSize={16} />
     <Text fontSize="2xl" fontWeight="bold">
-      {correct ? "¡Correcto!" : "Respuesta Incorrecta"}
+      {correct ? "Correct!" : "Incorrect Answer"}
     </Text>
   </MotionVStack>
 );

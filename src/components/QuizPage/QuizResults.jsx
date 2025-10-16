@@ -17,11 +17,11 @@ const QuizResults = ({ score, total, onRestart }) => {
       setDownloading(true);
       const dataUrl = await htmlToImage.toPng(badgeRef.current, { cacheBust: true });
       const link = document.createElement('a');
-      link.download = 'mi-badge.png';
+      link.download = 'my-badge.png';
       link.href = dataUrl;
       link.click();
     } catch (err) {
-      console.error('Error generando imagen:', err);
+      console.error('Error generating image:', err);
     } finally {
       setDownloading(false);
     }
@@ -52,8 +52,8 @@ const QuizResults = ({ score, total, onRestart }) => {
       {/* Texto motivacional */}
       <Text fontSize={{ base: "sm", md: "md" }} color="rgba(219,234,254,0.8)">
         {score / total > 0.7
-          ? "¡Excelente trabajo, comandante!"
-          : "Sigue practicando, el cosmos te espera."}
+          ? "Excellent work, Commander!"
+          : "Keep practicing, the cosmos awaits you."}
       </Text>
 
       {/* Botón de reintentar */}
@@ -68,7 +68,7 @@ const QuizResults = ({ score, total, onRestart }) => {
         borderRadius="full"
         _hover={{ transform: "scale(1.05)" }}
       >
-        Reintentar
+        Retry
       </Button>
 
       {/* Botón de descargar premio solo si es perfecto */}
@@ -85,7 +85,7 @@ const QuizResults = ({ score, total, onRestart }) => {
           onClick={downloadBadge}
           isLoading={downloading}
         >
-          Descargar premio
+          Download Prize
         </Button>
       )}
 
@@ -93,7 +93,7 @@ const QuizResults = ({ score, total, onRestart }) => {
       <Box position="absolute" top={0} left={0} opacity={0} pointerEvents="none">
         <BadgeView
           ref={badgeRef}
-          title="¡Felicidades!"
+          title="Congratulations!"
           teamImage="/assets/images/BadVoids-Logo-White-removebg-preview.png"
           logoImage="/assets/images/Main_Logo-removebg-preview.png"
           badgeImage="/assets/images/Badge-removebg-preview.png"
