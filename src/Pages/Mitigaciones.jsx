@@ -1,12 +1,9 @@
-import { Box, VStack, Heading, SimpleGrid, Button } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { Box, Stack, Heading, Text, SimpleGrid } from "@chakra-ui/react";
 import { Wrench, ZapOff, ShieldCheck, Rocket } from "lucide-react";
 import MitigationCard from "../components/MitigacionesPage/MitigationCard";
 import Navbar from "../components/Commond/NavBar";
 import PNGTuberWidget from "../components/Pngtuber/PNGTuberWidget";
 import Footer from "../components/Commond/Footer";
-
-const MotionBox = motion(Box);
 
 const MitigationsPage = () => {
   const mitigations = [
@@ -67,33 +64,20 @@ const MitigationsPage = () => {
   return (
     <>
       <Navbar />
-      <Box
-        minH="100vh"
-        bg="linear-gradient(180deg, #030712 0%, #0f172a 100%)"
-        py={{ base: 10, md: 20 }}
-        px={{ base: 6, md: 16 }}
-      >
-        <VStack spacing={12} textAlign="center">
-          <Heading
-            size="2xl"
-            bgGradient="linear(to-r, #60a5fa, #93c5fd)"
-            bgClip="text"
-          >
-            Mitigation Strategies
+      <Box id="main" bg="#0a0a0a" py={{ base: 16, md: 28 }} px={{ base: 4, md: 6 }}>
+        <Stack spacing={4} maxW="1120px" mx="auto" mb={{ base: 10, md: 14 }}>
+          <Heading as="h1" fontSize={{ base: "36px", md: "48px" }} fontWeight={500} letterSpacing="-0.04em">
+            Mitigation strategies
           </Heading>
-
-          <SimpleGrid
-            columns={{ base: 1, md: 2 }}
-            spacing={10}
-            width="100%"
-            maxW="1200px"
-          >
-            {mitigations.map((m, i) => (
-              <MitigationCard key={i} {...m} />
-            ))}
-          </SimpleGrid>
-
-        </VStack>
+          <Text color="#9a9a9a" fontSize="16px" maxW="46ch" lineHeight="1.6">
+            Four approaches for reducing the damage of a near-Earth impact.
+          </Text>
+        </Stack>
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} maxW="1120px" mx="auto">
+          {mitigations.map((m) => (
+            <MitigationCard key={m.title} {...m} />
+          ))}
+        </SimpleGrid>
       </Box>
       <PNGTuberWidget />
       <Footer />

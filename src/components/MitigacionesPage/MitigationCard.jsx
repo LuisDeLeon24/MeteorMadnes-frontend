@@ -1,35 +1,31 @@
-import { Box, VStack, Heading, Text, SimpleGrid, Icon } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { Box, Heading, Text, SimpleGrid } from "@chakra-ui/react";
 import MitigationInfoBox from "./Mitigationinfobox";
+import { palette } from "../../theme";
 
-const MotionBox = motion(Box);
-
-const MitigationCard = ({ icon, title, description, data, color }) => {
+const MitigationCard = ({ icon, title, description, data }) => {
+  const Icon = icon;
   return (
-    <MotionBox
-      bg={`linear-gradient(145deg, ${color} 0%, rgba(0,0,0,0.4) 100%)`}
-      border="1px solid rgba(59,130,246,0.3)"
-      borderRadius="2xl"
-      p={{ base: 6, md: 10 }}
-      whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(59,130,246,0.3)" }}
-      transition="0.3s"
-      width="100%"
+    <Box
+      border="1px solid"
+      borderColor={palette.line}
+      borderRadius="12px"
+      p={{ base: 6, md: 8 }}
+      bg={palette.ink}
       textAlign="left"
     >
-      <Icon as={icon} boxSize={10} color="blue.400" mb={4} />
-      <Heading size="lg" color="white" mb={3}>
+      <Icon size={18} aria-hidden="true" color={palette.paper} />
+      <Heading as="h2" fontSize="22px" fontWeight={500} letterSpacing="-0.03em" color={palette.paper} mt={4} mb={3}>
         {title}
       </Heading>
-      <Text color="gray.200" mb={6}>
+      <Text color={palette.quiet} fontSize="15px" lineHeight="1.6" mb={6}>
         {description}
       </Text>
-
-      <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4}>
-        {data.map((item, i) => (
-          <MitigationInfoBox key={i} label={item.label} value={item.value} />
+      <SimpleGrid columns={{ base: 1, sm: 2 }} spacingX={8}>
+        {data.map((item) => (
+          <MitigationInfoBox key={item.label} label={item.label} value={item.value} />
         ))}
       </SimpleGrid>
-    </MotionBox>
+    </Box>
   );
 };
 

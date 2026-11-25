@@ -8,7 +8,7 @@ const chatIdleImage = '/images/chat-idle.png';
 const chatTalkingImage = '/images/chat-talking.png';
 
 const AstroTrackerAssistant = () => {
-  const [currentMessage, setCurrentMessage] = useState("Hello! 👋 I'm your AstroTracker assistant");
+  const [currentMessage, setCurrentMessage] = useState("Hello. I’m your AstroTracker assistant");
   const [isTalking, setIsTalking] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [chatMode, setChatMode] = useState(false);
@@ -29,14 +29,14 @@ const AstroTrackerAssistant = () => {
     const loadVoices = () => {
       const voices = window.speechSynthesis.getVoices();
       if (voices.length > 0 && !selectedVoiceRef.current) {
-        console.log('🎤 Available voices:', voices.map(v => v.name));
+        console.log(' Available voices:', voices.map(v => v.name));
         
         const yolandaVoice = voices.find(v => 
           v.name === 'Microsoft Yolanda Online (Natural) - Spanish (Nicaragua)'
         );
         
         selectedVoiceRef.current = yolandaVoice || voices[0];
-        console.log('✅ Selected voice:', selectedVoiceRef.current?.name);
+        console.log(' Selected voice:', selectedVoiceRef.current?.name);
       }
     };
     
@@ -55,7 +55,7 @@ const AstroTrackerAssistant = () => {
       recognitionRef.current.onstart = () => {
         setIsListening(true);
         toast({
-          title: "🎤 Listening...",
+          title: " Listening…",
           status: "info",
           duration: 2000,
         });
@@ -188,18 +188,17 @@ const AstroTrackerAssistant = () => {
           width="60px"
           height="60px"
           borderRadius="full"
-          bg="linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
-          boxShadow="0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.3)"
+          bg="#141414"
           cursor="pointer"
           display="flex"
           alignItems="center"
           justifyContent="center"
           transition="all 0.3s"
-          animation="pulse 2s infinite"
+          
           onClick={() => setIsMinimized(false)}
           _hover={{
             transform: 'scale(1.1)',
-            boxShadow: '0 0 30px rgba(59, 130, 246, 0.8), 0 0 60px rgba(59, 130, 246, 0.4)'
+            boxShadow: '0 0 30px #2a2a2a, 0 0 60px #2a2a2a'
           }}
           css={{
             '@keyframes pulse': {
@@ -214,7 +213,7 @@ const AstroTrackerAssistant = () => {
             width="50px"
             height="50px"
             objectFit="contain"
-            filter="drop-shadow(0 0 5px rgba(59, 130, 246, 0.5))"
+            filter="drop-shadow(0 0 5px #2a2a2a)"
           />
         </Box>
       )}
@@ -222,25 +221,23 @@ const AstroTrackerAssistant = () => {
       {/* Chat Window */}
       {!isMinimized && chatMode && (
         <Box
-          bg="linear-gradient(180deg, #0a1628 0%, #1a2942 50%, #0f1f3a 100%)"
+          bg="#141414"
           borderRadius="2xl"
-          boxShadow="0 0 40px rgba(59, 130, 246, 0.5), 0 0 80px rgba(59, 130, 246, 0.2)"
-          width="380px"
+          width="min(380px, calc(100vw - 40px))"
           height="550px"
           display="flex"
           flexDirection="column"
           overflow="hidden"
           border="2px solid"
-          borderColor="rgba(59, 130, 246, 0.4)"
+          borderColor="#2a2a2a"
         >
           {/* Header */}
           <Box 
-            bg="rgba(59, 130, 246, 0.1)" 
-            backdropFilter="blur(10px)"
+            bg="#2a2a2a"
             color="white" 
             p={4}
             borderBottom="1px solid"
-            borderColor="rgba(59, 130, 246, 0.3)"
+            borderColor="#2a2a2a"
           >
             <HStack justify="space-between" align="center">
               <HStack spacing={3}>
@@ -248,35 +245,34 @@ const AstroTrackerAssistant = () => {
                   w="10px"
                   h="10px"
                   borderRadius="full"
-                  bg="#3b82f6"
-                  boxShadow="0 0 10px #3b82f6"
-                  animation="pulse 2s infinite"
+                  bg="#f4f4f4"
+                  
                 />
                 <VStack align="start" spacing={0}>
-                  <Text fontWeight="bold" fontSize="lg" color="#60a5fa">🤖 Virtual Assistant</Text>
+                  <Text fontWeight="bold" fontSize="lg" color="#f4f4f4">Assistant</Text>
                   <Text fontSize="xs" color="rgba(255,255,255,0.6)">AstroTracker System</Text>
                 </VStack>
               </HStack>
               <HStack spacing={2}>
                 <IconButton
-                  icon={<Text fontSize="18px">{isMuted ? '🔇' : '🔊'}</Text>}
+                  icon={<Text fontSize="18px">{isMuted ? "Sound off" : "Sound on"}</Text>}
                   size="sm"
                   onClick={() => setIsMuted(!isMuted)}
-                  bg={isMuted ? 'rgba(239, 68, 68, 0.2)' : 'rgba(59, 130, 246, 0.2)'}
+                  bg={isMuted ? 'rgba(239, 68, 68, 0.2)' : '#2a2a2a'}
                   color="white"
                   borderRadius="full"
-                  _hover={{ bg: isMuted ? 'rgba(239, 68, 68, 0.3)' : 'rgba(59, 130, 246, 0.3)' }}
+                  _hover={{ bg: isMuted ? 'rgba(239, 68, 68, 0.3)' : '#2a2a2a' }}
                   title={isMuted ? 'Activate sound' : 'Mute'}
                 />
                 <Button 
                   size="sm" 
                   onClick={() => setChatMode(false)} 
-                  bg="rgba(59, 130, 246, 0.2)"
+                  bg="#2a2a2a"
                   color="white"
                   borderRadius="full"
-                  _hover={{ bg: 'rgba(59, 130, 246, 0.3)' }}
+                  _hover={{ bg: '#2a2a2a' }}
                 >
-                  ✕
+                  
                 </Button>
               </HStack>
             </HStack>
@@ -298,15 +294,15 @@ const AstroTrackerAssistant = () => {
                 background: 'transparent',
               },
               '&::-webkit-scrollbar-thumb': {
-                background: '#3b82f6',
+                background: '#f4f4f4',
                 borderRadius: '10px',
               },
             }}
           >
             {messages.length === 0 && (
               <VStack spacing={3} py={8} opacity={0.7}>
-                <Text fontSize="4xl">🛰️</Text>
-                <Text fontSize="sm" color="#60a5fa" textAlign="center" fontWeight="500">
+                <Text fontSize="4xl"></Text>
+                <Text fontSize="sm" color="#f4f4f4" textAlign="center" fontWeight="500">
                   AstroTracker System Active
                 </Text>
                 <Text fontSize="xs" color="rgba(255,255,255,0.5)" textAlign="center">
@@ -323,24 +319,24 @@ const AstroTrackerAssistant = () => {
               >
                 <Box
                   bg={msg.type === 'user' 
-                    ? 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)' 
+                    ? '#141414' 
                     : 'rgba(30, 41, 59, 0.9)'
                   }
                   color="white"
                   p={3}
                   borderRadius="xl"
                   boxShadow={msg.type === 'user' 
-                    ? '0 0 15px rgba(59, 130, 246, 0.4)' 
+                    ? '0 0 15px #2a2a2a' 
                     : '0 0 15px rgba(0, 0, 0, 0.5)'
                   }
                   position="relative"
                   border="1px solid"
-                  borderColor={msg.type === 'user' ? 'rgba(96, 165, 250, 0.3)' : 'rgba(59, 130, 246, 0.2)'}
+                  borderColor={msg.type === 'user' ? '#9a9a9a' : '#2a2a2a'}
                 >
                   <Text fontSize="sm" lineHeight="1.6">{msg.text}</Text>
                   {msg.type === 'bot' && !isMuted && (
                     <IconButton
-                      icon={<Text fontSize="16px">🔊</Text>}
+                      icon={<Text fontSize="16px">Play</Text>}
                       size="xs"
                       position="absolute"
                       bottom="6px"
@@ -348,11 +344,10 @@ const AstroTrackerAssistant = () => {
                       minW="26px"
                       height="26px"
                       borderRadius="full"
-                      bg="rgba(59, 130, 246, 0.8)"
+                      bg="#2a2a2a"
                       color="white"
-                      _hover={{ bg: '#3b82f6', transform: 'scale(1.1)' }}
+                      _hover={{ bg: '#f4f4f4', transform: 'scale(1.1)' }}
                       onClick={() => speak(msg.text)}
-                      boxShadow="0 0 10px rgba(59, 130, 246, 0.6)"
                     />
                   )}
                 </Box>
@@ -365,13 +360,12 @@ const AstroTrackerAssistant = () => {
                   bg="rgba(30, 41, 59, 0.9)"
                   p={3}
                   borderRadius="xl"
-                  boxShadow="0 0 15px rgba(0, 0, 0, 0.5)"
                   border="1px solid"
-                  borderColor="rgba(59, 130, 246, 0.2)"
+                  borderColor="#2a2a2a"
                 >
                   <HStack spacing={2}>
-                    <Spinner size="sm" color="#3b82f6" />
-                    <Text fontSize="sm" color="#60a5fa">Analyzing...</Text>
+                    <Spinner size="sm" color="#f4f4f4" />
+                    <Text fontSize="sm" color="#f4f4f4">Analyzing...</Text>
                   </HStack>
                 </Box>
               </Box>
@@ -381,10 +375,10 @@ const AstroTrackerAssistant = () => {
           {/* Character Avatar at Bottom */}
           <Box
             position="relative"
-            height="120px"
+            height="72px"
             bg="rgba(10, 22, 40, 0.8)"
             borderTop="1px solid"
-            borderColor="rgba(59, 130, 246, 0.3)"
+            borderColor="#2a2a2a"
             display="flex"
             alignItems="flex-end"
             justifyContent="center"
@@ -393,32 +387,30 @@ const AstroTrackerAssistant = () => {
             <Image
               src={isTalking ? chatTalkingImage : chatIdleImage}
               alt="Assistant"
-              height="110px"
+              height="72px"
               objectFit="contain"
               transition="all 0.3s"
               transform={isTalking ? 'scale(1.1)' : 'scale(1)'}
-              filter={isTalking ? 'drop-shadow(0 0 15px rgba(59, 130, 246, 0.8))' : 'drop-shadow(0 0 5px rgba(59, 130, 246, 0.3))'}
+              filter={isTalking ? 'drop-shadow(0 0 15px #2a2a2a)' : 'drop-shadow(0 0 5px #2a2a2a)'}
             />
           </Box>
 
           {/* Input Area */}
           <Box 
             p={3} 
-            bg="rgba(59, 130, 246, 0.1)" 
-            backdropFilter="blur(10px)"
+            bg="#2a2a2a"
             borderTop="1px solid"
-            borderColor="rgba(59, 130, 246, 0.3)"
+            borderColor="#2a2a2a"
           >
             <HStack spacing={2}>
               <IconButton
-                icon={<Text fontSize="20px">{isListening ? '⏹️' : '🎤'}</Text>}
-                bg={isListening ? 'rgba(239, 68, 68, 0.8)' : 'rgba(59, 130, 246, 0.8)'}
+                icon={<Text fontSize="20px">{isListening ? "Stop" : "Mic"}</Text>}
+                bg={isListening ? 'rgba(239, 68, 68, 0.8)' : '#2a2a2a'}
                 color="white"
                 size="md"
                 borderRadius="full"
                 onClick={isListening ? stopListening : startListening}
-                boxShadow="0 0 15px rgba(59, 130, 246, 0.5)"
-                _hover={{ transform: 'scale(1.1)', bg: isListening ? '#ef4444' : '#3b82f6' }}
+                _hover={{ transform: 'scale(1.1)', bg: isListening ? '#ef4444' : '#f4f4f4' }}
               />
               <Input
                 placeholder="Type your message..."
@@ -430,25 +422,24 @@ const AstroTrackerAssistant = () => {
                 color="white"
                 borderRadius="full"
                 border="1px solid"
-                borderColor="rgba(59, 130, 246, 0.3)"
+                borderColor="#2a2a2a"
                 _placeholder={{ color: 'rgba(255,255,255,0.4)' }}
                 _focus={{ 
-                  borderColor: '#3b82f6', 
-                  boxShadow: '0 0 0 1px #3b82f6',
+                  borderColor: '#f4f4f4', 
+                  boxShadow: '0 0 0 1px #f4f4f4',
                   bg: 'rgba(30, 41, 59, 0.9)'
                 }}
                 disabled={loading}
               />
               <IconButton
-                icon={<Text fontSize="18px">📡</Text>}
-                bg="rgba(59, 130, 246, 0.8)"
+                icon={<Text fontSize="18px">Send</Text>}
+                bg="#2a2a2a"
                 color="white"
                 size="md"
                 borderRadius="full"
                 onClick={sendTextMessage}
                 isLoading={loading}
-                boxShadow="0 0 15px rgba(59, 130, 246, 0.5)"
-                _hover={{ transform: 'scale(1.1)', bg: '#3b82f6' }}
+                _hover={{ transform: 'scale(1.1)', bg: '#f4f4f4' }}
               />
             </HStack>
           </Box>
@@ -459,14 +450,12 @@ const AstroTrackerAssistant = () => {
       {!isMinimized && !chatMode && (
         <Box
           bg="rgba(10, 22, 40, 0.95)"
-          backdropFilter="blur(10px)"
           borderRadius="xl"
           p={3}
-          boxShadow="0 0 20px rgba(59, 130, 246, 0.4)"
           maxWidth="280px"
           position="relative"
           border="1px solid"
-          borderColor="rgba(59, 130, 246, 0.3)"
+          borderColor="#2a2a2a"
           transition="all 0.3s"
         >
           <Text fontSize="14px" fontWeight="500" color="white">{currentMessage}</Text>
@@ -487,27 +476,26 @@ const AstroTrackerAssistant = () => {
       {!isMinimized && !chatMode && (
         <Box position="relative">
           <Box
-            bg="linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
+            bg="#141414"
             borderRadius="full"
             p={4}
-            boxShadow="0 0 30px rgba(59, 130, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.3)"
             cursor="pointer"
             onClick={() => setChatMode(true)}
             transition="all 0.3s"
             _hover={{ 
               transform: 'scale(1.05)', 
-              boxShadow: '0 0 40px rgba(59, 130, 246, 0.8), 0 0 80px rgba(59, 130, 246, 0.4)' 
+              boxShadow: '0 0 40px #2a2a2a, 0 0 80px #2a2a2a' 
             }}
           >
             <Image
               src={isTalking ? talkingImage : idleImage}
               alt="Assistant"
-              width="120px"
-              height="120px"
+              width="72px"
+              height="72px"
               objectFit="contain"
               transition="transform 0.2s"
               transform={isTalking ? 'scale(1.1)' : 'scale(1)'}
-              filter="drop-shadow(0 0 10px rgba(59, 130, 246, 0.5))"
+              filter="drop-shadow(0 0 10px #2a2a2a)"
             />
           </Box>
           <Button
@@ -526,7 +514,6 @@ const AstroTrackerAssistant = () => {
             height="28px"
             minW="28px"
             padding="0"
-            boxShadow="0 0 10px rgba(239, 68, 68, 0.6)"
             _hover={{ bg: '#ef4444', transform: 'scale(1.1)' }}
           >
             ×
@@ -536,26 +523,25 @@ const AstroTrackerAssistant = () => {
 
       {/* Controls */}
       {!isMinimized && !chatMode && (
-        <HStack spacing={2} bg="rgba(10, 22, 40, 0.9)" backdropFilter="blur(10px)" p={2} borderRadius="20px" border="1px solid" borderColor="rgba(59, 130, 246, 0.3)">
+        <HStack spacing={2} bg="rgba(10, 22, 40, 0.9)" p={2} borderRadius="20px" border="1px solid" borderColor="#2a2a2a">
           <IconButton
-            icon={<Text fontSize="16px">{isMuted ? '🔇' : '🔊'}</Text>}
+            icon={<Text fontSize="16px">{isMuted ? "Sound off" : "Sound on"}</Text>}
             size="xs"
             onClick={() => setIsMuted(!isMuted)}
-            bg={isMuted ? 'rgba(239, 68, 68, 0.8)' : 'rgba(59, 130, 246, 0.8)'}
+            bg={isMuted ? 'rgba(239, 68, 68, 0.8)' : '#2a2a2a'}
             color="white"
             borderRadius="full"
-            _hover={{ transform: 'scale(1.1)', bg: isMuted ? '#ef4444' : '#3b82f6' }}
+            _hover={{ transform: 'scale(1.1)', bg: isMuted ? '#ef4444' : '#f4f4f4' }}
             title={isMuted ? 'Activate sound' : 'Mute'}
           />
           <Button 
             size="xs" 
             onClick={() => setChatMode(true)} 
-            bg="rgba(59, 130, 246, 0.8)"
+            bg="#2a2a2a"
             color="white"
-            leftIcon={<Text fontSize="14px">💬</Text>}
+            
             borderRadius="full"
-            boxShadow="0 0 10px rgba(59, 130, 246, 0.4)"
-            _hover={{ bg: '#3b82f6', transform: 'scale(1.05)' }}
+            _hover={{ bg: '#f4f4f4', transform: 'scale(1.05)' }}
           >
             Open Chat
           </Button>
@@ -565,9 +551,8 @@ const AstroTrackerAssistant = () => {
               onClick={stopSpeaking} 
               bg="rgba(239, 68, 68, 0.8)"
               color="white"
-              leftIcon={<Text fontSize="14px">⏹️</Text>}
+              
               borderRadius="full"
-              boxShadow="0 0 10px rgba(239, 68, 68, 0.4)"
               _hover={{ bg: '#ef4444', transform: 'scale(1.05)' }}
             >
               Stop

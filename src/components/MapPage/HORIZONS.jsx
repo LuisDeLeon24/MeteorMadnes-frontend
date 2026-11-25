@@ -59,30 +59,7 @@ const MotionBox = motion.create(Box);
 const MotionTr = motion.create(Tr);
 
 // Componente de partículas de fondo
-const BackgroundParticles = () => (
-	<>
-		{[...Array(8)].map((_, i) => (
-			<Box
-				key={i}
-				position="absolute"
-				width="1.5px"
-				height="1.5px"
-				bg="rgba(124, 58, 237, 0.4)"
-				borderRadius="full"
-				top={`${15 + Math.random() * 70}%`}
-				left={`${15 + Math.random() * 70}%`}
-				animation={`twinkle ${3 + Math.random() * 2}s ease-in-out infinite ${Math.random() * 2}s`}
-				zIndex={1}
-			/>
-		))}
-		<style>{`
-			@keyframes twinkle {
-				0%, 100% { opacity: 0.1; transform: scale(1); }
-				50% { opacity: 0.8; transform: scale(1.2); }
-			}
-		`}</style>
-	</>
-);
+const BackgroundParticles = () => null;
 
 // Componente de encabezado
 const Header = () => (
@@ -91,7 +68,7 @@ const Header = () => (
 		animate={{ opacity: 1, y: 0 }}
 		transition={{ duration: 0.6 }}
 		p={{ base: 4, md: 5 }}
-		bg="linear-gradient(135deg, rgba(3, 7, 18, 0.6) 0%, rgba(10, 14, 26, 0.6) 100%)"
+		bg="#141414"
 		borderRadius="xl"
 		border="1px solid rgba(124, 58, 237, 0.2)"
 		position="relative"
@@ -104,7 +81,7 @@ const Header = () => (
 			left="0"
 			right="0"
 			height="2px"
-			bg="linear-gradient(90deg, transparent, #7c3aed, #8b5cf6, transparent)"
+			bg="#141414"
 			opacity={0.8}
 		/>
 
@@ -119,7 +96,7 @@ const Header = () => (
 				justify="center"
 			>
 				<Circle size={{ base: "40px", md: "45px" }} bg="rgba(124, 58, 237, 0.15)" border="1px solid rgba(124, 58, 237, 0.3)">
-					<Icon as={Target} color="#8b5cf6" boxSize={{ base: 5, md: 6 }} />
+					<Icon as={Target} color="#f4f4f4" boxSize={{ base: 5, md: 6 }} />
 				</Circle>
 				<VStack align={{ base: "center", sm: "flex-start" }} spacing={0}>
 					<Text color="white" fontWeight="bold" fontSize={{ base: "md", md: "lg" }} textAlign={{ base: "center", sm: "left" }}>
@@ -135,21 +112,21 @@ const Header = () => (
 				colorScheme="purple"
 				variant="subtle"
 				bg="rgba(124, 58, 237, 0.1)"
-				color="#8b5cf6"
+				color="#f4f4f4"
 				px={3}
 				py={1}
 				borderRadius="full"
 				fontSize={{ base: "2xs", md: "xs" }}
 				fontWeight="medium"
 			>
-				🎯 Precise Trajectory Data
+				 Precise Trajectory Data
 			</Badge>
 		</VStack>
 	</MotionBox>
 );
 
 // Componente de métrica individual
-const MetricCard = ({ icon, title, value, color = "#8b5cf6", delay = 0, subtitle = null, isHighlight = false }) => (
+const MetricCard = ({ icon, title, value, color = "#f4f4f4", delay = 0, subtitle = null, isHighlight = false }) => (
 	<MotionBox
 		initial={{ opacity: 0, y: 20, scale: 0.95 }}
 		animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -160,23 +137,23 @@ const MetricCard = ({ icon, title, value, color = "#8b5cf6", delay = 0, subtitle
 		}}
 		p={{ base: 3, md: 4 }}
 		bg={isHighlight
-			? "linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(109, 40, 217, 0.1) 100%)"
-			: "linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+			? "#141414"
+			: "#141414"
 		}
 		borderRadius="lg"
 		border={isHighlight
 			? "1px solid rgba(124, 58, 237, 0.3)"
-			: "1px solid rgba(59, 130, 246, 0.1)"
+			: "1px solid #2a2a2a"
 		}
 		position="relative"
 		overflow="hidden"
 		minH={{ base: "auto", md: "100px" }}
 		_hover={{
-			borderColor: isHighlight ? "rgba(124, 58, 237, 0.5)" : "rgba(59, 130, 246, 0.3)",
+			borderColor: isHighlight ? "rgba(124, 58, 237, 0.5)" : "#2a2a2a",
 			transform: "translateY(-2px)",
 			boxShadow: isHighlight
 				? "0 8px 25px rgba(124, 58, 237, 0.2)"
-				: "0 8px 25px rgba(59, 130, 246, 0.1)"
+				: "0 8px 25px #2a2a2a"
 		}}
 	>
 		<Box
@@ -185,7 +162,7 @@ const MetricCard = ({ icon, title, value, color = "#8b5cf6", delay = 0, subtitle
 			left="-100%"
 			width="100%"
 			height="100%"
-			bg="linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)"
+			bg="#141414"
 			animation="shimmer 3s ease-in-out infinite"
 			sx={{
 				'@keyframes shimmer': {
@@ -202,7 +179,7 @@ const MetricCard = ({ icon, title, value, color = "#8b5cf6", delay = 0, subtitle
 				</Circle>
 				<VStack align="flex-start" spacing={0} flex={1} minW={0}>
 					<Text
-						color="rgba(147, 197, 253, 0.7)"
+						color="#9a9a9a"
 						fontSize={{ base: "2xs", md: "xs" }}
 						fontWeight="medium"
 						noOfLines={1}
@@ -220,7 +197,7 @@ const MetricCard = ({ icon, title, value, color = "#8b5cf6", delay = 0, subtitle
 					</Text>
 					{subtitle && (
 						<Text
-							color="rgba(147, 197, 253, 0.5)"
+							color="#9a9a9a"
 							fontSize={{ base: "2xs", md: "xs" }}
 							noOfLines={1}
 						>
@@ -240,7 +217,7 @@ const LoadingState = () => (
 		animate={{ opacity: 1 }}
 		transition={{ duration: 0.4 }}
 		p={{ base: 6, md: 8 }}
-		bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+		bg="#141414"
 		borderRadius="xl"
 		border="1px solid rgba(124, 58, 237, 0.1)"
 		position="relative"
@@ -250,7 +227,7 @@ const LoadingState = () => (
 
 		<VStack spacing={4} position="relative" zIndex={2}>
 			<Circle size={{ base: "50px", md: "60px" }} bg="rgba(124, 58, 237, 0.1)" border="1px solid rgba(124, 58, 237, 0.2)">
-				<Spinner size={{ base: "md", md: "lg" }} color="#8b5cf6" thickness="3px" speed="0.8s" />
+				<Spinner size={{ base: "md", md: "lg" }} color="#f4f4f4" thickness="3px" speed="0.8s" />
 			</Circle>
 
 			<VStack spacing={2}>
@@ -258,7 +235,7 @@ const LoadingState = () => (
 					Querying JPL HORIZONS
 				</Text>
 				<Text
-					color="rgba(147, 197, 253, 0.7)"
+					color="#9a9a9a"
 					fontSize={{ base: "xs", md: "sm" }}
 					textAlign="center"
 					px={{ base: 4, md: 0 }}
@@ -286,7 +263,7 @@ const ErrorState = ({ error }) => (
 		animate={{ opacity: 1, scale: 1 }}
 		transition={{ duration: 0.4 }}
 		p={{ base: 4, md: 5 }}
-		bg="linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(185, 28, 28, 0.1) 100%)"
+		bg="#141414"
 		border="1px solid rgba(220, 38, 38, 0.3)"
 		borderRadius="xl"
 		position="relative"
@@ -298,7 +275,7 @@ const ErrorState = ({ error }) => (
 			left="0"
 			right="0"
 			height="2px"
-			bg="linear-gradient(90deg, transparent, #ef4444, transparent)"
+			bg="#141414"
 			opacity={0.6}
 		/>
 
@@ -333,9 +310,9 @@ const CollapsibleSection = ({ title, icon, color, children, defaultOpen = false 
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.5 }}
-			bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+			bg="#141414"
 			borderRadius="xl"
-			border="1px solid rgba(59, 130, 246, 0.1)"
+			border="1px solid #2a2a2a"
 			overflow="hidden"
 		>
 			<Button
@@ -347,7 +324,7 @@ const CollapsibleSection = ({ title, icon, color, children, defaultOpen = false 
 				justifyContent="space-between"
 				borderRadius="xl"
 				_hover={{
-					bg: "rgba(59, 130, 246, 0.05)"
+					bg: "#2a2a2a"
 				}}
 			>
 				<HStack spacing={{ base: 2, md: 3 }}>
@@ -361,7 +338,7 @@ const CollapsibleSection = ({ title, icon, color, children, defaultOpen = false 
 
 				<Icon
 					as={isOpen ? ChevronUp : ChevronDown}
-					color="#60a5fa"
+					color="#f4f4f4"
 					boxSize={{ base: 5, md: 6 }}
 					transition="transform 0.2s"
 				/>
@@ -369,7 +346,7 @@ const CollapsibleSection = ({ title, icon, color, children, defaultOpen = false 
 
 			<Collapse in={isOpen}>
 				<Box p={{ base: 3, md: 4 }} pt={0}>
-					<Divider borderColor="rgba(59, 130, 246, 0.1)" mb={{ base: 3, md: 4 }} />
+					<Divider borderColor="#2a2a2a" mb={{ base: 3, md: 4 }} />
 					{children}
 				</Box>
 			</Collapse>
@@ -382,7 +359,7 @@ const EphemerisTable = ({ ephemeris }) => (
 	<Box
 		bg="rgba(3, 7, 18, 0.6)"
 		borderRadius="lg"
-		border="1px solid rgba(59, 130, 246, 0.1)"
+		border="1px solid #2a2a2a"
 		overflow="hidden"
 	>
 		<TableContainer maxHeight={{ base: "300px", md: "400px" }} overflowY="auto" overflowX="auto">
@@ -390,17 +367,17 @@ const EphemerisTable = ({ ephemeris }) => (
 				<Thead
 					position="sticky"
 					top={0}
-					bg="linear-gradient(135deg, rgba(3, 7, 18, 0.95) 0%, rgba(10, 14, 26, 0.95) 100%)"
+					bg="#141414"
 					zIndex={1}
 				>
 					<Tr>
-						<Th color="#60a5fa" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">Date</Th>
-						<Th color="#60a5fa" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">RA</Th>
-						<Th color="#60a5fa" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">DEC</Th>
-						<Th color="#60a5fa" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">Delta (AU)</Th>
-						<Th color="#60a5fa" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">deldot</Th>
-						<Th color="#60a5fa" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">Sol. Elong.</Th>
-						<Th color="#60a5fa" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">STO</Th>
+						<Th color="#f4f4f4" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">Date</Th>
+						<Th color="#f4f4f4" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">RA</Th>
+						<Th color="#f4f4f4" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">DEC</Th>
+						<Th color="#f4f4f4" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">Delta (AU)</Th>
+						<Th color="#f4f4f4" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">deldot</Th>
+						<Th color="#f4f4f4" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">Sol. Elong.</Th>
+						<Th color="#f4f4f4" fontSize={{ base: "2xs", md: "xs" }} fontWeight="bold" whiteSpace="nowrap">STO</Th>
 					</Tr>
 				</Thead>
 				<Tbody>
@@ -411,26 +388,26 @@ const EphemerisTable = ({ ephemeris }) => (
 							animate={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.3, delay: index * 0.02 }}
 							_hover={{
-								bg: "rgba(59, 130, 246, 0.05)"
+								bg: "#2a2a2a"
 							}}
 						>
 							<Td color="white" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.date}</Td>
-							<Td color="rgba(147, 197, 253, 0.8)" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.RA}</Td>
-							<Td color="rgba(147, 197, 253, 0.8)" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.DEC}</Td>
-							<Td color="rgba(147, 197, 253, 0.8)" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.delta}</Td>
-							<Td color="rgba(147, 197, 253, 0.8)" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.deldot}</Td>
-							<Td color="rgba(147, 197, 253, 0.8)" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.solarElongation}</Td>
-							<Td color="rgba(147, 197, 253, 0.8)" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.STO}</Td>
+							<Td color="#9a9a9a" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.RA}</Td>
+							<Td color="#9a9a9a" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.DEC}</Td>
+							<Td color="#9a9a9a" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.delta}</Td>
+							<Td color="#9a9a9a" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.deldot}</Td>
+							<Td color="#9a9a9a" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.solarElongation}</Td>
+							<Td color="#9a9a9a" fontSize={{ base: "2xs", md: "xs" }} whiteSpace="nowrap">{e.STO}</Td>
 						</MotionTr>
 					))}
 				</Tbody>
 			</Table>
 		</TableContainer>
 
-		<Box p={{ base: 2, md: 3 }} bg="rgba(59, 130, 246, 0.05)" borderTop="1px solid rgba(59, 130, 246, 0.1)">
+		<Box p={{ base: 2, md: 3 }} bg="#2a2a2a" borderTop="1px solid #2a2a2a">
 			<HStack spacing={2}>
-				<Icon as={BarChart3} color="#60a5fa" boxSize={{ base: 3, md: 4 }} />
-				<Text color="rgba(147, 197, 253, 0.7)" fontSize={{ base: "2xs", md: "xs" }}>
+				<Icon as={BarChart3} color="#f4f4f4" boxSize={{ base: 3, md: 4 }} />
+				<Text color="#9a9a9a" fontSize={{ base: "2xs", md: "xs" }}>
 					{ephemeris.length} ephemeris entries available
 				</Text>
 			</HStack>
@@ -479,15 +456,15 @@ export const HORIZONS = ({ asteroidId }) => {
 						width: '8px',
 					},
 					'&::-webkit-scrollbar-track': {
-						background: 'rgba(59, 130, 246, 0.05)',
+						background: '#2a2a2a',
 						borderRadius: '10px',
 					},
 					'&::-webkit-scrollbar-thumb': {
-						background: 'rgba(59, 130, 246, 0.4)',
+						background: '#2a2a2a',
 						borderRadius: '10px',
 					},
 					'&::-webkit-scrollbar-thumb:hover': {
-						background: 'rgba(59, 130, 246, 0.6)',
+						background: '#2a2a2a',
 					},
 				}}
 			>
@@ -500,9 +477,9 @@ export const HORIZONS = ({ asteroidId }) => {
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.6, delay: 0.2 }}
 						p={{ base: 4, md: 5 }}
-						bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+						bg="#141414"
 						borderRadius="xl"
-						border="1px solid rgba(59, 130, 246, 0.1)"
+						border="1px solid #2a2a2a"
 						position="relative"
 						overflow="hidden"
 					>
@@ -516,7 +493,7 @@ export const HORIZONS = ({ asteroidId }) => {
 								align={{ base: "center", sm: "flex-start" }}
 							>
 								<Circle size={{ base: "35px", md: "40px" }} bg="rgba(124, 58, 237, 0.15)" border="1px solid rgba(124, 58, 237, 0.3)" flexShrink={0}>
-									<Icon as={Target} color="#8b5cf6" boxSize={{ base: 5, md: 6 }} />
+									<Icon as={Target} color="#f4f4f4" boxSize={{ base: 5, md: 6 }} />
 								</Circle>
 								<VStack align={{ base: "center", sm: "flex-start" }} spacing={0} flex={1}>
 									<Text
@@ -540,12 +517,12 @@ export const HORIZONS = ({ asteroidId }) => {
 								</VStack>
 							</Stack>
 
-							<Divider borderColor="rgba(59, 130, 246, 0.1)" />
+							<Divider borderColor="#2a2a2a" />
 
 							<VStack spacing={{ base: 2, md: 3 }} width="100%" align="stretch">
 								<HStack spacing={2}>
-									<Icon as={Database} color="#8b5cf6" boxSize={{ base: 4, md: 5 }} />
-									<Text color="#8b5cf6" fontWeight="bold" fontSize={{ base: "xs", md: "sm" }}>
+									<Icon as={Database} color="#f4f4f4" boxSize={{ base: 4, md: 5 }} />
+									<Text color="#f4f4f4" fontWeight="bold" fontSize={{ base: "xs", md: "sm" }}>
 										Physical Properties
 									</Text>
 								</HStack>
@@ -555,7 +532,7 @@ export const HORIZONS = ({ asteroidId }) => {
 										icon={Ruler}
 										title="Radius"
 										value={basicInfo?.radius ? `${basicInfo.radius} km` : "N/A"}
-										color="#10b981"
+										color="#f4f4f4"
 										delay={0.1}
 										subtitle="Object radius"
 									/>
@@ -571,7 +548,7 @@ export const HORIZONS = ({ asteroidId }) => {
 										icon={Star}
 										title="Absolute Magnitude (H)"
 										value={basicInfo?.H}
-										color="#f59e0b"
+										color="#f4f4f4"
 										delay={0.2}
 										subtitle="Intrinsic brightness"
 									/>
@@ -579,7 +556,7 @@ export const HORIZONS = ({ asteroidId }) => {
 										icon={Activity}
 										title="Slope Parameter (G)"
 										value={basicInfo?.G}
-										color="#8b5cf6"
+										color="#f4f4f4"
 										delay={0.25}
 										subtitle="Phase function"
 									/>
@@ -631,7 +608,7 @@ export const HORIZONS = ({ asteroidId }) => {
 						<CollapsibleSection
 							title="Non-Standard Model"
 							icon={Globe}
-							color="#14b8a6"
+							color="#f4f4f4"
 						>
 							<SimpleGrid columns={{ base: 1, sm: 2 }} spacing={{ base: 2, md: 3 }}>
 								{Object.entries(nonStandardModel).map(([key, value], index) => (
@@ -640,7 +617,7 @@ export const HORIZONS = ({ asteroidId }) => {
 										icon={Database}
 										title={key}
 										value={value}
-										color="#14b8a6"
+										color="#f4f4f4"
 										delay={index * 0.05}
 									/>
 								))}
@@ -653,7 +630,7 @@ export const HORIZONS = ({ asteroidId }) => {
 						<CollapsibleSection
 							title={`Ephemeris (${ephemeris.length} entries)`}
 							icon={Telescope}
-							color="#60a5fa"
+							color="#f4f4f4"
 							defaultOpen={true}
 						>
 							<EphemerisTable ephemeris={ephemeris} />

@@ -70,13 +70,16 @@ export default function QuizPage() {
 
       {/* Contenedor principal */}
       <Box
+        id="main"
         position="relative"
         zIndex={2}
-        minH="100vh"
+        minH="calc(100vh - 64px)"
         display="flex"
         alignItems="center"
         justifyContent="center"
         px={4}
+        py={{ base: 16, md: 24 }}
+        bg="#0a0a0a"
       >
         {/* Etapa de introducción */}
         {stage === 'intro' && (

@@ -1,20 +1,13 @@
-import { Box, Text, Heading } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
+import { palette } from "../../theme";
 
 const MitigationInfoBox = ({ label, value }) => {
   return (
-    <Box
-      bg="rgba(255,255,255,0.05)"
-      border="1px solid rgba(59,130,246,0.2)"
-      borderRadius="lg"
-      p={4}
-      textAlign="left"
-      _hover={{ bg: "rgba(255,255,255,0.08)" }}
-      transition="0.3s"
-    >
-      <Heading size="sm" color="blue.300" mb={1}>
+    <Box py={3} borderTop="1px solid" borderColor={palette.line}>
+      <Text fontSize="13px" color={palette.quiet} mb={1}>
         {label}
-      </Heading>
-      <Text color="gray.200" fontSize="sm">
+      </Text>
+      <Text fontSize="14px" color={palette.paper}>
         {value}
       </Text>
     </Box>

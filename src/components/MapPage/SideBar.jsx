@@ -52,30 +52,7 @@ const MotionBox = motion.create(Box);
 const MotionButton = motion.create(Button);
 
 // Componente de partículas de fondo
-const BackgroundParticles = () => (
-  <>
-    {[...Array(12)].map((_, i) => (
-      <Box
-        key={i}
-        position="absolute"
-        width="2px"
-        height="2px"
-        bg="rgba(96, 165, 250, 0.6)"
-        borderRadius="full"
-        top={`${10 + Math.random() * 80}%`}
-        left={`${10 + Math.random() * 80}%`}
-        animation={`twinkle ${2 + Math.random() * 3}s ease-in-out infinite ${Math.random() * 2}s`}
-        zIndex={1}
-      />
-    ))}
-    <style>{`
-      @keyframes twinkle {
-        0%, 100% { opacity: 0.2; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.5); }
-      }
-    `}</style>
-  </>
-);
+const BackgroundParticles = () => null;
 
 // Subcomponente SearchBar mejorado
 const SearchBar = ({ search, setSearch }) => (
@@ -91,41 +68,40 @@ const SearchBar = ({ search, setSearch }) => (
           label="Enter the asteroid name or ID and select a location on the map to start the simulation."
           placement="left"
           hasArrow
-          bg="linear-gradient(135deg, rgba(3, 7, 18, 0.95) 0%, rgba(10, 14, 26, 0.95) 100%)"
+          bg="#141414"
           color="white"
-          borderColor="rgba(59, 130, 246, 0.3)"
-          boxShadow="0 8px 25px rgba(59, 130, 246, 0.2)"
+          borderColor="#2a2a2a"
         >
           <IconButton
             aria-label="Help"
             icon={<QuestionIcon />}
             size="sm"
             variant="ghost"
-            color="rgba(96, 165, 250, 0.8)"
+            color="#9a9a9a"
             _hover={{
-              color: "#60a5fa",
-              bg: "rgba(59, 130, 246, 0.1)"
+              color: "#f4f4f4",
+              bg: "#2a2a2a"
             }}
           />
         </Tooltip>
       </InputLeftElement>
 
       <Input
-        placeholder="🔍 Search asteroid by name or ID"
+        placeholder="Search by name or ID"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         bg="rgba(3, 7, 18, 0.4)"
-        border="1px solid rgba(59, 130, 246, 0.2)"
+        border="1px solid #2a2a2a"
         borderRadius="xl"
         color="white"
-        _placeholder={{ color: "rgba(147, 197, 253, 0.5)" }}
+        _placeholder={{ color: "#9a9a9a" }}
         _focus={{
-          borderColor: "rgba(59, 130, 246, 0.6)",
-          boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)",
+          borderColor: "#2a2a2a",
+          boxShadow: "none",
           bg: "rgba(3, 7, 18, 0.6)"
         }}
         _hover={{
-          borderColor: "rgba(59, 130, 246, 0.4)"
+          borderColor: "#2a2a2a"
         }}
         pl={12}
         height="50px"
@@ -146,7 +122,7 @@ const ButtonsPanel = ({ selected, setSelected }) => {
       name: "NASA NEOS",
       description: "Near Earth Objects",
       icon: Satellite,
-      color: "#e11d48"
+      color: "#f4f4f4"
     },
     {
       id: "agency2",
@@ -155,7 +131,7 @@ const ButtonsPanel = ({ selected, setSelected }) => {
       name: "JPL HORIZONS",
       description: "Precise Ephemeris",
       icon: Target,
-      color: "#7c3aed"
+      color: "#f4f4f4"
     },
     {
       id: "agency5",
@@ -164,7 +140,7 @@ const ButtonsPanel = ({ selected, setSelected }) => {
       name: "IAU NeoCP",
       description: "Minor Planets",
       icon: Globe,
-      color: "#059669"
+      color: "#f4f4f4"
     },
   ];
 
@@ -184,25 +160,25 @@ const ButtonsPanel = ({ selected, setSelected }) => {
             height="auto"
             p={4}
             bg={selected === agency.id
-              ? "linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(30, 58, 138, 0.2) 100%)"
+              ? "#141414"
               : "rgba(3, 7, 18, 0.3)"
             }
             border="1px solid"
             borderColor={selected === agency.id
-              ? "rgba(59, 130, 246, 0.5)"
-              : "rgba(59, 130, 246, 0.1)"
+              ? "#2a2a2a"
+              : "#2a2a2a"
             }
             borderRadius="xl"
             position="relative"
             overflow="hidden"
             _hover={{
-              bg: "linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(30, 58, 138, 0.15) 100%)",
-              borderColor: "rgba(59, 130, 246, 0.4)",
+              bg: "#141414",
+              borderColor: "#2a2a2a",
               transform: "translateY(-2px)",
-              boxShadow: "0 8px 25px rgba(59, 130, 246, 0.2)"
+              boxShadow: "0 8px 25px #2a2a2a"
             }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            
+            
           >
             {/* Efecto de brillo */}
             <Box
@@ -211,13 +187,13 @@ const ButtonsPanel = ({ selected, setSelected }) => {
               left={selected === agency.id ? "0%" : "-100%"}
               width="100%"
               height="100%"
-              bg="linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)"
+              bg="#141414"
               transition="left 0.5s ease"
               zIndex={1}
             />
 
             <HStack spacing={4} width="100%" zIndex={2} position="relative">
-              <Circle size="50px" bg="rgba(59, 130, 246, 0.1)" border="1px solid rgba(59, 130, 246, 0.2)">
+              <Circle size="50px" bg="#2a2a2a" border="1px solid #2a2a2a">
                 <Image src={agency.src} alt={agency.alt} boxSize="30px" objectFit="contain" />
               </Circle>
 
@@ -225,13 +201,13 @@ const ButtonsPanel = ({ selected, setSelected }) => {
                 <Text color="white" fontWeight="bold" fontSize="sm" textAlign="left">
                   {agency.name}
                 </Text>
-                <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" textAlign="left">
+                <Text color="#9a9a9a" fontSize="xs" textAlign="left">
                   {agency.description}
                 </Text>
               </VStack>
 
               {selected === agency.id && (
-                <Icon as={ChevronRightIcon} color="#60a5fa" size={20} />
+                <Icon as={ChevronRightIcon} color="#f4f4f4" size={20} />
               )}
             </HStack>
           </MotionButton>
@@ -248,9 +224,9 @@ const DefaultInfo = () => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
     p={5}
-    bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+    bg="#141414"
     borderRadius="xl"
-    border="1px solid rgba(59, 130, 246, 0.1)"
+    border="1px solid #2a2a2a"
     position="relative"
     overflow="hidden"
   >
@@ -260,19 +236,19 @@ const DefaultInfo = () => (
       left="0"
       right="0"
       height="2px"
-      bg="linear-gradient(90deg, transparent, #3b82f6, transparent)"
+      bg="#141414"
       opacity={0.5}
     />
 
     <VStack align="flex-start" spacing={4}>
       <HStack spacing={3}>
-        <Icon as={Database} color="#60a5fa" size={24} />
+        <Icon as={Database} color="#f4f4f4" size={24} />
         <Text color="white" fontWeight="bold" fontSize="lg">
           Available Data Sources
         </Text>
       </HStack>
 
-      <Text color="rgba(147, 197, 253, 0.8)" fontSize="sm" lineHeight="1.6">
+      <Text color="#9a9a9a" fontSize="sm" lineHeight="1.6">
         Consult asteroid and minor body information from multiple specialized sources:
       </Text>
 
@@ -282,19 +258,19 @@ const DefaultInfo = () => (
             icon: Satellite,
             title: "NASA NEOS API",
             desc: "Near Earth Objects, orbits and risk analysis",
-            color: "#e11d48"
+            color: "#f4f4f4"
           },
           {
             icon: Target,
             title: "NASA JPL HORIZONS",
             desc: "Precise trajectory and ephemeris data",
-            color: "#7c3aed"
+            color: "#f4f4f4"
           },
           {
             icon: Globe,
             title: "IAU Minor Planet Center",
             desc: "Pending asteroids and temporary designations",
-            color: "#059669"
+            color: "#f4f4f4"
           }
         ].map((item, index) => (
           <HStack key={index} spacing={3} width="100%">
@@ -305,7 +281,7 @@ const DefaultInfo = () => (
               <Text color="white" fontWeight="semibold" fontSize="sm">
                 {item.title}
               </Text>
-              <Text color="rgba(147, 197, 253, 0.6)" fontSize="xs">
+              <Text color="#9a9a9a" fontSize="xs">
                 {item.desc}
               </Text>
             </VStack>
@@ -316,14 +292,14 @@ const DefaultInfo = () => (
       <Badge
         colorScheme="blue"
         variant="subtle"
-        bg="rgba(59, 130, 246, 0.1)"
-        color="#60a5fa"
+        bg="#2a2a2a"
+        color="#f4f4f4"
         px={3}
         py={1}
         borderRadius="full"
         fontSize="xs"
       >
-        🚀 More sources coming soon
+        More sources coming soon
       </Badge>
     </VStack>
   </MotionBox>
@@ -337,21 +313,21 @@ const ContentPanel = ({ selected, search }) => {
         return {
           title: "NASA NEOS API",
           icon: Satellite,
-          color: "#e11d48",
+          color: "#f4f4f4",
           component: search ? <AsteroidInfoNASANEOS asteroidId={search} /> : null
         };
       case "agency2":
         return {
           title: "NASA JPL HORIZONS API",
           icon: Target,
-          color: "#7c3aed",
+          color: "#f4f4f4",
           component: search ? <HORIZONS asteroidId={search} /> : null
         };
       case "agency5":
         return {
           title: "IAU Minor Planet Center NeoCP",
           icon: Globe,
-          color: "#059669",
+          color: "#f4f4f4",
           component: search ? <PNeoInfo tempDesig={search} /> : <RandomPNeosList />
         };
       default:
@@ -369,9 +345,9 @@ const ContentPanel = ({ selected, search }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       p={5}
-      bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+      bg="#141414"
       borderRadius="xl"
-      border="1px solid rgba(59, 130, 246, 0.1)"
+      border="1px solid #2a2a2a"
     >
       <HStack spacing={3} mb={4}>
         <Circle size="35px" bg={`${content.color}20`} border={`1px solid ${content.color}50`}>
@@ -383,7 +359,7 @@ const ContentPanel = ({ selected, search }) => {
       </HStack>
 
       {content.component || (
-        <Text color="rgba(147, 197, 253, 0.6)" fontSize="sm">
+        <Text color="#9a9a9a" fontSize="sm">
           Enter a name or ID to search for specific data
         </Text>
       )}
@@ -450,16 +426,16 @@ if (!impactData) {
   };
 
   const sidebarWidth = useBreakpointValue({
-    base: isOpen ? "320px" : "50px",
-    md: isOpen ? "400px" : "60px",
-    lg: isOpen ? "700px" : "70px"
+    base: isOpen ? "min(100%, 320px)" : "48px",
+    md: isOpen ? "380px" : "48px",
+    lg: isOpen ? "400px" : "48px"
   });
 
   const { data: horizonsData, loading: horizonsLoading, error: horizonsError, fetchHORIZONS } = useHORIZONs();
   const { data: formulasData, loading, error, refetch } = useFormulas();
 
   const handleStartSimulation = async () => {
-    console.log("🚀 Starting simulation...");
+    console.log(" Starting simulation...");
 
     if (!countryCode) {
       alert("Select a location");
@@ -471,7 +447,7 @@ if (!impactData) {
     }
 
     try {
-      // 1️⃣ Obtener datos de HORIZONS
+      // 1⃣ Obtener datos de HORIZONS
       const freshData = await fetchHORIZONS(search);
 
       if (!freshData) {
@@ -481,12 +457,12 @@ if (!impactData) {
 
       console.log("HORIZONS Data:", freshData);
 
-      // 2️⃣ Obtener datos físicos
+      // 2⃣ Obtener datos físicos
       const payloadFisicas = { id: search };
       const fisicasData = await refetch(payloadFisicas);
-      console.log("✅ Physical Data:", fisicasData);
+      console.log(" Physical Data:", fisicasData);
 
-      // 3️⃣ Calcular área de impacto
+      // 3⃣ Calcular área de impacto
       const impactEstimation = estimateImpactAreaFromHORIZONS(
         freshData,
         1e6,
@@ -498,7 +474,7 @@ if (!impactData) {
         return;
       }
 
-      // 4️⃣ Llamar a fórmulas demográficas
+      // 4⃣ Llamar a fórmulas demográficas
       const payloadDemograficas = {
         id: search,
         country: countryCode,
@@ -507,7 +483,7 @@ if (!impactData) {
 
       const combinedData = await refetch(payloadDemograficas);
 
-      // 5️⃣ Actualizar estado
+      // 5⃣ Actualizar estado
       setImpactData({
         ...fisicasData,
         ...impactEstimation,
@@ -515,7 +491,7 @@ if (!impactData) {
         countryCode
       });
 
-      console.log("✅ Simulation complete:", {
+      console.log(" Simulation complete:", {
         ...fisicasData,
         ...impactEstimation,
         ...combinedData,
@@ -535,21 +511,20 @@ if (!impactData) {
       top="0"
       right="0"
       height="100%"
-      bg="linear-gradient(135deg, rgba(3, 7, 18, 0.95) 0%, rgba(10, 14, 26, 0.95) 100%)"
-      backdropFilter="blur(20px)"
-      borderLeft="1px solid rgba(59, 130, 246, 0.2)"
+      bg="#141414"
+      borderLeft="1px solid #2a2a2a"
       overflow="hidden"
       zIndex={1000}
       initial={{
         width: "60px",
         x: 0,
-        boxShadow: "0 0 20px rgba(59, 130, 246, 0.05)"
+        boxShadow: "none"
       }}
       animate={{
         width: sidebarWidth,
         boxShadow: isOpen
-          ? "0 0 80px rgba(59, 130, 246, 0.2), 0 0 40px rgba(59, 130, 246, 0.1)"
-          : "0 0 20px rgba(59, 130, 246, 0.05)"
+          ? "none"
+          : "none"
       }}
       transition={{
         width: {
@@ -570,15 +545,15 @@ if (!impactData) {
         left="0"
         width="2px"
         height="100%"
-        bg="linear-gradient(180deg, transparent, #1e40af, #3b82f6, #60a5fa, transparent)"
+        bg="#141414"
         initial={{
-          boxShadow: "0 0 10px rgba(59, 130, 246, 0.3)",
+          boxShadow: "0 0 10px #2a2a2a",
           opacity: 0.6
         }}
         animate={{
           boxShadow: isOpen
-            ? "0 0 25px rgba(59, 130, 246, 0.8)"
-            : "0 0 10px rgba(59, 130, 246, 0.3)",
+            ? "0 0 25px #2a2a2a"
+            : "0 0 10px #2a2a2a",
           opacity: isOpen ? 1 : 0.6
         }}
         transition={{
@@ -626,19 +601,19 @@ if (!impactData) {
         <MotionButton
           onClick={() => setIsOpen(!isOpen)}
           size="md"
-          bg="linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
+          bg="#141414"
           color="white"
           borderRadius="xl"
-          border="2px solid rgba(59, 130, 246, 0.3)"
+          border="2px solid #2a2a2a"
           initial={{
-            boxShadow: "0 0 15px rgba(59, 130, 246, 0.2)",
+            boxShadow: "0 0 15px #2a2a2a",
             width: "40px",
             height: "40px"
           }}
           animate={{
             boxShadow: isOpen
-              ? "0 0 30px rgba(59, 130, 246, 0.5), 0 0 60px rgba(59, 130, 246, 0.2)"
-              : "0 0 15px rgba(59, 130, 246, 0.2)",
+              ? "0 0 30px #2a2a2a, 0 0 60px #2a2a2a"
+              : "0 0 15px #2a2a2a",
             width: isOpen ? "50px" : "40px",
             height: isOpen ? "50px" : "40px"
           }}
@@ -647,14 +622,11 @@ if (!impactData) {
             ease: "easeOut"
           }}
           _hover={{
-            background: "linear-gradient(135deg, #1e40af 0%, #2563eb 100%)",
+            background: "#141414",
             transform: "translateY(-2px)",
           }}
-          whileHover={{
-            scale: isOpen ? 1.15 : 1.1,
-            boxShadow: "0 8px 30px rgba(59, 130, 246, 0.5)"
-          }}
-          whileTap={{ scale: 0.95 }}
+          
+          
           minWidth={isOpen ? "50px" : "40px"}
         >
           <MotionBox
@@ -690,19 +662,19 @@ if (!impactData) {
                 width: '8px',
               },
               '&::-webkit-scrollbar-track': {
-                background: 'rgba(59, 130, 246, 0.05)',
+                background: '#2a2a2a',
                 borderRadius: '10px',
               },
               '&::-webkit-scrollbar-thumb': {
-                background: 'rgba(59, 130, 246, 0.4)',
+                background: '#2a2a2a',
                 borderRadius: '10px',
                 minHeight: '20px',
               },
               '&::-webkit-scrollbar-thumb:hover': {
-                background: 'rgba(59, 130, 246, 0.6)',
+                background: '#2a2a2a',
               },
               scrollbarWidth: 'thin',
-              scrollbarColor: 'rgba(59, 130, 246, 0.4) rgba(59, 130, 246, 0.05)',
+              scrollbarColor: '#2a2a2a #2a2a2a',
             }}
           >
             <MotionBox
@@ -734,12 +706,12 @@ if (!impactData) {
                   p={4}
                   bg="rgba(3, 7, 18, 0.6)"
                   borderRadius="xl"
-                  border="1px solid rgba(59, 130, 246, 0.2)"
+                  border="1px solid #2a2a2a"
                   position="relative"
                   overflow="hidden"
                 >
                   <HStack spacing={3} mb={3}>
-                    <Icon as={Activity} color="#60a5fa" size={20} />
+                    <Icon as={Activity} color="#f4f4f4" size={20} />
                     <Text color="white" fontWeight="bold" fontSize="md">
                       System Status
                     </Text>
@@ -747,7 +719,7 @@ if (!impactData) {
 
                   <VStack spacing={2} align="stretch">
                     <HStack justify="space-between">
-                      <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Selected Country:</Text>
+                      <Text color="#9a9a9a" fontSize="xs">Selected Country:</Text>
                       <Badge
                         colorScheme={countryCode ? "green" : "red"}
                         variant="subtle"
@@ -758,7 +730,7 @@ if (!impactData) {
                     </HStack>
 
                     <HStack justify="space-between">
-                      <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Target Asteroid:</Text>
+                      <Text color="#9a9a9a" fontSize="xs">Target Asteroid:</Text>
                       <Badge
                         colorScheme={search ? "blue" : "gray"}
                         variant="subtle"
@@ -769,30 +741,30 @@ if (!impactData) {
                     </HStack>
 
                     <HStack justify="space-between">
-                      <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">HORIZONS Data:</Text>
+                      <Text color="#9a9a9a" fontSize="xs">HORIZONS Data:</Text>
                       <Badge
                         colorScheme={horizonsData ? "green" : "gray"}
                         variant="subtle"
                         fontSize="xs"
                       >
-                        {horizonsData ? "✓ Available" : "No data"}
+                        {horizonsData ? " Available" : "No data"}
                       </Badge>
                     </HStack>
 
                     <HStack justify="space-between">
-                      <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Formulas Data:</Text>
+                      <Text color="#9a9a9a" fontSize="xs">Formulas Data:</Text>
                       <Badge
                         colorScheme={formulasData ? "green" : "gray"}
                         variant="subtle"
                         fontSize="xs"
                       >
-                        {formulasData ? "✓ Available" : "No data"}
+                        {formulasData ? " Available" : "No data"}
                       </Badge>
                     </HStack>
 
                     {horizonsData?.basicInfo && (
                       <HStack justify="space-between">
-                        <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs">Last Asteroid:</Text>
+                        <Text color="#9a9a9a" fontSize="xs">Last Asteroid:</Text>
                         <Badge
                           colorScheme={formulasData ? "green" : "gray"}
                           variant="subtle"
@@ -812,44 +784,31 @@ if (!impactData) {
                     onClick={handleStartSimulation}
                     size="lg"
                     width={{ base: "100%", md: "80%", lg: "60%" }}
-                    height={{ base: "50px", md: "60px", lg: "70px" }}
-                    bg={!countryCode || !search
-                      ? "rgba(75, 85, 99, 0.5)"
-                      : "linear-gradient(135deg, #dc2626 0%, #ef4444 100%)"
-                    }
+                    height="44px"
+                    bg={!countryCode || !search ? "#1c1c1c" : "#f4f4f4"}
                     fontSize={{ base: "sm", md: "md", lg: "lg" }}
-                    color="white"
-                    fontWeight="bold"
-                    borderRadius="xl"
-                    border="2px solid"
-                    borderColor={!countryCode || !search
-                      ? "rgba(75, 85, 99, 0.3)"
-                      : "rgba(220, 38, 38, 0.5)"
-                    }
-                    boxShadow={!countryCode || !search
-                      ? "none"
-                      : "0 0 25px rgba(220, 38, 38, 0.3)"
-                    }
+                    color={!countryCode || !search ? "#6d6d6d" : "#0a0a0a"}
+                    fontWeight="500"
+                    borderRadius="8px"
+                    border="1px solid"
+                    borderColor={!countryCode || !search ? "#2a2a2a" : "#f4f4f4"}
+                    
                     isLoading={loading}
-                    loadingText="Processing simulation..."
+                    loadingText="Processing simulation…"
                     isDisabled={!countryCode || !search}
                     leftIcon={<Icon as={Rocket} size={{ base: 16, md: 20, lg: 24 }} />}
-                    _hover={!countryCode || !search ? {} : {
-                      background: "linear-gradient(135deg, #b91c1c 0%, #dc2626 100%)",
-                      transform: "translateY(-2px)",
-                      boxShadow: "0 8px 30px rgba(220, 38, 38, 0.5)"
-                    }}
+                    _hover={!countryCode || !search ? {} : { background: "#e4e4e4" }}
                   >
-                    {!countryCode ? "🗺️ Select location" :
-                      !search ? "🔍 Enter asteroid" :
-                        "🚀 START SIMULATION"}
+                    {!countryCode ? "Select a location" :
+                      !search ? "Enter an asteroid" :
+                        "Start simulation"}
                   </Button>
                 </Box>
 
                 {error && (
                   <Box
                     p={4}
-                    bg="linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(185, 28, 28, 0.1) 100%)"
+                    bg="#141414"
                     border="1px solid rgba(220, 38, 38, 0.3)"
                     borderRadius="xl"
                     position="relative"
@@ -872,7 +831,7 @@ if (!impactData) {
                 {impactData && (
                   <Box
                     p={5}
-                    bg="linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(4, 120, 87, 0.1) 100%)"
+                    bg="#141414"
                     border="1px solid rgba(5, 150, 105, 0.3)"
                     borderRadius="xl"
                     position="relative"
@@ -885,22 +844,22 @@ if (!impactData) {
                       left="0"
                       right="0"
                       height="3px"
-                      bg="linear-gradient(90deg, transparent, #10b981, #059669, transparent)"
+                      bg="#141414"
                     />
 
                     <VStack spacing={4} align="stretch" p={6} bg="#0a0e1a" minH="100vh">
                       <HStack spacing={3}>
-                        <Icon as={TrendingUp} color="#10b981" boxSize={6} />
+                        <Icon as={TrendingUp} color="#f4f4f4" boxSize={6} />
                         <Text color="white" fontWeight="bold" fontSize="lg">
-                          📊 Full Impact Analysis
+                          Full impact analysis
                         </Text>
                       </HStack>
 
                       {/* Asteroid information */}
-                      <Box p={3} bg="rgba(3, 7, 18, 0.4)" borderRadius="lg" border="1px solid rgba(59, 130, 246, 0.1)">
+                      <Box p={3} bg="rgba(3, 7, 18, 0.4)" borderRadius="lg" border="1px solid #2a2a2a">
                         <HStack spacing={2} mb={2}>
-                          <Icon as={Eye} color="#60a5fa" boxSize={5} />
-                          <Text color="#60a5fa" fontWeight="bold" fontSize="sm">Detected Object</Text>
+                          <Icon as={Eye} color="#f4f4f4" boxSize={5} />
+                          <Text color="#f4f4f4" fontWeight="bold" fontSize="sm">Detected Object</Text>
                         </HStack>
                         <VStack spacing={1} align="stretch">
                           <HStack justify="space-between">
@@ -908,11 +867,11 @@ if (!impactData) {
                               label="Official designation of the Near-Earth Object detected by astronomical observatories"
                               placement="left"
                               hasArrow
-                              bg="rgba(59, 130, 246, 0.95)"
+                              bg="#2a2a2a"
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Identification:
                               </Text>
                             </Tooltip>
@@ -926,11 +885,11 @@ if (!impactData) {
                               label="Total mass of the asteroid calculated through spectroscopic analysis and density models"
                               placement="left"
                               hasArrow
-                              bg="rgba(59, 130, 246, 0.95)"
+                              bg="#2a2a2a"
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Estimated Mass:
                               </Text>
                             </Tooltip>
@@ -944,11 +903,11 @@ if (!impactData) {
                               label="Asteroid radius determined by albedo observations and radar measurements"
                               placement="left"
                               hasArrow
-                              bg="rgba(59, 130, 246, 0.95)"
+                              bg="#2a2a2a"
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Estimated Radius:
                               </Text>
                             </Tooltip>
@@ -962,11 +921,11 @@ if (!impactData) {
                               label="Object's relative velocity with respect to Earth at the time of atmospheric entry"
                               placement="left"
                               hasArrow
-                              bg="rgba(59, 130, 246, 0.95)"
+                              bg="#2a2a2a"
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Velocity:
                               </Text>
                             </Tooltip>
@@ -993,7 +952,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Energy Released:
                               </Text>
                             </Tooltip>
@@ -1011,7 +970,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Cross-Sectional Area:
                               </Text>
                             </Tooltip>
@@ -1029,7 +988,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Kinetic Energy:
                               </Text>
                             </Tooltip>
@@ -1046,7 +1005,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Dynamic Pressure:
                               </Text>
                             </Tooltip>
@@ -1073,7 +1032,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Country:
                               </Text>
                             </Tooltip>
@@ -1091,7 +1050,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Total Population:
                               </Text>
                             </Tooltip>
@@ -1109,7 +1068,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Population Density:
                               </Text>
                             </Tooltip>
@@ -1127,7 +1086,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Affected Population:
                               </Text>
                             </Tooltip>
@@ -1145,7 +1104,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Direct Casualties:
                               </Text>
                             </Tooltip>
@@ -1163,7 +1122,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Indirect Casualties:
                               </Text>
                             </Tooltip>
@@ -1183,7 +1142,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" fontWeight="bold" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" fontWeight="bold" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Estimated Total:
                               </Text>
                             </Tooltip>
@@ -1199,7 +1158,7 @@ if (!impactData) {
                             bg="rgba(245, 101, 101, 0.1)"
                             borderRadius="full"
 />
-                          <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" textAlign="center">
+                          <Text color="#9a9a9a" fontSize="xs" textAlign="center">
                             {impactData.sPorcentaje || "0"}% of national population
                           </Text>
                         </VStack>
@@ -1208,8 +1167,8 @@ if (!impactData) {
                       {/* Economic Impact */}
                       <Box p={3} bg="rgba(16, 185, 129, 0.1)" borderRadius="lg" border="1px solid rgba(16, 185, 129, 0.2)">
                         <HStack spacing={2} mb={2}>
-                          <Icon as={TrendingUp} color="#10b981" boxSize={5} />
-                          <Text color="#10b981" fontWeight="bold" fontSize="sm">Economic Impact</Text>
+                          <Icon as={TrendingUp} color="#f4f4f4" boxSize={5} />
+                          <Text color="#f4f4f4" fontWeight="bold" fontSize="sm">Economic Impact</Text>
                         </HStack>
                         <VStack spacing={1} align="stretch">
                           <HStack justify="space-between">
@@ -1221,7 +1180,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 National GDP:
                               </Text>
                             </Tooltip>
@@ -1239,7 +1198,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 GDP per capita:
                               </Text>
                             </Tooltip>
@@ -1257,7 +1216,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Total GDP Loss:
                               </Text>
                             </Tooltip>
@@ -1275,7 +1234,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Economic Damage:
                               </Text>
                             </Tooltip>
@@ -1293,7 +1252,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Urban population:
                               </Text>
                             </Tooltip>
@@ -1311,7 +1270,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.5)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Urban value per km²:
                               </Text>
                             </Tooltip>
@@ -1325,8 +1284,8 @@ if (!impactData) {
                       {/* Additional technical data */}
                       <Box p={3} bg="rgba(124, 58, 237, 0.1)" borderRadius="lg" border="1px solid rgba(124, 58, 237, 0.2)">
                         <HStack spacing={2} mb={2}>
-                          <Icon as={Database} color="#8b5cf6" boxSize={5} />
-                          <Text color="#8b5cf6" fontWeight="bold" fontSize="sm">Technical Parameters</Text>
+                          <Icon as={Database} color="#f4f4f4" boxSize={5} />
+                          <Text color="#f4f4f4" fontWeight="bold" fontSize="sm">Technical Parameters</Text>
                         </HStack>
                         <SimpleGrid columns={2} spacing={2}>
                           <VStack align="flex-start" spacing={1}>
@@ -1337,7 +1296,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Drag force:
                               </Text>
                             </Tooltip>
@@ -1354,7 +1313,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Luminosity:
                               </Text>
                             </Tooltip>
@@ -1371,7 +1330,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Lethality factor:
                               </Text>
                             </Tooltip>
@@ -1387,7 +1346,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Beta:
                               </Text>
                             </Tooltip>
@@ -1404,7 +1363,7 @@ if (!impactData) {
                               color="white"
                               fontSize="xs"
                             >
-                              <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs" cursor="help" borderBottom="1px dotted rgba(147, 197, 253, 0.3)">
+                              <Text color="#9a9a9a" fontSize="xs" cursor="help" borderBottom="1px dotted #9a9a9a">
                                 Beds per thousand:
                               </Text>
                             </Tooltip>
@@ -1418,7 +1377,7 @@ if (!impactData) {
                       {/* Mitigation Panel */}
                       <Box
                         p={3}
-                        bg="linear-gradient(135deg, rgba(255, 223, 107, 0.15) 0%, rgba(255, 249, 196, 0.15) 100%)"
+                        bg="#141414"
                         border="1px solid rgba(255, 223, 107, 0.3)"
                         borderRadius="xl"
                         position="relative"
@@ -1430,14 +1389,14 @@ if (!impactData) {
                           left="0"
                           right="0"
                           height="2px"
-                          bg="linear-gradient(90deg, transparent, rgba(255, 223, 107, 0.3), transparent)"
+                          bg="#141414"
                         />
 
                         <VStack spacing={3} align="stretch">
                         {/* Mitigation Panel */}
                         <Box>
                           <HStack spacing={3}>
-                            <Icon as={Shield} color="#ffd36b" boxSize={6} />
+                            <Icon as={Shield} color="#f4f4f4" boxSize={6} />
                             <Text color="white" fontWeight="bold" fontSize="md">
                               Mitigations
                             </Text>
@@ -1449,7 +1408,7 @@ if (!impactData) {
 
                           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} mt={2}>
                             <Box borderWidth="1px" borderRadius="lg" p={3} bg="rgba(255,255,255,0.05)">
-                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">Consequences</Text>
+                              <Text color="#f4f4f4" fontSize="sm" fontWeight="bold">Consequences</Text>
                               <Text color="rgba(255, 223, 107, 0.7)" fontSize="sm">
                                 Air burst, shock wave, fires, tsunamis.
                                 Infrastructure destruction and loss of life.
@@ -1458,7 +1417,7 @@ if (!impactData) {
                             </Box>
 
                             <Box borderWidth="1px" borderRadius="lg" p={3} bg="rgba(255,255,255,0.05)">
-                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">Mitigation Strategies</Text>
+                              <Text color="#f4f4f4" fontSize="sm" fontWeight="bold">Mitigation Strategies</Text>
                               <Text color="rgba(255, 223, 107, 0.7)" fontSize="sm">
                                 Preventive evacuation, reinforcement of critical infrastructure.
                                 Community education and preparedness programs.
@@ -1466,7 +1425,7 @@ if (!impactData) {
                             </Box>
 
                             <Box borderWidth="1px" borderRadius="lg" p={3} bg="rgba(255,255,255,0.05)">
-                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">Risk Assessment</Text>
+                              <Text color="#f4f4f4" fontSize="sm" fontWeight="bold">Risk Assessment</Text>
                               <Text color="rgba(255, 223, 107, 0.7)" fontSize="sm">
                                 Analysis of local vulnerabilities.
                                 Identification of high-risk areas and vulnerable populations.
@@ -1474,7 +1433,7 @@ if (!impactData) {
                             </Box>
 
                             <Box borderWidth="1px" borderRadius="lg" p={3} bg="rgba(255,255,255,0.05)">
-                              <Text color="#ffd36b" fontSize="sm" fontWeight="bold">Data Sources</Text>
+                              <Text color="#f4f4f4" fontSize="sm" fontWeight="bold">Data Sources</Text>
                               <UnorderedList color="rgba(255, 223, 107, 0.7)" fontSize="sm" ml={4}>
                                 <ListItem>NASA NEO API</ListItem>
                                 <ListItem>USGS NEIC (Earthquakes)</ListItem>
@@ -1492,7 +1451,7 @@ if (!impactData) {
                       {/* Collateral Environmental Damage Panel */}
                       <Box
                         p={3}
-                        bg="linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(245, 101, 101, 0.15) 100%)"
+                        bg="#141414"
                         border="1px solid rgba(239, 68, 68, 0.3)"
                         borderRadius="xl"
                         position="relative"
@@ -1504,7 +1463,7 @@ if (!impactData) {
                           left="0"
                           right="0"
                           height="2px"
-                          bg="linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.3), transparent)"
+                          bg="#141414"
                         />
 
                         <VStack spacing={3} align="stretch">
@@ -1598,21 +1557,21 @@ if (!impactData) {
                       </Box>
       <MotionButton
         size="sm"
-        bg="rgba(59, 130, 246, 0.1)"
-        color="#60a5fa"
-        border="1px solid rgba(59, 130, 246, 0.3)"
+        bg="#2a2a2a"
+        color="#f4f4f4"
+        border="1px solid #2a2a2a"
         borderRadius="lg"
         _hover={{
-          bg: "rgba(59, 130, 246, 0.2)",
-          borderColor: "rgba(59, 130, 246, 0.5)"
+          bg: "#2a2a2a",
+          borderColor: "#2a2a2a"
         }}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        
+        
         onClick={() =>
           exportarDatos(impactData, countryCode, search, horizonsData, formulasData)
         }
       >
-        📥 Export Results
+        Export results
       </MotionButton>
 
 

@@ -662,32 +662,30 @@ function AsteroidList({ asteroids, selectedAsteroid, onAsteroidSelect, searchTer
     return (
         <Box
             position="absolute"
-            top="20px"
-            left="20px"
-            bg="rgba(0, 0, 0, 0.9)"
-            backdropFilter="blur(15px)"
-            borderRadius="xl"
+            top="16px"
+            left="16px"
+            bg="#141414"
+            borderRadius="12px"
             p={4}
-            color="white"
+            color="#f4f4f4"
             zIndex={20}
-            maxW="320px"
-            border="1px solid rgba(255, 255, 255, 0.2)"
-            boxShadow="0 8px 32px rgba(0, 0, 0, 0.3)"
-            maxH="80vh"
+            w={{ base: "min(320px, calc(100vw - 32px))", md: "320px" }}
+            border="1px solid #2a2a2a"
+            maxH="70vh"
         >
             <VStack spacing={3} align="stretch">
                 <HStack justify="space-between" align="center">
-                    <ChakraText fontWeight="bold" fontSize="md" color="cyan.300">
-                        🚀 Asteroid List
+                    <ChakraText fontWeight={500} fontSize="14px">
+                        Asteroids
                     </ChakraText>
                     <Button
                         size="sm"
                         variant="ghost"
                         onClick={onToggle}
-                        color="white"
-                        p={1}
+                        aria-label={isOpen ? "Hide asteroid list" : "Show asteroid list"}
+                        aria-expanded={isOpen}
                     >
-                        <Icon as={isOpen ? ChevronUpIcon : ChevronDownIcon} />
+                        <Icon as={isOpen ? ChevronUpIcon : ChevronDownIcon} aria-hidden="true" />
                     </Button>
                 </HStack>
 
@@ -695,128 +693,83 @@ function AsteroidList({ asteroids, selectedAsteroid, onAsteroidSelect, searchTer
                     <VStack spacing={3} align="stretch">
                         <InputGroup size="sm">
                             <InputLeftElement pointerEvents="none">
-                                <SearchIcon color="gray.400" />
+                                <SearchIcon color="#9a9a9a" aria-hidden="true" />
                             </InputLeftElement>
                             <Input
-                                placeholder="Search asteroid..."
+                                aria-label="Search asteroids"
+                                name="asteroid-search"
+                                autoComplete="off"
+                                placeholder="Search asteroids"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                bg="rgba(255, 255, 255, 0.1)"
-                                border="1px solid rgba(255, 255, 255, 0.2)"
-                                color="white"
-                                _placeholder={{ color: "gray.400" }}
-                                _focus={{
-                                    bg: "rgba(255, 255, 255, 0.15)",
-                                    borderColor: "cyan.300"
-                                }}
+                                bg="#0a0a0a"
+                                border="1px solid #2a2a2a"
+                                color="#f4f4f4"
+                                _placeholder={{ color: "#6f6f6f" }}
                             />
                         </InputGroup>
 
-                        <Box maxH="50vh" overflowY="auto" css={{
-                            '&::-webkit-scrollbar': {
-                                width: '4px',
-                            },
-                            '&::-webkit-scrollbar-track': {
-                                background: 'rgba(255, 255, 255, 0.1)',
-                                borderRadius: '2px',
-                            },
-                            '&::-webkit-scrollbar-thumb': {
-                                background: 'rgba(255, 255, 255, 0.3)',
-                                borderRadius: '2px',
-                            },
-                        }}>
+                        <Box maxH="46vh" overflowY="auto">
                             <VStack spacing={2} align="stretch">
-                                {filteredAsteroids.map((asteroid, index) => (
-                                    <Box
-                                        key={index}
-                                        p={3}
-                                        bg={selectedAsteroid?.name === asteroid.name
-                                            ? "rgba(0, 191, 255, 0.2)"
-                                            : "rgba(255, 255, 255, 0.05)"
-                                        }
-                                        borderRadius="lg"
-                                        border={selectedAsteroid?.name === asteroid.name
-                                            ? "2px solid"
-                                            : "1px solid"
-                                        }
-                                        borderColor={selectedAsteroid?.name === asteroid.name
-                                            ? "cyan.300"
-                                            : "rgba(255, 255, 255, 0.1)"
-                                        }
-                                        cursor="pointer"
-                                        onClick={() => onAsteroidSelect(asteroid)}
-                                        transition="all 0.2s"
-                                        _hover={{
-                                            bg: "rgba(0, 191, 255, 0.1)",
-                                            transform: "translateY(-1px)",
-                                            borderColor: "cyan.400"
-                                        }}
-                                    >
-                                        <VStack spacing={2} align="start">
-                                            <HStack justify="space-between" w="100%">
-                                                <ChakraText
-                                                    fontWeight="bold"
-                                                    fontSize="sm"
-                                                    color={selectedAsteroid?.name === asteroid.name ? "cyan.100" : "white"}
-                                                >
-                                                    {asteroid.name}
-                                                </ChakraText>
-                                                <HStack spacing={1}>
-                                                    <Badge
-                                                        size="sm"
-                                                        colorScheme={asteroid.hazardous ? "red" : "blue"}
-                                                        variant="solid"
-                                                        fontSize="xs"
-                                                    >
-                                                        {asteroid.type}
-                                                    </Badge>
-                                                    {asteroid.hazardous && (
-                                                        <Badge
-                                                            size="sm"
-                                                            colorScheme="orange"
-                                                            variant="outline"
-                                                            fontSize="xs"
-                                                        >
-                                                            PHO
+                                {filteredAsteroids.map((asteroid) => {
+                                    const selected = selectedAsteroid?.name === asteroid.name;
+                                    return (
+                                        <Box
+                                            as="button"
+                                            type="button"
+                                            key={asteroid.name}
+                                            p={3}
+                                            textAlign="left"
+                                            bg={selected ? "#1c1c1c" : "transparent"}
+                                            borderRadius="8px"
+                                            border="1px solid"
+                                            borderColor={selected ? "#f4f4f4" : "#2a2a2a"}
+                                            cursor="pointer"
+                                            onClick={() => onAsteroidSelect(asteroid)}
+                                            _hover={{ borderColor: "#3a3a3a" }}
+                                        >
+                                            <VStack spacing={1} align="start">
+                                                <HStack justify="space-between" w="100%">
+                                                    <ChakraText fontWeight={500} fontSize="14px">
+                                                        {asteroid.name}
+                                                    </ChakraText>
+                                                    <HStack spacing={1}>
+                                                        <Badge variant="outline" colorScheme="gray" fontSize="11px">
+                                                            {asteroid.type}
                                                         </Badge>
-                                                    )}
+                                                        {asteroid.hazardous && (
+                                                            <Badge colorScheme="red" variant="subtle" fontSize="11px">
+                                                                Hazardous
+                                                            </Badge>
+                                                        )}
+                                                    </HStack>
                                                 </HStack>
-                                            </HStack>
-
-                                            <ChakraText fontSize="xs" color="gray.400">
-                                                {getTypeDescription(asteroid.type)} • {asteroid.diameter}
-                                            </ChakraText>
-
-                                            <HStack justify="space-between" w="100%">
-                                                <ChakraText fontSize="xs" color="gray.300">
-                                                    Distance: {asteroid.distance.toFixed(1)} AU
+                                                <ChakraText fontSize="12px" color="#9a9a9a">
+                                                    {getTypeDescription(asteroid.type)} · {asteroid.diameter}
                                                 </ChakraText>
-                                                <ChakraText fontSize="xs" color="gray.300">
-                                                    {asteroid.composition}
-                                                </ChakraText>
-                                            </HStack>
-
-                                            {asteroid.hazardous && (
-                                                <HStack spacing={1}>
-                                                    <ChakraText fontSize="xs" color="orange.300">
-                                                        ⚠️
+                                                <HStack justify="space-between" w="100%">
+                                                    <ChakraText fontSize="12px" color="#9a9a9a" sx={{ fontVariantNumeric: "tabular-nums" }}>
+                                                        {asteroid.distance.toFixed(1)} AU
                                                     </ChakraText>
-                                                    <ChakraText fontSize="xs" color="orange.300">
-                                                        Next Approach: {asteroid.nextApproach}
+                                                    <ChakraText fontSize="12px" color="#9a9a9a">
+                                                        {asteroid.composition}
                                                     </ChakraText>
                                                 </HStack>
-                                            )}
-                                        </VStack>
-                                    </Box>
-                                ))}
+                                                {asteroid.hazardous && (
+                                                    <ChakraText fontSize="12px" color="#ff7a6b">
+                                                        Next approach {asteroid.nextApproach}
+                                                    </ChakraText>
+                                                )}
+                                            </VStack>
+                                        </Box>
+                                    );
+                                })}
                             </VStack>
                         </Box>
 
-                        <Box p={2} bg="rgba(255, 255, 255, 0.05)" borderRadius="md">
-                            <ChakraText fontSize="xs" color="gray.400" textAlign="center">
-                                {filteredAsteroids.length} of {asteroids.length} asteroids
-                            </ChakraText>
-                        </Box>
+                        <ChakraText fontSize="12px" color="#9a9a9a" sx={{ fontVariantNumeric: "tabular-nums" }}>
+                            {filteredAsteroids.length} of {asteroids.length}
+                        </ChakraText>
                     </VStack>
                 </Collapse>
             </VStack>
@@ -829,183 +782,143 @@ function DetailedAsteroidInfo({ selectedAsteroid, isFollowing, onStopFollowing }
 
     const getTypeDescription = (type) => {
         switch (type) {
-            case "NEA": return "Near-Earth Asteroid";
-            case "MBA": return "Main Belt Asteroid";
-            case "Trojan": return "Trojan Asteroid";
+            case "NEA": return "Near-Earth asteroid";
+            case "MBA": return "Main belt asteroid";
+            case "Trojan": return "Trojan asteroid";
             default: return type;
         }
     };
 
+    const rows = [
+        ["Diameter", selectedAsteroid.diameter],
+        ["Distance", `${selectedAsteroid.distance.toFixed(1)} AU`],
+        ["Orbital period", `${(selectedAsteroid.period / 365.25).toFixed(1)} years`],
+        ["Eccentricity", selectedAsteroid.eccentricity.toFixed(3)],
+        ["Inclination", `${selectedAsteroid.inclination.toFixed(1)}°`],
+        ["Composition", selectedAsteroid.composition],
+        ["Discovery", selectedAsteroid.discoveryYear],
+    ];
+
     return (
         <Box
             position="absolute"
-            top="20px"
-            right="20px"
-            bg="rgba(0, 0, 0, 0.9)"
-            backdropFilter="blur(15px)"
-            borderRadius="xl"
-            p={6}
-            color="white"
-            fontSize="sm"
+            top="16px"
+            right="16px"
+            bg="#141414"
+            borderRadius="12px"
+            p={5}
+            color="#f4f4f4"
             zIndex={10}
-            maxW="350px"
-            border="1px solid"
-            borderColor="rgba(255, 255, 255, 0.2)"
-            boxShadow="0 8px 32px rgba(0, 0, 0, 0.3)"
-            transform={selectedAsteroid ? "translateX(0)" : "translateX(400px)"}
-            transition="transform 0.3s ease-in-out"
+            w={{ base: "min(320px, calc(100vw - 32px))", md: "320px" }}
+            border="1px solid #2a2a2a"
+            maxH="70vh"
+            overflowY="auto"
         >
             <VStack align="start" spacing={3}>
                 <HStack justify="space-between" w="100%">
                     <HStack>
-                        <Badge
-                            colorScheme={selectedAsteroid.hazardous ? "red" : "blue"}
-                            variant="solid"
-                        >
-                            {selectedAsteroid.type}
-                        </Badge>
+                        <Badge variant="outline">{selectedAsteroid.type}</Badge>
                         {selectedAsteroid.hazardous && (
-                            <Badge colorScheme="orange" variant="outline">
-                                PHO
-                            </Badge>
+                            <Badge colorScheme="red" variant="subtle">Hazardous</Badge>
                         )}
                     </HStack>
                     {isFollowing && (
-                        <Button
-                            size="xs"
-                            colorScheme="red"
-                            variant="ghost"
-                            onClick={onStopFollowing}
-                        >
-                            ✕
+                        <Button size="xs" variant="ghost" onClick={onStopFollowing} aria-label="Stop following">
+                            Close
                         </Button>
                     )}
                 </HStack>
 
-                <ChakraText fontWeight="bold" fontSize="lg" color="cyan.300">
+                <ChakraText fontWeight={500} fontSize="18px" letterSpacing="-0.02em">
                     {selectedAsteroid.name}
                 </ChakraText>
-
-                <ChakraText fontSize="xs" color="gray.300">
+                <ChakraText fontSize="13px" color="#9a9a9a">
                     {getTypeDescription(selectedAsteroid.type)}
                 </ChakraText>
-
-                <Divider borderColor="rgba(255, 255, 255, 0.2)" />
+                <Divider borderColor="#2a2a2a" />
 
                 <VStack align="start" spacing={2} w="100%">
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Diameter:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.diameter}</ChakraText>
-                    </HStack>
+                    {rows.map(([label, value]) => (
+                        <HStack key={label} justify="space-between" w="100%" align="flex-start">
+                            <ChakraText fontSize="12px" color="#9a9a9a">{label}</ChakraText>
+                            <ChakraText fontSize="12px" fontWeight={500} textAlign="right" sx={{ fontVariantNumeric: "tabular-nums" }}>
+                                {value}
+                            </ChakraText>
+                        </HStack>
+                    ))}
+                    {selectedAsteroid.nextApproach !== "N/A" && (
+                        <HStack justify="space-between" w="100%">
+                            <ChakraText fontSize="12px" color="#9a9a9a">Next approach</ChakraText>
+                            <ChakraText fontSize="12px" fontWeight={500} color="#ff7a6b">
+                                {selectedAsteroid.nextApproach}
+                            </ChakraText>
+                        </HStack>
+                    )}
+                </VStack>
 
- <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Distance:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.distance.toFixed(1)} AU</ChakraText>
-                    </HStack>
-
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Orbital Period:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{(selectedAsteroid.period / 365.25).toFixed(1)} years</ChakraText>
-                    </HStack>
-
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Eccentricity:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.eccentricity.toFixed(3)}</ChakraText>
-                    </HStack>
-
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Inclination:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.inclination.toFixed(1)}°</ChakraText>
-                    </HStack>
-
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Composition:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.composition}</ChakraText>
-                    </HStack>
-
-                    <HStack justify="space-between" w="100%">
-                        <ChakraText fontSize="xs" color="gray.400">Discovery:</ChakraText>
-                        <ChakraText fontSize="xs" fontWeight="semibold">{selectedAsteroid.discoveryYear}</ChakraText>
-                    </HStack>
-
-                    {selectedAsteroid.nextApproach !== "N/A" && (
-                        <HStack justify="space-between" w="100%">
-                            <ChakraText fontSize="xs" color="gray.400">Next Approach:</ChakraText>
-                            <ChakraText fontSize="xs" fontWeight="semibold" color="orange.300">
-                                {selectedAsteroid.nextApproach}
-                            </ChakraText>
-                        </HStack>
-                    )}
-                </VStack>
-
-                {selectedAsteroid.hazardous && (
-                    <Box
-                        w="100%"
-                        bg="rgba(255, 165, 0, 0.1)"
-                        p={2}
-                        borderRadius="md"
-                        border="1px solid rgba(255, 165, 0, 0.3)"
-                    >
-                        <ChakraText fontSize="xs" color="orange.300" fontWeight="semibold">
-                            ⚠️ Potentially Hazardous Object
-                        </ChakraText>
-                        <ChakraText fontSize="xs" color="orange.200">
-                            Under constant monitoring by NASA
-                        </ChakraText>
-                    </Box>
-                )}
-            </VStack>
-        </Box>
-    );
+                {selectedAsteroid.hazardous && (
+                    <Box w="100%" borderTop="1px solid #2a2a2a" pt={3}>
+                        <ChakraText fontSize="13px" color="#ff7a6b" fontWeight={500}>
+                            Potentially hazardous object
+                        </ChakraText>
+                        <ChakraText fontSize="12px" color="#9a9a9a">
+                            Under monitoring by NASA
+                        </ChakraText>
+                    </Box>
+                )}
+            </VStack>
+        </Box>
+    );
 }
 
 function SystemControls({ timeScale, setTimeScale, showOrbits, setShowOrbits, onResetView, selectedAsteroid }) {
-    return (
-        <Box
-            position="absolute"
-            bottom="20px"
-            left="20px"
-            bg="rgba(0, 0, 0, 0.8)"
-            backdropFilter="blur(10px)"
-            borderRadius="lg"
-            p={4}
-            zIndex={10}
-            border="1px solid rgba(255, 255, 255, 0.1)"
-            marginBottom='100px'
-        >
-            <VStack spacing={3}>
-                <HStack>
-                    <ChakraText color="white" fontSize="sm" fontWeight="semibold">Speed:</ChakraText>
-                    <Button size="xs" onClick={() => setTimeScale(0.5)} colorScheme={timeScale === 0.5 ? "blue" : "gray"}>0.5x</Button>
-                    <Button size="xs" onClick={() => setTimeScale(1)} colorScheme={timeScale === 1 ? "blue" : "gray"}>1x</Button>
-                    <Button size="xs" onClick={() => setTimeScale(2)} colorScheme={timeScale === 2 ? "blue" : "gray"}>2x</Button>
-                    <Button size="xs" onClick={() => setTimeScale(5)} colorScheme={timeScale === 5 ? "blue" : "gray"}>5x</Button>
-                </HStack>
-
-                <HStack spacing={2}>
-                    <Button
-                        size="sm"
-                        onClick={() => setShowOrbits(!showOrbits)}
-                        colorScheme={showOrbits ? "blue" : "gray"}
-                    >
-                        {showOrbits ? "Hide Orbits" : "Show Orbits"}
-                    </Button>
-
-                    {selectedAsteroid && (
-                        <Button
-                            size="sm"
-                            onClick={onResetView}
-                            colorScheme="green"
-                            variant="outline"
-                        >
-                            General View
-                        </Button>
-                    )}
-                </HStack>
-            </VStack>
-        </Box>
-    );
+    const speeds = [0.5, 1, 2, 5];
+    return (
+        <Box
+            position="absolute"
+            bottom="16px"
+            left="16px"
+            bg="#141414"
+            borderRadius="12px"
+            p={3}
+            zIndex={10}
+            border="1px solid #2a2a2a"
+        >
+            <VStack spacing={3} align="flex-start">
+                <HStack>
+                    <ChakraText color="#9a9a9a" fontSize="13px">Speed</ChakraText>
+                    {speeds.map((speed) => (
+                        <Button
+                            key={speed}
+                            size="xs"
+                            variant={timeScale === speed ? "solid" : "outline"}
+                            aria-pressed={timeScale === speed}
+                            onClick={() => setTimeScale(speed)}
+                        >
+                            {speed}x
+                        </Button>
+                    ))}
+                </HStack>
+                <HStack spacing={2}>
+                    <Button
+                        size="sm"
+                        variant={showOrbits ? "solid" : "outline"}
+                        aria-pressed={showOrbits}
+                        onClick={() => setShowOrbits(!showOrbits)}
+                    >
+                        {showOrbits ? "Hide orbits" : "Show orbits"}
+                    </Button>
+                    {selectedAsteroid && (
+                        <Button size="sm" variant="outline" onClick={onResetView}>
+                            General view
+                        </Button>
+                    )}
+                </HStack>
+            </VStack>
+        </Box>
+    );
 }
+
 
 export default function RealisticAsteroidEarthScene() {
     const [selectedAsteroid, setSelectedAsteroid] = useState(null);
@@ -1104,8 +1017,8 @@ export default function RealisticAsteroidEarthScene() {
             <Navbar />
             <Box
                 width="100vw"
-                height="100vh"
-                bg="linear-gradient(135deg, #000000 0%, #0a0a2e 30%, #1a1a3a 70%, #2a2a4a 100%)"
+                id="main" height="calc(100vh - 64px)"
+                bg="#000000"
                 position="relative"
             >
                 <AsteroidList
@@ -1200,16 +1113,7 @@ export default function RealisticAsteroidEarthScene() {
                     </Text>
                 </Canvas>
 
-                <Box
-                    position="absolute"
-                    top="0"
-                    left="0"
-                    right="0"
-                    bottom="0"
-                    pointerEvents="none"
-                    background="radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.15) 100%)"
-                    zIndex={1}
-                />
+                
             </Box>
         </>
 

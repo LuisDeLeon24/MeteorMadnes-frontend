@@ -37,30 +37,7 @@ const MotionBox = motion(Box);
 const MotionButton = motion(Button);
 
 // Background particles component
-const BackgroundParticles = () => (
-  <>
-    {[...Array(8)].map((_, i) => (
-      <Box
-        key={i}
-        position="absolute"
-        width="2px"
-        height="2px"
-        bg="rgba(96, 165, 250, 0.4)"
-        borderRadius="full"
-        top={`${20 + Math.random() * 60}%`}
-        left={`${10 + Math.random() * 80}%`}
-        animation={`twinkle ${2 + Math.random() * 3}s ease-in-out infinite ${Math.random() * 2}s`}
-        zIndex={1}
-      />
-    ))}
-    <style>{`
-      @keyframes twinkle {
-        0%, 100% { opacity: 0.2; transform: scale(1); }
-        50% { opacity: 0.8; transform: scale(1.3); }
-      }
-    `}</style>
-  </>
-);
+const BackgroundParticles = () => null;
 
 // Component to get score color
 const getScoreColor = (score) => {
@@ -93,9 +70,9 @@ export function RandomPNeosList() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
         p={{ base: 6, md: 8 }}
-        bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+        bg="#141414"
         borderRadius="xl"
-        border="1px solid rgba(59, 130, 246, 0.2)"
+        border="1px solid #2a2a2a"
         position="relative"
         overflow="hidden"
       >
@@ -105,7 +82,7 @@ export function RandomPNeosList() {
             <Box position="relative">
               <Spinner 
                 size={{ base: "lg", md: "xl" }}
-                color="#60a5fa"
+                color="#f4f4f4"
                 thickness="3px"
                 speed="0.8s"
               />
@@ -116,11 +93,11 @@ export function RandomPNeosList() {
                 transform="translate(-50%, -50%)"
                 animation="pulse 2s ease-in-out infinite"
               >
-                <Icon as={Target} color="#60a5fa" boxSize={{ base: 5, md: 6 }} />
+                <Icon as={Target} color="#f4f4f4" boxSize={{ base: 5, md: 6 }} />
               </Box>
             </Box>
             <Text 
-              color="rgba(147, 197, 253, 0.8)" 
+              color="#9a9a9a" 
               fontSize={{ base: "xs", md: "sm" }} 
               fontWeight="medium"
               textAlign="center"
@@ -141,7 +118,7 @@ export function RandomPNeosList() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
         p={{ base: 3, md: 4 }}
-        bg="linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(185, 28, 28, 0.1) 100%)"
+        bg="#141414"
         border="1px solid rgba(220, 38, 38, 0.3)"
         borderRadius="xl"
         position="relative"
@@ -177,16 +154,16 @@ export function RandomPNeosList() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         p={{ base: 3, md: 4 }}
-        bg="linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%)"
+        bg="#141414"
         border="1px solid rgba(245, 158, 11, 0.3)"
         borderRadius="xl"
         position="relative"
       >
         <Stack direction={{ base: "column", sm: "row" }} spacing={3} align={{ base: "center", sm: "flex-start" }}>
-          <Icon as={Eye} color="#f59e0b" boxSize={{ base: 5, md: 6 }} flexShrink={0} />
+          <Icon as={Eye} color="#f4f4f4" boxSize={{ base: 5, md: 6 }} flexShrink={0} />
           <VStack align={{ base: "center", sm: "flex-start" }} spacing={1}>
             <Text 
-              color="#f59e0b" 
+              color="#f4f4f4" 
               fontWeight="bold" 
               fontSize={{ base: "xs", md: "sm" }}
               textAlign={{ base: "center", sm: "left" }}
@@ -216,9 +193,9 @@ export function RandomPNeosList() {
       {/* Header con título y botón de refresh */}
       <Box
         p={{ base: 3, md: 4 }}
-        bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+        bg="#141414"
         borderRadius="xl"
-        border="1px solid rgba(59, 130, 246, 0.1)"
+        border="1px solid #2a2a2a"
         mb={{ base: 3, md: 4 }}
         position="relative"
         overflow="hidden"
@@ -229,7 +206,7 @@ export function RandomPNeosList() {
           left="0"
           right="0"
           height="2px"
-          bg="linear-gradient(90deg, transparent, #3b82f6, transparent)"
+          bg="#141414"
           opacity={0.5}
         />
         
@@ -242,7 +219,7 @@ export function RandomPNeosList() {
             align={{ base: "center", sm: "flex-start" }}
           >
             <HStack spacing={{ base: 2, md: 3 }}>
-              <Icon as={Star} color="#60a5fa" boxSize={{ base: 5, md: 6 }} />
+              <Icon as={Star} color="#f4f4f4" boxSize={{ base: 5, md: 6 }} />
               <VStack align="flex-start" spacing={0}>
                 <Text 
                   color="white" 
@@ -253,7 +230,7 @@ export function RandomPNeosList() {
                   Featured NEOs
                 </Text>
                 <Text 
-                  color="rgba(147, 197, 253, 0.7)" 
+                  color="#9a9a9a" 
                   fontSize={{ base: "2xs", md: "xs" }}
                   textAlign={{ base: "center", sm: "left" }}
                 >
@@ -265,8 +242,8 @@ export function RandomPNeosList() {
             <Badge 
               colorScheme="blue" 
               variant="subtle" 
-              bg="rgba(59, 130, 246, 0.1)" 
-              color="#60a5fa"
+              bg="#2a2a2a" 
+              color="#f4f4f4"
               px={{ base: 2, md: 3 }}
               py={1}
               borderRadius="full"
@@ -281,20 +258,20 @@ export function RandomPNeosList() {
             size={{ base: "sm", md: "md" }}
             width="100%"
             height={{ base: "36px", md: "40px" }}
-            bg="linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)"
+            bg="#141414"
             color="white"
             fontWeight="bold"
             fontSize={{ base: "xs", md: "sm" }}
             borderRadius="lg"
-            border="2px solid rgba(59, 130, 246, 0.3)"
+            border="2px solid #2a2a2a"
             leftIcon={<Icon as={RefreshCw} boxSize={{ base: 3.5, md: 4 }} />}
             _hover={{
-              background: "linear-gradient(135deg, #1e40af 0%, #2563eb 100%)",
+              background: "#141414",
               transform: "translateY(-1px)",
-              boxShadow: "0 4px 20px rgba(59, 130, 246, 0.4)"
+              boxShadow: "0 4px 20px #2a2a2a"
             }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            
+            
           >
             Refresh Data
           </MotionButton>
@@ -330,17 +307,17 @@ export function RandomPNeosList() {
                   ease: [0.4, 0, 0.2, 1]
                 }}
                 p={{ base: 3, md: 4 }}
-                bg="linear-gradient(135deg, rgba(3, 7, 18, 0.3) 0%, rgba(10, 14, 26, 0.3) 100%)"
+                bg="#141414"
                 borderRadius="lg"
-                border="1px solid rgba(59, 130, 246, 0.1)"
+                border="1px solid #2a2a2a"
                 position="relative"
                 overflow="hidden"
                 _hover={{
-                  borderColor: "rgba(59, 130, 246, 0.3)",
-                  boxShadow: "0 4px 20px rgba(59, 130, 246, 0.1)",
+                  borderColor: "#2a2a2a",
+                  boxShadow: "0 4px 20px #2a2a2a",
                   transform: "translateY(-2px)"
                 }}
-                whileHover={{ scale: 1.01 }}
+                
                 cursor="pointer"
               >
                 {/* Efecto de brillo sutil */}
@@ -350,7 +327,7 @@ export function RandomPNeosList() {
                   left="-100%"
                   width="100%"
                   height="100%"
-                  bg="linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)"
+                  bg="#141414"
                   animation="shimmer 3s ease-in-out infinite"
                   zIndex={1}
                 />
@@ -366,11 +343,11 @@ export function RandomPNeosList() {
                     <HStack spacing={{ base: 2, md: 3 }}>
                       <Circle 
                         size={{ base: "35px", md: "40px" }} 
-                        bg="rgba(59, 130, 246, 0.1)" 
-                        border="1px solid rgba(59, 130, 246, 0.2)"
+                        bg="#2a2a2a" 
+                        border="1px solid #2a2a2a"
                         flexShrink={0}
                       >
-                        <Icon as={Target} color="#60a5fa" boxSize={{ base: 4, md: 5 }} />
+                        <Icon as={Target} color="#f4f4f4" boxSize={{ base: 4, md: 5 }} />
                       </Circle>
                       <VStack align="flex-start" spacing={0}>
                         <Text 
@@ -382,7 +359,7 @@ export function RandomPNeosList() {
                           {tempDesig}
                         </Text>
                         <Text 
-                          color="rgba(147, 197, 253, 0.7)" 
+                          color="#9a9a9a" 
                           fontSize={{ base: "2xs", md: "xs" }}
                         >
                           Temporary Designation
@@ -406,14 +383,14 @@ export function RandomPNeosList() {
                     {/* Magnitud Visual */}
                     <Box 
                       p={{ base: 2, md: 2.5 }} 
-                      bg="rgba(59, 130, 246, 0.05)" 
+                      bg="#2a2a2a" 
                       borderRadius="md" 
-                      border="1px solid rgba(59, 130, 246, 0.1)"
+                      border="1px solid #2a2a2a"
                     >
                       <HStack spacing={2} mb={1}>
-                        <Icon as={Eye} color="#60a5fa" boxSize={{ base: 3, md: 3.5 }} />
+                        <Icon as={Eye} color="#f4f4f4" boxSize={{ base: 3, md: 3.5 }} />
                         <Text 
-                          color="rgba(147, 197, 253, 0.7)" 
+                          color="#9a9a9a" 
                           fontSize={{ base: "2xs", md: "xs" }}
                         >
                           Visual Mag.
@@ -436,9 +413,9 @@ export function RandomPNeosList() {
                       border="1px solid rgba(16, 185, 129, 0.1)"
                     >
                       <HStack spacing={2} mb={1}>
-                        <Icon as={Calendar} color="#10b981" boxSize={{ base: 3, md: 3.5 }} />
+                        <Icon as={Calendar} color="#f4f4f4" boxSize={{ base: 3, md: 3.5 }} />
                         <Text 
-                          color="rgba(147, 197, 253, 0.7)" 
+                          color="#9a9a9a" 
                           fontSize={{ base: "2xs", md: "xs" }}
                         >
                           Discovered
@@ -461,9 +438,9 @@ export function RandomPNeosList() {
                       border="1px solid rgba(124, 58, 237, 0.1)"
                     >
                       <HStack spacing={2} mb={1}>
-                        <Icon as={MapPin} color="#8b5cf6" boxSize={{ base: 3, md: 3.5 }} />
+                        <Icon as={MapPin} color="#f4f4f4" boxSize={{ base: 3, md: 3.5 }} />
                         <Text 
-                          color="rgba(147, 197, 253, 0.7)" 
+                          color="#9a9a9a" 
                           fontSize={{ base: "2xs", md: "xs" }}
                         >
                           Position
@@ -493,9 +470,9 @@ export function RandomPNeosList() {
                       border="1px solid rgba(245, 158, 11, 0.1)"
                     >
                       <HStack spacing={2} mb={1}>
-                        <Icon as={TrendingUp} color="#f59e0b" boxSize={{ base: 3, md: 3.5 }} />
+                        <Icon as={TrendingUp} color="#f4f4f4" boxSize={{ base: 3, md: 3.5 }} />
                         <Text 
-                          color="rgba(147, 197, 253, 0.7)" 
+                          color="#9a9a9a" 
                           fontSize={{ base: "2xs", md: "xs" }}
                         >
                           Observations
@@ -516,19 +493,19 @@ export function RandomPNeosList() {
                     p={{ base: 2, md: 2.5 }} 
                     bg="rgba(3, 7, 18, 0.3)" 
                     borderRadius="md" 
-                    border="1px solid rgba(59, 130, 246, 0.05)"
+                    border="1px solid #2a2a2a"
                   >
                     <SimpleGrid columns={3} spacing={{ base: 1.5, md: 2 }} fontSize={{ base: "2xs", md: "xs" }}>
                       <VStack spacing={1}>
-                        <Text color="rgba(147, 197, 253, 0.5)">Arc</Text>
+                        <Text color="#9a9a9a">Arc</Text>
                         <Text color="white" fontWeight="medium">{arc}</Text>
                       </VStack>
                       <VStack spacing={1}>
-                        <Text color="rgba(147, 197, 253, 0.5)">H Mag</Text>
+                        <Text color="#9a9a9a">H Mag</Text>
                         <Text color="white" fontWeight="medium">{hMagnitude}</Text>
                       </VStack>
                       <VStack spacing={1}>
-                        <Text color="rgba(147, 197, 253, 0.5)">Not Seen</Text>
+                        <Text color="#9a9a9a">Not Seen</Text>
                         <Text color="white" fontWeight="medium">{notSeenDays}d</Text>
                       </VStack>
                     </SimpleGrid>
@@ -538,13 +515,13 @@ export function RandomPNeosList() {
                   <Box>
                     <HStack justify="space-between" mb={1}>
                       <Text 
-                        color="rgba(147, 197, 253, 0.7)" 
+                        color="#9a9a9a" 
                         fontSize={{ base: "2xs", md: "xs" }}
                       >
                         Priority Level
                       </Text>
                       <Text 
-                        color="rgba(147, 197, 253, 0.7)" 
+                        color="#9a9a9a" 
                         fontSize={{ base: "2xs", md: "xs" }}
                       >
                         {score}%
@@ -554,7 +531,7 @@ export function RandomPNeosList() {
                       value={score}
                       size="sm"
                       colorScheme={getScoreColor(score)}
-                      bg="rgba(59, 130, 246, 0.1)"
+                      bg="#2a2a2a"
                       borderRadius="full"
                     />
                   </Box>
@@ -567,9 +544,9 @@ export function RandomPNeosList() {
                     spacing={{ base: 2, sm: 0 }}
                   >
                     <HStack spacing={2}>
-                      <Icon as={Clock} color="rgba(147, 197, 253, 0.5)" boxSize={{ base: 3, md: 3.5 }} />
+                      <Icon as={Clock} color="#9a9a9a" boxSize={{ base: 3, md: 3.5 }} />
                       <Text 
-                        color="rgba(147, 197, 253, 0.5)" 
+                        color="#9a9a9a" 
                         fontSize={{ base: "2xs", md: "xs" }}
                       >
                         Updated: {updated}
@@ -582,7 +559,7 @@ export function RandomPNeosList() {
                         variant="subtle" 
                         fontSize={{ base: "2xs", md: "xs" }}
                       >
-                        ⚠️ Critical
+                         Critical
                       </Badge>
                     )}
                   </Stack>

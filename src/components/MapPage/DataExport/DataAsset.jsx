@@ -4,15 +4,15 @@ import { motion } from "framer-motion";
 const MotionBox = motion.create(Box);
 
 const DataAsset = ({ impactData, countryCode, search, horizonsData, formulasData }) => {
-	const backgroundColor = "#000000ff";
-	const topBlockColor = "rgba(3, 3, 3, 0.9)";
+	const backgroundColor = "#0a0a0a";
+	const topBlockColor = "#141414";
 	const textColor = "rgba(255, 255, 255, 0.9)";
 
 	const bottomBlockColors = [
-		"rgba(30, 83, 139, 0.3)",
-		"rgba(89, 42, 84, 0.3)",
-		"rgba(64, 53, 101, 0.3)",
-		"rgba(16, 94, 99, 0.3)",
+		"#141414",
+		"#141414",
+		"#141414",
+		"#141414",
 	];
 
 	const RoundedBlock = ({ children, color, ...props }) => (
@@ -25,8 +25,8 @@ const DataAsset = ({ impactData, countryCode, search, horizonsData, formulasData
 			flexDirection="column"
 			justifyContent="flex-start"
 			alignItems="center"
-			whileHover={{ scale: 1.02, boxShadow: "0 8px 30px rgba(0,0,0,0.3)" }}
-			whileTap={{ scale: 0.98 }}
+			
+			
 			transition={{ duration: 0.2 }}
 			width="100%"
 			{...props}
@@ -98,7 +98,7 @@ const DataAsset = ({ impactData, countryCode, search, horizonsData, formulasData
 
 				{/* Nombre del objeto */}
 				<RoundedBlock color={topBlockColor}>
-					<Text fontSize="xl" fontWeight="bold" color="gray.800" textAlign="center">
+					<Text fontSize="xl" fontWeight="bold" color="#f4f4f4" textAlign="center">
 						{impactData?.name || "Detected Object"}
 					</Text>
 				</RoundedBlock>
@@ -113,9 +113,9 @@ const DataAsset = ({ impactData, countryCode, search, horizonsData, formulasData
 				</SimpleGrid>
 
 				{/* Bloque social */}
-				<RoundedBlock color="rgba(255,255,255,0.1)" textAlign="center">
+				<RoundedBlock color="#141414" textAlign="center">
 					<Text fontSize="sm" color="white">
-						Don't forget to share it on your social media and tag us as <b>@badvoids</b>! 🚀
+						Don't forget to share it on your social media and tag us as <b>@badvoids</b>
 					</Text>
 					<Text fontSize="sm" color="white">
 						Visit our page: <a href="https://astrotracker.wiki" target="_blank" rel="noopener noreferrer">astrotracker.wiki</a>
