@@ -1,5 +1,7 @@
 import { useState, useCallback } from "react";
 import { Horizons } from "../Services";
+import { withDemoFallback } from "../demo/fallback";
+import { demoHorizons } from "../demo/demoData";
 
 export function useHORIZONs() {
   const [data, setData] = useState(null);
@@ -17,21 +19,27 @@ export function useHORIZONs() {
     setError(null);
 
     try {
-      const response = await Horizons(id);
+      const response = await withDemoFallback(
+        (signal) => Horizons(id, { signal }),
+        () => demoHorizons(id)
+      );
+      const payload = response?.data;
 
-      if (!response?.data) {
-        setData(null);
-        setError("Asteroide no encontrado");
-        return null;
-      } else {
-        setData(response.data);
-        return response.data;
+      if (!payload) {
+        const demo = demoHorizons(id);
+        setData(demo);
+        setError(null);
+        return demo;
       }
-    } catch (err) {
-      const errorMsg = err.message || "Error inesperado";
-      setError(errorMsg);
-      setData(null);
-      return null;
+
+      setData(payload);
+      setError(null);
+      return payload;
+    } catch {
+      const demo = demoHorizons(id);
+      setError(null);
+      setData(demo);
+      return demo;
     } finally {
       setLoading(false);
     }

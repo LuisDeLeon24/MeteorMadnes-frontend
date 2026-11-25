@@ -49,7 +49,7 @@ const MotionText = motion.create(Text);
 const BackgroundParticles = () => null;
 
 // Componente de encabezado mejorado
-const Header = () => (
+const Header = ({ demo }) => (
   <MotionBox
     initial={{ opacity: 0, y: -20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -101,7 +101,7 @@ const Header = () => (
         fontSize="xs"
         fontWeight="medium"
       >
-         Official NASA/JPL Data
+         {demo ? "Demo data" : "Official NASA/JPL Data"}
       </Badge>
     </VStack>
   </MotionBox>
@@ -351,7 +351,7 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
         transition={{ duration: 0.5 }}
       >
         <VStack spacing={5} align="stretch">
-          <Header />
+          <Header demo={Boolean(d.demo)} />
 
           {/* Panel de información principal del asteroide */}
           <MotionBox

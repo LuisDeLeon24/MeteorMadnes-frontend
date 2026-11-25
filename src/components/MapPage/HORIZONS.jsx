@@ -506,7 +506,7 @@ export const HORIZONS = ({ asteroidId }) => {
 									</Text>
 									<Stack direction={{ base: "column", sm: "row" }} spacing={2} mt={1}>
 										<Badge colorScheme="purple" variant="subtle" fontSize={{ base: "2xs", md: "xs" }}>
-											HORIZONS Data
+											{data?.demo ? "Demo data" : "HORIZONS Data"}
 										</Badge>
 										{basicInfo?.spectralType && (
 											<Badge colorScheme="blue" variant="subtle" fontSize={{ base: "2xs", md: "xs" }}>

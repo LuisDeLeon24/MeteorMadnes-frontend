@@ -5,13 +5,13 @@ const apiClient = axios.create({
   timeout: 1000000,
 });
 
-export const Horizons = async (id) => {
+export const Horizons = async (id, config = {}) => {
   if (!id) {
     return { error: true, msg: "Se requiere un ID de asteroide" };
   }
 
   try {
-    return await apiClient.get(`/fetch/horizons/${id}`);
+    return await apiClient.get(`/fetch/horizons/${id}`, config);
   } catch (error) {
     const msg = error.response?.data?.message || "Error fetching Horizons data";
     return {
@@ -22,13 +22,13 @@ export const Horizons = async (id) => {
   }
 };
 
-export const searchPneos = async (id) => {
+export const searchPneos = async (id, config = {}) => {
   if (!id) {
     return { error: true, msg: "Se requiere un ID del PNEO" };
   }
 
   try {
-    return await apiClient.get(`/PNeos/search/${id}`);
+    return await apiClient.get(`/PNeos/search/${id}`, config);
   } catch (error) {
     const msg = error.response?.data?.message || "Error fetching PNEO data";
     return {
@@ -39,9 +39,9 @@ export const searchPneos = async (id) => {
   }
 };
 
-export const randomPneos = async (id) => {
+export const randomPneos = async (config = {}) => {
   try {
-    return await apiClient.get(`/PNeos/randomPNEOS`);
+    return await apiClient.get(`/PNeos/randomPNEOS`, config);
   } catch (error) {
     const msg = error.response?.data?.message || "Error fetching PNEOs data";
     return {
@@ -52,9 +52,9 @@ export const randomPneos = async (id) => {
   }
 };
 
-export const formulasDemograficas = async (params) => {
+export const formulasDemograficas = async (params, config = {}) => {
   try {
-    return await apiClient.post("/formulas/resumenImpacto", params);
+    return await apiClient.post("/formulas/resumenImpacto", params, config);
   } catch (error) {
     const msg =
       error.response?.data?.message || "Error en las fórmulas demograficas";
@@ -62,9 +62,9 @@ export const formulasDemograficas = async (params) => {
   }
 };
 
-export const formulasFisicas = async (params) => {
+export const formulasFisicas = async (params, config = {}) => {
   try {
-    return await apiClient.post('/formulas/datosCompletosAsteroide', params );
+    return await apiClient.post('/formulas/datosCompletosAsteroide', params, config);
   } catch (error) {
     console.error("❌ ERROR DETALLADO:");
     console.error("Status:", error.response?.status);

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { withDemoFallback } from '../demo/fallback';
+import { demoAssistantReply } from '../demo/demoData';
 
 const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_KEY;
 
@@ -9,14 +11,25 @@ export function useOpenRouterChat() {
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
+  const [demo, setDemo] = useState(false);
 
   const sendMessage = async (message) => {
     setLoading(true);
     setError(null);
     setResponse(null); // Limpiar respuesta anterior
 
+    if (!OPENROUTER_API_KEY) {
+      setDemo(true);
+      setResponse(demoAssistantReply());
+      setError(null);
+      setLoading(false);
+      return;
+    }
+
     try {
+      const result = await withDemoFallback(async (signal) => {
       const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        signal,
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
@@ -49,19 +62,23 @@ export function useOpenRouterChat() {
       console.log('Respuesta de OpenRouter:', data);
 
       if (data?.choices?.length > 0) {
-        setResponse(data.choices[0].message.content);
-      } else if (data?.error) {
-        throw new Error(data.error.message || 'Error desconocido de la API');
-      } else {
-        throw new Error('No se recibió respuesta válida de la API');
+        return { data: data.choices[0].message.content };
       }
+      return { error: true };
+      }, demoAssistantReply);
+
+      setDemo(Boolean(result.demo));
+      setResponse(result.demo ? result.data : result.data);
+      setError(null);
     } catch (err) {
       console.error('Error en useOpenRouterChat:', err);
-      setError(err.message);
+      setDemo(true);
+      setResponse(demoAssistantReply());
+      setError(null);
     } finally {
       setLoading(false);
     }
   };
 
-  return { sendMessage, response, loading, error };
+  return { sendMessage, response, loading, error, demo };
 }

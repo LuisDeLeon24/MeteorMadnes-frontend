@@ -295,7 +295,7 @@ export function PNeoInfo({ tempDesig }) {
                     {id}
                   </Text>
                   <Text color="#9a9a9a" fontSize="xs">
-                    Near-Earth Object Confirmation Page
+                    {displayData?.demo ? "Demo data" : "Near-Earth Object Confirmation Page"}
                   </Text>
                 </VStack>
               </HStack>

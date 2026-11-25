@@ -1,5 +1,14 @@
 import { useState } from 'react';
 import { formulasDemograficas, formulasFisicas } from '../Services/api';
+import { withDemoFallback } from '../demo/fallback';
+import { demoDemographic, demoPhysical } from '../demo/demoData';
+
+const withoutDemoFlag = (value) => {
+  if (!value || typeof value !== 'object') return {};
+  const rest = { ...value };
+  delete rest.demo;
+  return rest;
+};
 
 export const useFormulas = () => {
   const [data, setData] = useState(null);
@@ -11,54 +20,62 @@ export const useFormulas = () => {
     setError(null);
 
     try {
-      console.log("📤 useFormulas refetch llamado con:", payloadData);
-
-      // ✅ PAYLOAD CORRECTO para fórmulas FÍSICAS
       const payloadFisicas = {
-        id: payloadData.id || payloadData.asteroidName, // ← ¡ESTE CAMPO SÍ EXISTE!
+        id: payloadData.id || payloadData.asteroidName,
       };
 
-      // ✅ PAYLOAD CORRECTO para fórmulas DEMOGRÁFICAS
       const payloadDemograficas = {
-        country: payloadData.country,        // 'GT'
-        areaAfectadaKm2: payloadData.areaAfectadaKm2, // 200
+        country: payloadData.country,
+        areaAfectadaKm2: payloadData.areaAfectadaKm2,
       };
 
-      console.log("➡️ Payload Físicas:", payloadFisicas);
-      console.log("➡️ Payload Demográficas:", payloadDemograficas);
+      const hasCountry = Boolean(payloadDemograficas.country) && payloadDemograficas.areaAfectadaKm2 != null;
 
-      // Llamar a AMBAS APIs en paralelo
       const [fisicasResponse, demograficasResponse] = await Promise.all([
-        formulasFisicas(payloadFisicas),
-        formulasDemograficas(payloadDemograficas)
+        withDemoFallback(
+          (signal) => formulasFisicas(payloadFisicas, { signal }),
+          () => demoPhysical(payloadFisicas.id)
+        ),
+        hasCountry
+          ? withDemoFallback(
+              (signal) => formulasDemograficas(payloadDemograficas, { signal }),
+              () => demoDemographic(payloadDemograficas)
+            )
+          : Promise.resolve(null),
       ]);
 
-      console.log("📥 Respuesta físicas:", fisicasResponse);
-      console.log("📥 Respuesta demográficas:", demograficasResponse);
+      const physicalSource = fisicasResponse?.demo
+        ? fisicasResponse.data
+        : fisicasResponse?.data || demoPhysical(payloadFisicas.id);
+      const physicalIsDemo = Boolean(fisicasResponse?.demo || !fisicasResponse?.data);
 
-      // Verificar errores
-      if (fisicasResponse?.error) {
-        throw new Error(`Físicas: ${fisicasResponse.msg}`);
-      }
-      if (demograficasResponse?.error) {
-        throw new Error(`Demográficas: ${demograficasResponse.msg}`);
-      }
+      const demographicSource = !hasCountry
+        ? {}
+        : demograficasResponse?.demo
+          ? demograficasResponse.data
+          : demograficasResponse?.data || demoDemographic(payloadDemograficas);
+      const demographicIsDemo = hasCountry && Boolean(demograficasResponse?.demo || !demograficasResponse?.data);
 
-      // Combinar resultados
       const combinedData = {
-        ...demograficasResponse.data,
-        ...fisicasResponse.data
+        ...withoutDemoFlag(demographicSource),
+        ...withoutDemoFlag(physicalSource),
+        demo: physicalIsDemo || demographicIsDemo,
       };
 
-      console.log("✅ Datos combinados:", combinedData);
       setData(combinedData);
+      setError(null);
       return combinedData;
 
     } catch (err) {
-      console.error("💥 Error en useFormulas:", err);
-      const errorMsg = err.message || 'Error desconocido';
-      setError(errorMsg);
-      throw new Error(errorMsg);
+      console.error("Error en useFormulas:", err);
+      const combinedData = {
+        ...withoutDemoFlag(demoDemographic(payloadData)),
+        ...withoutDemoFlag(demoPhysical(payloadData.id || payloadData.asteroidName)),
+        demo: true,
+      };
+      setData(combinedData);
+      setError(null);
+      return combinedData;
 
     } finally {
       setLoading(false);
