@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { Box, Input, List, ListItem } from "@chakra-ui/react";
+import { Box, Input, List, ListItem, Text } from "@chakra-ui/react";
+import { demoCountryCode, filterDemoPlaces } from "../../demo/demoData";
+import { withDemoFallback } from "../../demo/fallback";
 
 const initialCenter = [14.6349, -90.5069];
 
@@ -25,24 +27,28 @@ const LocationSelector = ({ onSelect }) => {
 };
 
 const getCountryCode = async (lat, lon) => {
-	if (lat == null || lon == null) return null;
-	try {
+	if (lat == null || lon == null) return { code: null, demo: false };
+	const response = await withDemoFallback(async (signal) => {
 		const res = await fetch(
-			`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=3&addressdetails=1`
+			`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=3&addressdetails=1`,
+			{ signal }
 		);
+		if (!res.ok) return { error: true };
 		const data = await res.json();
-		return data.address?.country_code?.toUpperCase() || null;
-	} catch (error) {
-		console.error("Error obtaining country code:", error);
-		return null;
-	}
+		const code = data.address?.country_code?.toUpperCase();
+		if (!code) return { error: true };
+		return { data: code };
+	}, () => demoCountryCode(lat, lon));
+	if (response?.demo) return { code: response.data, demo: true };
+	return { code: response.data, demo: false };
 };
 
-export const FullMap = ({ setCountryCode }) => {
+export const FullMap = ({ setCountryCode, setLocationDemo }) => {
 	const [position, setPosition] = useState(initialCenter);
 	const [zoom, setZoom] = useState(13);
 	const [search, setSearch] = useState("");
 	const [suggestions, setSuggestions] = useState([]);
+	const [placeDemo, setPlaceDemo] = useState(false);
 
 	const bg = "#141414";
 	const border = "#2a2a2a";
@@ -55,8 +61,16 @@ export const FullMap = ({ setCountryCode }) => {
 			setZoom(13);
 			setSearch(place.display_name);
 			setSuggestions([]);
-			const code = await getCountryCode(lat, lon);
+			if (place.country) {
+				setCountryCode(place.country);
+				setLocationDemo?.(true);
+				setPlaceDemo(true);
+				return;
+			}
+			const { code, demo } = await getCountryCode(lat, lon);
 			setCountryCode(code);
+			setLocationDemo?.(demo);
+			setPlaceDemo(demo);
 		}
 	};
 
@@ -67,13 +81,22 @@ export const FullMap = ({ setCountryCode }) => {
 			return;
 		}
 		try {
-			const res = await fetch(
-				`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`
-			);
-			const data = await res.json();
-			setSuggestions(data);
+			const response = await withDemoFallback(async (signal) => {
+				const res = await fetch(
+					`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`,
+					{ signal }
+				);
+				if (!res.ok) return { error: true };
+				const data = await res.json();
+				if (!Array.isArray(data)) return { error: true };
+				return { data };
+			}, () => filterDemoPlaces(query));
+			setSuggestions(response.data || []);
+			setPlaceDemo(Boolean(response.demo));
 		} catch (error) {
 			console.error("Search error:", error);
+			setSuggestions(filterDemoPlaces(query));
+			setPlaceDemo(true);
 		}
 	};
 
@@ -107,6 +130,11 @@ export const FullMap = ({ setCountryCode }) => {
 					borderColor="#2a2a2a"
 					_placeholder={{ color: "#6f6f6f" }}
 				/>
+				{placeDemo && (
+					<Text mt={2} fontSize="12px" color="#9a9a9a">
+						Demo data
+					</Text>
+				)}
 
 				{suggestions.length > 0 && (
 					<Box
@@ -157,8 +185,10 @@ export const FullMap = ({ setCountryCode }) => {
 						if (!isNaN(lat) && !isNaN(lon)) {
 							setPosition([lat, lon]);
 							setZoom(13);
-							const code = await getCountryCode(lat, lon);
+							const { code, demo } = await getCountryCode(lat, lon);
 							setCountryCode(code);
+							setLocationDemo?.(demo);
+							setPlaceDemo(demo);
 							setSearch("");
 						}
 					}}

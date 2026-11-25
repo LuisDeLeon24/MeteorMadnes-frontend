@@ -367,7 +367,7 @@ const ContentPanel = ({ selected, search }) => {
   );
 };
 
-const Sidebar = ({ countryCode }) => {
+const Sidebar = ({ countryCode, locationDemo }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
@@ -485,11 +485,12 @@ if (!impactData) {
 
       // 5⃣ Actualizar estado
       setImpactData({
-        ...fisicasData,
-        ...impactEstimation,
-        ...combinedData,
-        countryCode
-      });
+        ...fisicasData,
+        ...impactEstimation,
+        ...combinedData,
+        countryCode,
+        demo: Boolean(freshData?.demo || fisicasData?.demo || combinedData?.demo || locationDemo),
+      });
 
       console.log(" Simulation complete:", {
         ...fisicasData,
@@ -715,6 +716,7 @@ if (!impactData) {
                     <Text color="white" fontWeight="bold" fontSize="md">
                       System Status
                     </Text>
+{locationDemo && <Text fontSize="12px" color="#9a9a9a">Demo data</Text>}
                   </HStack>
 
                   <VStack spacing={2} align="stretch">
@@ -853,6 +855,7 @@ if (!impactData) {
                         <Text color="white" fontWeight="bold" fontSize="lg">
                           Full impact analysis
                         </Text>
+{impactData.demo && <Text fontSize="12px" color="#9a9a9a">Demo data</Text>}
                       </HStack>
 
                       {/* Asteroid information */}

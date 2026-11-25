@@ -249,7 +249,7 @@ export function RandomPNeosList() {
               borderRadius="full"
               fontSize={{ base: "2xs", md: "xs" }}
             >
-              {data.length} objects
+              {data[0]?.demo ? "Demo data" : `${data.length} objects`}
             </Badge>
           </Stack>
 

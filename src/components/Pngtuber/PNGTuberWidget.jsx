@@ -23,7 +23,7 @@ const AstroTrackerAssistant = () => {
   const selectedVoiceRef = useRef(null);
   const hasSpokenRef = useRef(false);
   
-  const { sendMessage, response, loading, error } = useOpenRouterChat();
+  const { sendMessage, response, loading, error, demo } = useOpenRouterChat();
 
   useEffect(() => {
     const loadVoices = () => {
@@ -86,7 +86,7 @@ const AstroTrackerAssistant = () => {
   useEffect(() => {
     if (response && !hasSpokenRef.current) {
       hasSpokenRef.current = true;
-      setMessages(prev => [...prev, { type: 'bot', text: response }]);
+      setMessages(prev => [...prev, { type: 'bot', text: response, demo }]);
       setCurrentMessage(response);
       speak(response);
     }
@@ -333,7 +333,7 @@ const AstroTrackerAssistant = () => {
                   border="1px solid"
                   borderColor={msg.type === 'user' ? '#9a9a9a' : '#2a2a2a'}
                 >
-                  <Text fontSize="sm" lineHeight="1.6">{msg.text}</Text>
+                  <Text fontSize="sm" lineHeight="1.6">{msg.text}</Text>{msg.demo && <Text fontSize="12px" color="#9a9a9a">Demo data</Text>}
                   {msg.type === 'bot' && !isMuted && (
                     <IconButton
                       icon={<Text fontSize="16px">Play</Text>}
@@ -458,7 +458,7 @@ const AstroTrackerAssistant = () => {
           borderColor="#2a2a2a"
           transition="all 0.3s"
         >
-          <Text fontSize="14px" fontWeight="500" color="white">{currentMessage}</Text>
+          <Text fontSize="14px" fontWeight="500" color="white">{currentMessage}</Text>{demo && <Text fontSize="12px" color="#9a9a9a">Demo data</Text>}
           <Box
             position="absolute"
             bottom="-8px"

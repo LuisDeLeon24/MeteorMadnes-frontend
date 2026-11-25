@@ -1,4 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
+import { withDemoFallback } from "../demo/fallback";
+import { demoNeo, demoNeoBrowse } from "../demo/demoData";
 
 export function useNEOsApi() {
   const [neoList, setNeoList] = useState(null); // lista inicial
@@ -15,12 +17,16 @@ export function useNEOsApi() {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${baseUrl}/neo/browse?page=1&size=10&api_key=${apiKey}`);
-        if (!response.ok) throw new Error(`Error: ${response.status}`);
-        const json = await response.json();
-        setNeoList(json);
-      } catch (err) {
-        setError(err.message);
+        const response = await withDemoFallback(async (signal) => {
+          const res = await fetch(`${baseUrl}/neo/browse?page=1&size=10&api_key=${apiKey}`, { signal });
+          if (!res.ok) return { error: true };
+          return { data: await res.json() };
+        }, demoNeoBrowse);
+        setNeoList(response.data);
+        setError(null);
+      } catch {
+        setNeoList(demoNeoBrowse());
+        setError(null);
       } finally {
         setLoading(false);
       }
@@ -34,12 +40,16 @@ export function useNEOsApi() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${baseUrl}/neo/${asteroidId}?api_key=${apiKey}`);
-      if (!response.ok) throw new Error(`Error: ${response.status}`);
-      const json = await response.json();
-      setSelectedAsteroid(json); // ✅ actualizar solo el asteroide seleccionado
-    } catch (err) {
-      setError(err.message);
+      const response = await withDemoFallback(async (signal) => {
+        const res = await fetch(`${baseUrl}/neo/${encodeURIComponent(asteroidId)}?api_key=${apiKey}`, { signal });
+        if (!res.ok) return { error: true };
+        return { data: await res.json() };
+      }, () => demoNeo(asteroidId));
+      setSelectedAsteroid(response.data);
+      setError(null);
+    } catch {
+      setSelectedAsteroid(demoNeo(asteroidId));
+      setError(null);
     } finally {
       setLoading(false);
     }

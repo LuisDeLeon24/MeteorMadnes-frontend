@@ -25,7 +25,7 @@ const navLinks = [
   { name: "Simulation", href: "/map", description: "Impact simulation" },
   { name: "Interception", href: "/earth", description: "Orbit review" },
   { name: "Quiz", href: "/quiz", description: "Challenge your knowledge" },
-  { name: "Mitigations", href: "/mitigations", description: "Protect yourself" },
+  { name: "How it works", href: "/how-it-works", description: "From data to result" },
 ];
 
 const Navbar = () => {
