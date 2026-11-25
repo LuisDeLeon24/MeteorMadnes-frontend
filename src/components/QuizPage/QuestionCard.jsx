@@ -1,59 +1,50 @@
-import { Box, Heading, Text, VStack, Button, Progress } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-
-const MotionBox = motion(Box);
+import { Box, Heading, Text, Stack, Button, Progress } from "@chakra-ui/react";
+import { palette } from "../../theme";
 
 const QuestionCard = ({ question, options, current, total, onSelect }) => (
-  <MotionBox
-    bg="linear-gradient(145deg, #0a0e1a 0%, #1a2332 100%)"
-    border="1px solid rgba(59,130,246,0.2)"
-    borderRadius="2xl"
-    p={{ base: 4, md: 8 }}          // padding responsive
-    width={{ base: '90%', sm: '95%', md: '700px' }} // ancho responsive
+  <Box
+    bg={palette.field}
+    border="1px solid"
+    borderColor={palette.line}
+    borderRadius="12px"
+    p={{ base: 5, md: 8 }}
+    width={{ base: "100%", md: "640px" }}
     mx="auto"
-    boxShadow="0 0 40px rgba(59,130,246,0.15)"
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6 }}
   >
-    <Text color="rgba(219,234,254,0.6)" mb={{ base: 1, md: 2 }} fontSize={{ base: 'sm', md: 'md' }}>
-      Pregunta {current} de {total}
+    <Text color={palette.quiet} mb={3} fontSize="14px" sx={{ fontVariantNumeric: "tabular-nums" }}>
+      Question {current} of {total}
     </Text>
-
-    <Heading size={{ base: 'md', md: 'lg' }} color="#f8fafc" mb={{ base: 4, md: 6 }}>
+    <Heading as="h2" fontSize={{ base: "22px", md: "28px" }} fontWeight={500} letterSpacing="-0.03em" mb={6} lineHeight="1.25">
       {question}
     </Heading>
-
-    <VStack spacing={{ base: 3, md: 4 }}>
-      {options.map((opt, i) => (
+    <Stack spacing={3}>
+      {options.map((opt) => (
         <Button
-          key={i}
+          key={opt}
           onClick={() => onSelect(opt)}
           width="100%"
-          py={{ base: 4, md: 6 }}
-          bg="rgba(59,130,246,0.1)"
-          color="white"            // <-- fuerza color blanco
-          border="1px solid rgba(59,130,246,0.3)"
-          _hover={{
-            bg: "rgba(59,130,246,0.2)",
-            transform: "scale(1.02)",
-          }}
-          transition="all 0.2s ease"
-          fontSize={{ base: 'sm', md: 'md' }}
+          h="auto"
+          minH="48px"
+          py={3}
+          px={4}
+          variant="outline"
+          justifyContent="flex-start"
+          textAlign="left"
+          whiteSpace="normal"
+          fontWeight={400}
         >
           {opt}
         </Button>
       ))}
-    </VStack>
-
+    </Stack>
     <Progress
       value={(current / total) * 100}
-      mt={{ base: 6, md: 8 }}
-      size="sm"
-      colorScheme="blue"
+      mt={8}
+      size="xs"
       borderRadius="full"
+      aria-label="Quiz progress"
     />
-  </MotionBox>
+  </Box>
 );
 
 export default QuestionCard;

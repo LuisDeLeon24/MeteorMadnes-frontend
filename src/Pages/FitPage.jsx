@@ -170,18 +170,18 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
   return (
     <>
       <Navbar />
-      <Box p={6} bg="#1e1f3f" minH="100vh">
+      <Box id="main" p={{ base: 4, md: 6 }} bg="#0a0a0a" minH="100vh">
         <Box textAlign="center" mb={4}>
           <Text
             as="a"
             href="https://data.asc-csa.gc.ca/users/OpenData_DonneesOuvertes/pub/NEOSSAT/ASTRO/"
             target="_blank"
             rel="noopener noreferrer"
-            color="#0ea5e9"
+            color="#9a9a9a"
             fontSize={{ base: "sm", md: "lg" }}
             fontWeight="bold"
             textDecoration="underline"
-            _hover={{ color: "#3b82f6", textDecoration: "none" }}
+            _hover={{ color: "#f4f4f4", textDecoration: "none" }}
           >
             Access more images here
           </Text>
@@ -190,13 +190,13 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
         <Grid templateColumns={{ base: "1fr", md: "320px minmax(600px, 1fr) 320px" }} gap={4}>
           {/* Columna izquierda */}
           <GridItem w="full">
-            <VStack w="full" spacing={{ base: 3, md: 4 }} align="stretch" borderRadius="lg" bg="#25274d" boxShadow="0 0 20px #0ea5e9" p={4}>
+            <VStack w="full" spacing={{ base: 3, md: 4 }} align="stretch" borderRadius="lg" bg="#141414"  p={4}>
               <FileInput fits={fitsInstance} w="full" />
               <HStack spacing={{ base: 2, md: 2 }} w="full" wrap="wrap">
                 <Button
-                  bg="linear-gradient(135deg, #0ea5e9, #3b82f6)"
-                  color="white"
-                  _hover={{ bg: "linear-gradient(135deg, #3b82f6, #1d4ed8)" }}
+                  bg="#f4f4f4"
+                  color="#0a0a0a"
+                  _hover={{ bg: "#e4e4e4" }}
                   borderRadius="2xl"
                   onClick={showHeader}
                   flex="1"
@@ -207,9 +207,9 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
                 <Select
                   value={stretch}
                   onChange={(e) => handleStretchChange(e.target.value)}
-                  bg="#0ea5e9"
-                  color="white"
-                  _hover={{ bg: "#3b82f6" }}
+                  bg="#141414"
+                  color="#f4f4f4"
+                  _hover={{ bg: "#1c1c1c" }}
                   borderRadius="2xl"
                   flex="1"
                   fontSize={{ base: "sm", md: "md" }}
@@ -224,7 +224,7 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
                 {cursorLoc}
               </Text>
 
-              <Box border="2px solid #0ea5e9" borderRadius="md" p={2} w="full">
+              <Box border="1px solid #2a2a2a" borderRadius="md" p={2} w="full">
                 <canvas
                   ref={glassCanvasRef}
                   width={280}
@@ -232,12 +232,12 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
                   style={{ width: "100%", height: "150px", borderRadius: "6px", background: "#1b1c35", display: "block" }}
                   title="Loupe: magnified view of area under cursor"
                 />
-                <Text fontSize="xs" color="#0ea5e9" mt={1} textAlign="center">
+                <Text fontSize="xs" color="#9a9a9a" mt={1} textAlign="center">
                   Loupe: magnified view of area under cursor
                 </Text>
               </Box>
 
-              <Box bg="#1b1c35" p={2} borderRadius="md">
+              <Box bg="#111111" p={2} borderRadius="md">
                 <HStack>
                   <Slider
                     value={contrasts[0]}
@@ -246,8 +246,8 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
                     max={100}
                     flex="1"
                   >
-                    <SliderTrack bg="#0a0b1f">
-                      <SliderFilledTrack bg="#0ea5e9" />
+                    <SliderTrack bg="#1c1c1c">
+                      <SliderFilledTrack bg="#f4f4f4" />
                     </SliderTrack>
                     <SliderThumb />
                   </Slider>
@@ -265,7 +265,7 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
                   style={{ width: "100%", height: "100px", display: "block", borderRadius: "6px", background: "#1b1c35" }}
                   title="Histogram of the entire image. Black line: black pixel; magenta: median; green: mean; white: white pixel"
                 />
-                <Text fontSize="xs" color="#0ea5e9" mt={1} mb={2}>
+                <Text fontSize="xs" color="#9a9a9a" mt={1} mb={2}>
                   Histogram: Black=min, Magenta=median, Green=mean, White=max
                 </Text>
                 <Text fontFamily="monospace" fontSize="xs" whiteSpace="pre-wrap" color="white" mt={2} minH="80px">
@@ -288,9 +288,9 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
               overflow="auto"
               pr="17px"
               pb="17px"
-              border="2px solid #0ea5e9"
+              border="1px solid #2a2a2a"
               borderRadius="md"
-              bg="#1b1c35"
+              bg="#111111"
             />
           </GridItem>
 
@@ -298,7 +298,7 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
           <GridItem w="full">
             <VStack spacing={{ base: 3, md: 4 }} align="stretch">
               {[2, 1].map((roiNum) => (
-                <Box key={roiNum} border="2px solid #0ea5e9" borderRadius="lg" bg="#25274d" p={3} w="full">
+                <Box key={roiNum} border="1px solid #2a2a2a" borderRadius="lg" bg="#141414" p={3} w="full">
                   <HStack spacing={3} flexWrap="wrap">
                     <Slider
                       value={contrasts[roiNum]}
@@ -307,8 +307,8 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
                       max={100}
                       flex="1"
                     >
-                      <SliderTrack bg="#0a0b1f">
-                        <SliderFilledTrack bg="#0ea5e9" />
+                      <SliderTrack bg="#1c1c1c">
+                        <SliderFilledTrack bg="#f4f4f4" />
                       </SliderTrack>
                       <SliderThumb />
                     </Slider>
@@ -332,7 +332,7 @@ Median ${pad(stats.median.toFixed(1), 8)} Sum ${pad(stats.sum.toFixed(1), 15)}`;
                       style={{ width: "100%", height: "100px", display: "block", borderRadius: "6px", background: "#1b1c35" }}
                       title={`ROI ${roiNum} Histogram. Black line: black pixel; magenta: median; green: mean; white: white pixel`}
                     />
-                    <Text fontSize="xs" color="#0ea5e9" mt={1} mb={2}>
+                    <Text fontSize="xs" color="#9a9a9a" mt={1} mb={2}>
                       ROI {roiNum} Histogram: Black=min, Magenta=median, Green=mean, White=max
                     </Text>
                   </Box>

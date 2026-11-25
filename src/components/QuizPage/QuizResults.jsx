@@ -1,11 +1,8 @@
-import React, { useRef, useState } from 'react';
-import * as htmlToImage from 'html-to-image';
-import { VStack, Heading, Text, Button, Icon, Box } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import { Trophy } from 'lucide-react';
-import BadgeView from '../../ImagesViews/BadgeView'; // Asegúrate de la ruta
-
-const MotionHeading = motion(Heading);
+import { useRef, useState } from "react";
+import * as htmlToImage from "html-to-image";
+import { Stack, Heading, Text, Button, Box } from "@chakra-ui/react";
+import BadgeView from "../../ImagesViews/BadgeView";
+import { palette } from "../../theme";
 
 const QuizResults = ({ score, total, onRestart }) => {
   const badgeRef = useRef(null);
@@ -16,81 +13,45 @@ const QuizResults = ({ score, total, onRestart }) => {
     try {
       setDownloading(true);
       const dataUrl = await htmlToImage.toPng(badgeRef.current, { cacheBust: true });
-      const link = document.createElement('a');
-      link.download = 'my-badge.png';
+      const link = document.createElement("a");
+      link.download = "my-badge.png";
       link.href = dataUrl;
       link.click();
     } catch (err) {
-      console.error('Error generating image:', err);
+      console.error("Error generating image:", err);
     } finally {
       setDownloading(false);
     }
   };
 
   return (
-    <VStack
-      spacing={{ base: 4, md: 6 }}
-      textAlign="center"
-      minH="100vh"
-      justify="center"
-      px={{ base: 4, md: 8 }}
-    >
-      {/* Icono responsive */}
-      <Icon as={Trophy} boxSize={{ base: 12, md: 16 }} color="#60a5fa" />
-
-      {/* Score Heading responsive */}
-      <MotionHeading
-        size={{ base: "2xl", md: "3xl" }}
-        bgGradient="linear(to-r, #60a5fa, #93c5fd)"
-        bgClip="text"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+    <Stack spacing={5} maxW="28rem" px={2}>
+      <Heading
+        as="h1"
+        fontSize={{ base: "56px", md: "72px" }}
+        fontWeight={500}
+        letterSpacing="-0.045em"
+        lineHeight="1"
+        sx={{ fontVariantNumeric: "tabular-nums" }}
       >
         {score}/{total}
-      </MotionHeading>
-
-      {/* Texto motivacional */}
-      <Text fontSize={{ base: "sm", md: "md" }} color="rgba(219,234,254,0.8)">
+      </Heading>
+      <Text fontSize="18px" color={palette.quiet} lineHeight="1.5">
         {score / total > 0.7
-          ? "Excellent work, Commander!"
-          : "Keep practicing, the cosmos awaits you."}
+          ? "Excellent work, commander."
+          : "Keep practicing. The next round is ready."}
       </Text>
-
-      {/* Botón de reintentar */}
-      <Button
-        onClick={onRestart}
-        mt={2}
-        px={{ base: 6, md: 8 }}
-        py={{ base: 4, md: 6 }}
-        fontSize={{ base: "sm", md: "md" }}
-        bgGradient="linear(to-r, #1e3a8a, #3b82f6)"
-        color="white"
-        borderRadius="full"
-        _hover={{ transform: "scale(1.05)" }}
-      >
-        Retry
-      </Button>
-
-      {/* Botón de descargar premio solo si es perfecto */}
-      {score === total && (
-        <Button
-          mt={2}
-          px={{ base: 6, md: 8 }}
-          py={{ base: 4, md: 6 }}
-          fontSize={{ base: "sm", md: "md" }}
-          bgGradient="linear(to-r, #10b981, #06b6d4)"
-          color="white"
-          borderRadius="full"
-          _hover={{ transform: "scale(1.05)" }}
-          onClick={downloadBadge}
-          isLoading={downloading}
-        >
-          Download Prize
+      <Stack direction={{ base: "column", sm: "row" }} spacing={3} pt={2}>
+        <Button onClick={onRestart} h="44px" px={5}>
+          Retry
         </Button>
-      )}
-
-      {/* BadgeView invisible para html-to-image */}
-      <Box position="absolute" top={0} left={0} opacity={0} pointerEvents="none">
+        {score === total && (
+          <Button variant="outline" h="44px" px={5} onClick={downloadBadge} isLoading={downloading}>
+            Download prize
+          </Button>
+        )}
+      </Stack>
+      <Box position="absolute" top={0} left={0} opacity={0} pointerEvents="none" aria-hidden="true">
         <BadgeView
           ref={badgeRef}
           title="Congratulations!"
@@ -99,7 +60,7 @@ const QuizResults = ({ score, total, onRestart }) => {
           badgeImage="/assets/images/Badge-removebg-preview.png"
         />
       </Box>
-    </VStack>
+    </Stack>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { Box, Input, List, ListItem, useColorModeValue } from "@chakra-ui/react";
+import { Box, Input, List, ListItem } from "@chakra-ui/react";
 
 const initialCenter = [14.6349, -90.5069];
 
@@ -44,8 +44,8 @@ export const FullMap = ({ setCountryCode }) => {
 	const [search, setSearch] = useState("");
 	const [suggestions, setSuggestions] = useState([]);
 
-	const bg = useColorModeValue("white", "gray.800");
-	const border = useColorModeValue("gray.200", "gray.600");
+	const bg = "#141414";
+	const border = "#2a2a2a";
 
 	const handleSelect = async (place) => {
 		const lat = parseFloat(place.lat);
@@ -90,19 +90,22 @@ export const FullMap = ({ setCountryCode }) => {
 				borderColor={border}
 				borderRadius="md"
 				p={{ base: 1.5, md: 2, lg: 3 }}
-				boxShadow="lg"
+				boxShadow="none"
 			>
 				<Input
-					placeholder="Search for a location..."
+					aria-label="Search for a location"
+					name="location"
+					autoComplete="off"
+					placeholder="Search for a location"
 					value={search}
 					onChange={(e) => handleChange(e.target.value)}
-					variant="filled"
-					size={{ base: "sm", md: "md", lg: "lg" }}
-					fontSize={{ base: "sm", md: "md", lg: "lg" }}
-					px={{ base: 3, md: 4, lg: 5 }}
+					size="md"
+					fontSize="14px"
 					width="100%"
-					bg={useColorModeValue("gray.100", "gray.700")}
-					_placeholder={{ color: useColorModeValue("gray.500", "gray.300") }}
+					bg="#141414"
+					color="#f4f4f4"
+					borderColor="#2a2a2a"
+					_placeholder={{ color: "#6f6f6f" }}
 				/>
 
 				{suggestions.length > 0 && (
@@ -122,8 +125,10 @@ export const FullMap = ({ setCountryCode }) => {
 									key={place.place_id}
 									px={{ base: 2, md: 3 }}
 									py={{ base: 1, md: 2 }}
+									color="#f4f4f4"
+									fontSize="14px"
 									_hover={{
-										bg: useColorModeValue("gray.200", "gray.600"),
+										bg: "#1c1c1c",
 										cursor: "pointer",
 									}}
 									onClick={() => handleSelect(place)}
@@ -142,7 +147,7 @@ export const FullMap = ({ setCountryCode }) => {
 					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 				/>
 				<Marker position={position}>
-					<Popup>{search || "Selected location 🚀"}</Popup>
+					<Popup>{search || "Selected location"}</Popup>
 				</Marker>
 
 				<RecenterMap position={position} zoom={zoom} />

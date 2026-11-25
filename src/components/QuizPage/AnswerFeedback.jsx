@@ -1,26 +1,30 @@
-import { VStack, Text, Icon } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import { CheckCircle, XCircle } from 'lucide-react';
-
-const MotionVStack = motion(VStack);
+import { Stack, Text } from "@chakra-ui/react";
+import { CheckCircle, XCircle } from "lucide-react";
+import { palette } from "../../theme";
 
 const AnswerFeedback = ({ correct }) => (
-  <MotionVStack
+  <Stack
     key={correct ? "correct" : "incorrect"}
-    spacing={4}
+    spacing={3}
     align="center"
-    justify="center"
-    color={correct ? "#60a5fa" : "#f87171"}
-    initial={{ opacity: 0, scale: 0.5 }}
-    animate={{ opacity: 1, scale: 1 }}
-    exit={{ opacity: 0, scale: 0.5 }}
-    transition={{ duration: 0.4 }}
+    bg={palette.field}
+    border="1px solid"
+    borderColor={palette.line}
+    borderRadius="12px"
+    px={8}
+    py={6}
+    role="status"
+    aria-live="polite"
   >
-    <Icon as={correct ? CheckCircle : XCircle} boxSize={16} />
-    <Text fontSize="2xl" fontWeight="bold">
-      {correct ? "Correct!" : "Incorrect Answer"}
+    {correct ? (
+      <CheckCircle size={28} aria-hidden="true" color={palette.paper} />
+    ) : (
+      <XCircle size={28} aria-hidden="true" color={palette.hazard} />
+    )}
+    <Text fontSize="20px" fontWeight={500} color={correct ? palette.paper : palette.hazard}>
+      {correct ? "Correct" : "Incorrect"}
     </Text>
-  </MotionVStack>
+  </Stack>
 );
 
 export default AnswerFeedback;

@@ -46,30 +46,7 @@ const MotionBox = motion.create(Box);
 const MotionText = motion.create(Text);
 
 // Componente de partículas de fondo
-const BackgroundParticles = () => (
-  <>
-    {[...Array(8)].map((_, i) => (
-      <Box
-        key={i}
-        position="absolute"
-        width="1.5px"
-        height="1.5px"
-        bg="rgba(239, 68, 68, 0.4)"
-        borderRadius="full"
-        top={`${15 + Math.random() * 70}%`}
-        left={`${15 + Math.random() * 70}%`}
-        animation={`twinkle ${3 + Math.random() * 2}s ease-in-out infinite ${Math.random() * 2}s`}
-        zIndex={1}
-      />
-    ))}
-    <style>{`
-      @keyframes twinkle {
-        0%, 100% { opacity: 0.1; transform: scale(1); }
-        50% { opacity: 0.8; transform: scale(1.2); }
-      }
-    `}</style>
-  </>
-);
+const BackgroundParticles = () => null;
 
 // Componente de encabezado mejorado
 const Header = () => (
@@ -78,7 +55,7 @@ const Header = () => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
     p={5}
-    bg="linear-gradient(135deg, rgba(3, 7, 18, 0.6) 0%, rgba(10, 14, 26, 0.6) 100%)"
+    bg="#141414"
     borderRadius="xl"
     border="1px solid rgba(239, 68, 68, 0.2)"
     position="relative"
@@ -92,7 +69,7 @@ const Header = () => (
       left="0"
       right="0"
       height="2px"
-      bg="linear-gradient(90deg, transparent, #ef4444, #dc2626, transparent)"
+      bg="#141414"
       opacity={0.8}
     />
 
@@ -124,7 +101,7 @@ const Header = () => (
         fontSize="xs"
         fontWeight="medium"
       >
-        🛰️ Official NASA/JPL Data
+         Official NASA/JPL Data
       </Badge>
     </VStack>
   </MotionBox>
@@ -142,22 +119,22 @@ const MetricCard = ({ icon, title, value, color = "#ef4444", delay = 0, subtitle
     }}
     p={4}
     bg={isHighlight
-      ? "linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%)"
-      : "linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+      ? "#141414"
+      : "#141414"
     }
     borderRadius="lg"
     border={isHighlight
       ? "1px solid rgba(239, 68, 68, 0.3)"
-      : "1px solid rgba(59, 130, 246, 0.1)"
+      : "1px solid #2a2a2a"
     }
     position="relative"
     overflow="hidden"
     _hover={{
-      borderColor: isHighlight ? "rgba(239, 68, 68, 0.5)" : "rgba(59, 130, 246, 0.3)",
+      borderColor: isHighlight ? "rgba(239, 68, 68, 0.5)" : "#2a2a2a",
       transform: "translateY(-2px)",
       boxShadow: isHighlight
         ? "0 8px 25px rgba(239, 68, 68, 0.2)"
-        : "0 8px 25px rgba(59, 130, 246, 0.1)"
+        : "0 8px 25px #2a2a2a"
     }}
   >
     {/* Efecto de brillo sutil */}
@@ -167,7 +144,7 @@ const MetricCard = ({ icon, title, value, color = "#ef4444", delay = 0, subtitle
       left="-100%"
       width="100%"
       height="100%"
-      bg="linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)"
+      bg="#141414"
       animation="shimmer 3s ease-in-out infinite"
       sx={{
         '@keyframes shimmer': {
@@ -183,14 +160,14 @@ const MetricCard = ({ icon, title, value, color = "#ef4444", delay = 0, subtitle
           <Icon as={icon} color={color} size={18} />
         </Circle>
         <VStack align="flex-start" spacing={0} flex={1}>
-          <Text color="rgba(147, 197, 253, 0.7)" fontSize="xs" fontWeight="medium">
+          <Text color="#9a9a9a" fontSize="xs" fontWeight="medium">
             {title}
           </Text>
           <Text color="white" fontSize="sm" fontWeight="bold" lineHeight="1.2">
             {value || "N/A"}
           </Text>
           {subtitle && (
-            <Text color="rgba(147, 197, 253, 0.5)" fontSize="xs">
+            <Text color="#9a9a9a" fontSize="xs">
               {subtitle}
             </Text>
           )}
@@ -207,7 +184,7 @@ const LoadingState = () => (
     animate={{ opacity: 1 }}
     transition={{ duration: 0.4 }}
     p={8}
-    bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+    bg="#141414"
     borderRadius="xl"
     border="1px solid rgba(239, 68, 68, 0.1)"
     position="relative"
@@ -224,7 +201,7 @@ const LoadingState = () => (
         <Text color="white" fontWeight="bold" fontSize="md">
           Querying NASA NEOS
         </Text>
-        <Text color="rgba(147, 197, 253, 0.7)" fontSize="sm" textAlign="center">
+        <Text color="#9a9a9a" fontSize="sm" textAlign="center">
           Retrieving asteroid data from JPL...
         </Text>
       </VStack>
@@ -248,7 +225,7 @@ const ErrorState = ({ error }) => (
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.4 }}
     p={5}
-    bg="linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(185, 28, 28, 0.1) 100%)"
+    bg="#141414"
     border="1px solid rgba(220, 38, 38, 0.3)"
     borderRadius="xl"
     position="relative"
@@ -260,7 +237,7 @@ const ErrorState = ({ error }) => (
       left="0"
       right="0"
       height="2px"
-      bg="linear-gradient(90deg, transparent, #ef4444, transparent)"
+      bg="#141414"
       opacity={0.6}
     />
 
@@ -287,7 +264,7 @@ const ErrorState = ({ error }) => (
         border="1px solid rgba(245, 158, 11, 0.2)"
       >
         <HStack spacing={2}>
-          <Icon as={AlertCircle} color="#f59e0b" size={16} />
+          <Icon as={AlertCircle} color="#f4f4f4" size={16} />
           <Text color="rgba(245, 158, 11, 0.9)" fontSize="xs" lineHeight="1.4">
             Try using another Asteroid ID or name, or check another source (JPL HORIZONS or IAU NeoCP).
           </Text>
@@ -304,22 +281,22 @@ const InitialPrompt = () => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4 }}
     p={5}
-    bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+    bg="#141414"
     borderRadius="xl"
-    border="1px solid rgba(59, 130, 246, 0.1)"
+    border="1px solid #2a2a2a"
     position="relative"
     overflow="hidden"
   >
     <VStack spacing={4}>
-      <Circle size="50px" bg="rgba(59, 130, 246, 0.1)" border="1px solid rgba(59, 130, 246, 0.2)">
-        <Icon as={Database} color="#60a5fa" size={24} />
+      <Circle size="50px" bg="#2a2a2a" border="1px solid #2a2a2a">
+        <Icon as={Database} color="#f4f4f4" size={24} />
       </Circle>
 
       <VStack spacing={2}>
         <Text color="white" fontWeight="bold" fontSize="md" textAlign="center">
           Ready to Query
         </Text>
-        <Text color="rgba(147, 197, 253, 0.7)" fontSize="sm" textAlign="center" lineHeight="1.4">
+        <Text color="#9a9a9a" fontSize="sm" textAlign="center" lineHeight="1.4">
           Enter an asteroid name or ID to get detailed NASA NEOS data
         </Text>
       </VStack>
@@ -327,14 +304,14 @@ const InitialPrompt = () => (
       <Badge
         colorScheme="blue"
         variant="subtle"
-        bg="rgba(59, 130, 246, 0.1)"
-        color="#60a5fa"
+        bg="#2a2a2a"
+        color="#f4f4f4"
         px={3}
         py={1}
         borderRadius="full"
         fontSize="xs"
       >
-        💫 Examples: Apophis, 99942, Bennu
+         Examples: Apophis, 99942, Bennu
       </Badge>
     </VStack>
   </MotionBox>
@@ -382,9 +359,9 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             p={5}
-            bg="linear-gradient(135deg, rgba(3, 7, 18, 0.4) 0%, rgba(10, 14, 26, 0.4) 100%)"
+            bg="#141414"
             borderRadius="xl"
-            border="1px solid rgba(59, 130, 246, 0.1)"
+            border="1px solid #2a2a2a"
             position="relative"
             overflow="hidden"
           >
@@ -405,7 +382,7 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
                       variant="subtle"
                       fontSize="xs"
                     >
-                      {isPotentiallyHazardous ? "⚠️ Potentially Hazardous" : "✅ Non-Hazardous"}
+                      {isPotentiallyHazardous ? " Potentially Hazardous" : " Non-Hazardous"}
                     </Badge>
                     <Badge
                       colorScheme="blue"
@@ -430,14 +407,14 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
                 </Circle>
               </HStack>
 
-              <Divider borderColor="rgba(59, 130, 246, 0.1)" />
+              <Divider borderColor="#2a2a2a" />
 
               {/* Datos Generales */}
               <VStack spacing={4} width="100%" align="stretch">
                 <VStack spacing={3} align="stretch">
                   <HStack spacing={2}>
-                    <Icon as={Database} color="#60a5fa" size={18} />
-                    <Text color="#60a5fa" fontWeight="bold" fontSize="sm">
+                    <Icon as={Database} color="#f4f4f4" size={18} />
+                    <Text color="#f4f4f4" fontWeight="bold" fontSize="sm">
                       General Data
                     </Text>
                   </HStack>
@@ -447,7 +424,7 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
                       icon={Star}
                       title="Designation"
                       value={d.designation}
-                      color="#f59e0b"
+                      color="#f4f4f4"
                       delay={0.1}
                       subtitle="Official designation"
                     />
@@ -455,7 +432,7 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
                       icon={Activity}
                       title="Absolute Magnitude (H)"
                       value={d.absolute_magnitude_h}
-                      color="#8b5cf6"
+                      color="#f4f4f4"
                       delay={0.15}
                       subtitle="Intrinsic brightness"
                     />
@@ -463,7 +440,7 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
                       icon={Ruler}
                       title="Minimum Diameter"
                       value={diameterMin ? `${diameterMin.toFixed(3)} km` : "N/A"}
-                      color="#10b981"
+                      color="#f4f4f4"
                       delay={0.2}
                       subtitle="Lower estimate"
                     />
@@ -490,7 +467,7 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
                   )}
                 </VStack>
 
-                <Divider borderColor="rgba(59, 130, 246, 0.05)" />
+                <Divider borderColor="#2a2a2a" />
 
                 {/* Datos Orbitales */}
                 <VStack spacing={3} align="stretch">
@@ -514,7 +491,7 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
                       icon={Calendar}
                       title="Orbit Determination Date"
                       value={d.orbital_data?.orbit_determination_date}
-                      color="#14b8a6"
+                      color="#f4f4f4"
                       delay={0.4}
                       subtitle="Calculation date"
                     />
@@ -538,7 +515,7 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
                       icon={TrendingUp}
                       title="Observations Used"
                       value={d.orbital_data?.observations_used}
-                      color="#8b5cf6"
+                      color="#f4f4f4"
                       delay={0.55}
                       subtitle="Data for orbital calculation"
                     />
@@ -562,15 +539,15 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
               {d.nasa_jpl_url && (
                 <Box
                   p={4}
-                  bg="rgba(59, 130, 246, 0.05)"
+                  bg="#2a2a2a"
                   borderRadius="lg"
-                  border="1px solid rgba(59, 130, 246, 0.1)"
+                  border="1px solid #2a2a2a"
                   width="100%"
                 >
                   <VStack spacing={3}>
                     <HStack spacing={2}>
-                      <Icon as={ExternalLink} color="#60a5fa" size={16} />
-                      <Text color="#60a5fa" fontWeight="bold" fontSize="sm">
+                      <Icon as={ExternalLink} color="#f4f4f4" size={16} />
+                      <Text color="#f4f4f4" fontWeight="bold" fontSize="sm">
                         More Information
                       </Text>
                     </HStack>
@@ -589,18 +566,18 @@ export function AsteroidInfoNASANEOS({ asteroidId }) {
                         leftIcon={<Icon as={Satellite} size={16} />}
                         rightIcon={<Icon as={ExternalLink} size={14} />}
                         width="100%"
-                        bg="rgba(59, 130, 246, 0.05)"
-                        borderColor="rgba(59, 130, 246, 0.3)"
+                        bg="#2a2a2a"
+                        borderColor="#2a2a2a"
                         _hover={{
-                          bg: "rgba(59, 130, 246, 0.1)",
-                          borderColor: "rgba(59, 130, 246, 0.5)"
+                          bg: "#2a2a2a",
+                          borderColor: "#2a2a2a"
                         }}
                       >
                         View on NASA JPL Database
                       </Button>
                     </Link>
 
-                    <Text color="rgba(147, 197, 253, 0.6)" fontSize="xs" textAlign="center">
+                    <Text color="#9a9a9a" fontSize="xs" textAlign="center">
                       Access complete technical data and orbital trajectory
                     </Text>
                   </VStack>
