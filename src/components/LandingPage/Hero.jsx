@@ -93,7 +93,7 @@ const Hero = () => {
             </HStack>
 
             <Stack direction={{ base: "column", sm: "row" }} spacing={3}>
-              <Button h="44px" px={5} onClick={() => navigate("/earth")}>
+              <Button h="44px" px={5} onClick={() => navigate("/map")}>
                 Activate system
               </Button>
               <Button h="44px" px={5} variant="outline" onClick={() => navigate("/map")}>

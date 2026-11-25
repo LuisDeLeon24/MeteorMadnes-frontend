@@ -3,6 +3,12 @@
 // Physical and country figures below are computed with the same equations
 // as MeteorMadnes-backend. They are not live measurements.
 
+import { estimateImpactAreaFromHORIZONS } from "../utils/impactEstimation";
+
+export const DEMO_ASTEROID_ID = "Apophis";
+export const DEMO_COUNTRY = "GT";
+export const DEMO_PLACE_NAME = "Guatemala City, Guatemala";
+
 const V_ESCAPE_KM_S = 11.2;
 const DENSITY_KG_M3 = 3000;
 
@@ -286,6 +292,28 @@ export function demoPneo(tempDesig) {
 
 export function demoPneoList() {
   return PNEOS.map((row, index) => pneoRecord(row.tempDesig, index));
+}
+
+export function buildDemoImpact(id = DEMO_ASTEROID_ID, country = DEMO_COUNTRY) {
+  const horizons = demoHorizons(id);
+  const physical = demoPhysical(id);
+  const area = estimateImpactAreaFromHORIZONS(horizons, 1e6, physical.velocityKmS);
+  const demographic = demoDemographic({
+    country,
+    areaAfectadaKm2: area?.areaKm2,
+  });
+  return {
+    search: id,
+    countryCode: country,
+    horizons,
+    impactData: {
+      ...physical,
+      ...area,
+      ...demographic,
+      countryCode: country,
+      demo: true,
+    },
+  };
 }
 
 export function demoAssistantReply() {
