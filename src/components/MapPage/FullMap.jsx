@@ -43,12 +43,12 @@ const getCountryCode = async (lat, lon) => {
 	return { code: response.data, demo: false };
 };
 
-export const FullMap = ({ setCountryCode, setLocationDemo }) => {
+export const FullMap = ({ setCountryCode, setLocationDemo, initialQuery = "", initialPlaceDemo = false }) => {
 	const [position, setPosition] = useState(initialCenter);
 	const [zoom, setZoom] = useState(13);
-	const [search, setSearch] = useState("");
+	const [search, setSearch] = useState(initialQuery);
 	const [suggestions, setSuggestions] = useState([]);
-	const [placeDemo, setPlaceDemo] = useState(false);
+	const [placeDemo, setPlaceDemo] = useState(initialPlaceDemo);
 
 	const bg = "#141414";
 	const border = "#2a2a2a";

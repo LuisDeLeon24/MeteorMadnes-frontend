@@ -47,6 +47,7 @@ import { PNeoInfo } from "./IAU_PNEOS";
 import { RandomPNeosList } from "./RandomPNEO";
 import { useFormulas, useHORIZONs } from "../../Hooks";
 import { estimateImpactAreaFromHORIZONS } from "../../utils/impactEstimation";
+import { buildDemoImpact } from "../../demo/demoData";
 
 const MotionBox = motion.create(Box);
 const MotionButton = motion.create(Button);
@@ -367,11 +368,12 @@ const ContentPanel = ({ selected, search }) => {
   );
 };
 
-const Sidebar = ({ countryCode, locationDemo }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState("");
+const Sidebar = ({ countryCode, locationDemo, initialDemo = false }) => {
+  const preset = initialDemo ? buildDemoImpact() : null;
+  const [isOpen, setIsOpen] = useState(initialDemo);
+  const [search, setSearch] = useState(preset?.search || "");
   const [selected, setSelected] = useState(null);
-  const [impactData, setImpactData] = useState(null);
+  const [impactData, setImpactData] = useState(preset?.impactData || null);
 
  const exportarDatos = () => {
 if (!impactData) {
@@ -517,7 +519,7 @@ if (!impactData) {
       overflow="hidden"
       zIndex={1000}
       initial={{
-        width: "60px",
+        width: initialDemo ? "400px" : "60px",
         x: 0,
         boxShadow: "none"
       }}
@@ -745,34 +747,34 @@ if (!impactData) {
                     <HStack justify="space-between">
                       <Text color="#9a9a9a" fontSize="xs">HORIZONS Data:</Text>
                       <Badge
-                        colorScheme={horizonsData ? "green" : "gray"}
+                        colorScheme={horizonsData || impactData?.name ? "green" : "gray"}
                         variant="subtle"
                         fontSize="xs"
                       >
-                        {horizonsData ? " Available" : "No data"}
+                        {horizonsData || impactData?.name ? " Available" : "No data"}
                       </Badge>
                     </HStack>
 
                     <HStack justify="space-between">
                       <Text color="#9a9a9a" fontSize="xs">Formulas Data:</Text>
                       <Badge
-                        colorScheme={formulasData ? "green" : "gray"}
+                        colorScheme={formulasData || impactData?.energiaLiberada ? "green" : "gray"}
                         variant="subtle"
                         fontSize="xs"
                       >
-                        {formulasData ? " Available" : "No data"}
+                        {formulasData || impactData?.energiaLiberada ? " Available" : "No data"}
                       </Badge>
                     </HStack>
 
-                    {horizonsData?.basicInfo && (
+                    {(horizonsData?.basicInfo || impactData?.name) && (
                       <HStack justify="space-between">
                         <Text color="#9a9a9a" fontSize="xs">Last Asteroid:</Text>
                         <Badge
-                          colorScheme={formulasData ? "green" : "gray"}
+                          colorScheme={formulasData || impactData?.name ? "green" : "gray"}
                           variant="subtle"
                           fontSize="xs"
                         >
-{horizonsData.basicInfo.name}
+{horizonsData?.basicInfo?.name || impactData.name}
                         </Badge>
                       </HStack>
                     )}
